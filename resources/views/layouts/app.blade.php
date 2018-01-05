@@ -60,6 +60,11 @@
         .dropdown:hover .dropbtn {
             background-color: #3e8e41;
         }
+
+        .AppContentPersonalizado {
+            padding: 10px 14px 15px;
+            position: relative;
+        }
     </style>
 </head>
 <body>
