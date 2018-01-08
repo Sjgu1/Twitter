@@ -26,4 +26,16 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+ 
+ 
+    public function seguidores()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    public function seguidos()
+    {
+        return $this->hasMany('App\User');
+    }
 }
