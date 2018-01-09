@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@recomendados')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
 
-Route::post('/home/{seguidor}/{seguido}','HomeController@seguir');
-Route::put('/home/{seguidor}/{seguido}','HomeController@dejarDeSeguir');
+Route::post('/home/{seguido}','HomeController@seguir');
+Route::put('/home/{seguido}','HomeController@dejarDeSeguir');

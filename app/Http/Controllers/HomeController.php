@@ -24,28 +24,30 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    /*public function index()
     {
         return view('home');
-    }
+    }*/
 
-    public function recomendados() {
+    public function index() {
         $users = DB::table('users')->paginate(3);
         $id = Auth::id();
         $user = User::find($id);
+        $follow=$user->seguidos;
         $followers=$user->seguidores;
-        /*foreach ($user->seguidores as $seguidor) {
-            echo seguidor;
-        }*/
-        return view('home', ['users' => $users, 'seguidores'=>$followers]); 
+        return view('home', ['users' => $users, 'seguidos'=>$follow, 'seguidores'=>$followers]); 
     }
 
-    public function seguir($seguidor, $seguido){
-        $seguidor->user()->attach($seguido);
+    public function seguir($seguido){
+        $id = Auth::id();
+        $seguidor = User::find($id);
+        $seguidor->seguidos()->attach($seguido);
     }
 
-    public function dejarDeSeguir($seguidor, $seguido){
-        $seguidor->user()->detach($seguido);
+    public function dejarDeSeguir($seguido){
+        $id = Auth::id();
+        $seguidor = User::find($id);
+        $seguidor->seguidos()->detach($seguido);
     }
 
 }

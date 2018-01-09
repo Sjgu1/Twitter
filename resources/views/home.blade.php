@@ -132,7 +132,7 @@
                         </li><li class="ProfileCardStats-stat Arrange-sizeFit">
                             <a class="ProfileCardStats-statLink u-textUserColor u-linkClean u-block js-nav js-tooltip" href="/username/following" data-element-term="following_stats" data-original-title="278 Siguiendo">
                                 <span class="ProfileCardStats-statLabel u-block">Siguiendo</span>
-                                <span class="ProfileCardStats-statValue" data-count="0" data-is-compact="false">{{count($seguidores)}}</span>
+                                <span class="ProfileCardStats-statValue" data-count="0" data-is-compact="false">{{count($seguidos)}}</span>
                             </a>
                             </li><li class="ProfileCardStats-stat Arrange-sizeFit">
                             <a class="ProfileCardStats-statLink u-textUserColor u-linkClean u-block js-nav js-tooltip" href="/username/followers" data-element-term="follower_stats" data-original-title="35 Seguidores">
@@ -306,7 +306,7 @@
                                     <div class="user-actions not-following not-muting" data-screen-name={{ $user->name }} data-user-id={{ $user->id }}>
 
                                     <span class="user-actions-follow-button js-follow-btn follow-button">
-                                        <button  href="{{ action('HomeController@seguir', ['seguidor'=>Auth::user()->id , 'seguido'=>$user->id]) }}" type="button" class="
+                                        <button  onClick="{{ action('HomeController@seguir', ['seguido'=>$user->id]) }}" type="button" class="
                                             EdgeButton
                                             EdgeButton--secondary
                                             EdgeButton--small 
@@ -326,7 +326,7 @@
                                             <span aria-hidden="true">Siguiendo</span>
                                             <span class="u-hiddenVisually">Siguiendo a <span class="username u-dir u-textTruncate" dir="ltr">@<b>username</b></span></span>
                                         </button>
-                                        <button href="{{ action('HomeController@dejarDeSeguir', ['seguidor'=>Auth::user()->id, 'seguido'=>$user->id]) }}" type="button" class="
+                                        <button href="{{ action('HomeController@dejarDeSeguir', ['seguido'=>$user->id]) }}" type="button" class="
                                             EdgeButton
                                             EdgeButton--danger
                                             EdgeButton--small 
