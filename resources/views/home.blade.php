@@ -1,5 +1,16 @@
 @extends('layouts.app')
 @section('content')
+<script type="text/javascript">
+function ter(urlFollow) {
+    $.ajax({
+      url: urlFollow,
+      type: 'POST',
+      success: function(results) {
+       //
+      }
+    });
+  }
+</script>
 <body class="three-col logged-in user-style-username western es enhanced-mini-profile no-nav-banners supports-drag-and-drop" data-fouc-class-names="swift-loading no-nav-banners" dir="ltr">
         <div id="kb-shortcuts-msg">
 
@@ -130,14 +141,14 @@
                             <span class="ProfileCardStats-statValue" data-count="4" data-is-compact="false">4</span>
                             </a>
                         </li><li class="ProfileCardStats-stat Arrange-sizeFit">
-                            <a class="ProfileCardStats-statLink u-textUserColor u-linkClean u-block js-nav js-tooltip" href="/username/following" data-element-term="following_stats" data-original-title="278 Siguiendo">
+                            <a class="ProfileCardStats-statLink u-textUserColor u-linkClean u-block js-nav js-tooltip" href="/username/following" data-element-term="following_stats" data-original-title="{{count($seguidos)}} Siguiendo">
                                 <span class="ProfileCardStats-statLabel u-block">Siguiendo</span>
-                                <span class="ProfileCardStats-statValue" data-count="0" data-is-compact="false">{{count($seguidos)}}</span>
+                                <span class="ProfileCardStats-statValue" data-count="{{count($seguidos)}}" data-is-compact="false">{{count($seguidos)}}</span>
                             </a>
                             </li><li class="ProfileCardStats-stat Arrange-sizeFit">
-                            <a class="ProfileCardStats-statLink u-textUserColor u-linkClean u-block js-nav js-tooltip" href="/username/followers" data-element-term="follower_stats" data-original-title="35 Seguidores">
+                            <a class="ProfileCardStats-statLink u-textUserColor u-linkClean u-block js-nav js-tooltip" href="/username/followers" data-element-term="follower_stats" data-original-title="{{count($seguidores)}} Seguidores">
                                 <span class="ProfileCardStats-statLabel u-block">Seguidores</span>
-                                <span class="ProfileCardStats-statValue" data-count="0" data-is-compact="false">0</span>
+                                <span class="ProfileCardStats-statValue" data-count="{{count($seguidores)}}" data-is-compact="false">{{count($seguidores)}}</span>
                             </a>
                             </li>
                         </ul>
@@ -288,13 +299,13 @@
                         </div>
                         @foreach ($users as $user)
                         <div class="js-recommended-followers dashboard-user-recommendations flex-module-inner" data-section-id="wtf" style="opacity: 1;">
-                            <div class="UserSmallListItem js-account-summary account-summary js-actionable-user" data-user-id="363214836" data-feedback-token="500" data-impression-id="">
+                            <div class="UserSmallListItem js-account-summary account-summary js-actionable-user" data-user-id="{{ $user->id }}" data-feedback-token="500" data-impression-id="">
                                 <div class="UserSmallListItem-context"></div>
                         
                                 <div class="dismiss js-action-dismiss"><span class="Icon Icon--close"></span></div>
 
                                 <div class="content">
-                                    <a class="account-group js-recommend-link js-user-profile-link user-thumb" href="/cristin_st" data-user-id="274529577" rel="noopener">
+                                    <a class="account-group js-recommend-link js-user-profile-link user-thumb" href="" >
                             
                                         <img class="avatar js-action-profile-avatar " src="https://www.atomix.com.au/media/2015/06/atomix_user31.png"alt="">
                                         <span class="account-group-inner" data-user-id="274529577">
@@ -303,8 +314,7 @@
                                     </a>
 
                                 
-                                    <div class="user-actions not-following not-muting" data-screen-name={{ $user->name }} data-user-id={{ $user->id }}>
-
+                                    <div class="user-actions not-following not-muting" data-screen-name="{{ $user->name }}" data-user-id="{{ $user->id }}">
                                     <span class="user-actions-follow-button js-follow-btn follow-button">
                                         <button  onClick="{{ action('HomeController@seguir', ['seguido'=>$user->id]) }}" type="button" class="
                                             EdgeButton
@@ -314,6 +324,7 @@
                                             button-text
                                             follow-text">
                                             <span aria-hidden="true">Seguir</span>
+                                            <span> <a href="{{ action('HomeController@seguir', ['seguido'=>$user->id]) }}"></a></span>
                                             <span class="u-hiddenVisually">Seguir a <span class="username u-dir u-textTruncate" dir="ltr">@<b>username</b></span></span>
                                         </button>
                                         <button type="button" class="
@@ -326,7 +337,7 @@
                                             <span aria-hidden="true">Siguiendo</span>
                                             <span class="u-hiddenVisually">Siguiendo a <span class="username u-dir u-textTruncate" dir="ltr">@<b>username</b></span></span>
                                         </button>
-                                        <button href="{{ action('HomeController@dejarDeSeguir', ['seguido'=>$user->id]) }}" type="button" class="
+                                        <button type="button" class="
                                             EdgeButton
                                             EdgeButton--danger
                                             EdgeButton--small 
@@ -372,7 +383,6 @@
                     <script async src="https://abs.twimg.com/k/es/init.es.4d631aae1b80265fef0a.js">
                     </script>
                 </form>
-            
             <div aria-live="assertive" class="visuallyhidden" id="sr-event-log"></div>
         </div>
     </div>

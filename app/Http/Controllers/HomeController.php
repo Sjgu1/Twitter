@@ -30,24 +30,31 @@ class HomeController extends Controller
     }*/
 
     public function index() {
-        $users = DB::table('users')->paginate(3);
         $id = Auth::id();
         $user = User::find($id);
-        $follow=$user->seguidos;
+        $users = DB::table('users')->where('id', '!=', $id)
+                ->when($user->seguidos->count(), function ($query) {
+                    $user = User::find(Auth::id());
+                    return $query->whereNotIn('id', $user->seguidos->modelKeys());
+                })
+                ->paginate(3);
+        $follows=$user->seguidos;
         $followers=$user->seguidores;
-        return view('home', ['users' => $users, 'seguidos'=>$follow, 'seguidores'=>$followers]); 
+        return view('home', ['users' => $users, 'seguidos'=>$follows, 'seguidores'=>$followers]); 
     }
 
     public function seguir($seguido){
         $id = Auth::id();
         $seguidor = User::find($id);
         $seguidor->seguidos()->attach($seguido);
+        return back();
     }
 
     public function dejarDeSeguir($seguido){
         $id = Auth::id();
         $seguidor = User::find($id);
         $seguidor->seguidos()->detach($seguido);
+        return back();
     }
 
 }

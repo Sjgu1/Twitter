@@ -19,5 +19,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::post('/home/{seguido}','HomeController@seguir');
+Route::get('/home/{seguido}','HomeController@seguir');
 Route::put('/home/{seguido}','HomeController@dejarDeSeguir');
