@@ -31,6 +31,7 @@
   window.top.postMessage({'bouncer': true, 'event': 'complete'}, '*');
 }
   </script>
+  <!-- 
     <script id="resolve_inline_redirects" nonce="">
     !function(){function n(){var n=window.location.href.match(/#(.)(.*)$/);return n&&"!"==n[1]&&n[2].replace(/^\//,"")}function t(){var t=n();t&&window.location.replace("//"+window.location.host+"/"+t)}t(),window.addEventListener?window.addEventListener("hashchange",t,!1):window.attachEvent&&window.attachEvent("onhashchange",t)}();
   </script>
@@ -42,7 +43,7 @@
   </script>
     <script id="composition_state" nonce="">
     !function(){function t(t){t.target.setAttribute("data-in-composition","true")}function n(t){t.target.removeAttribute("data-in-composition")}document.addEventListener&&(document.addEventListener("compositionstart",t,!1),document.addEventListener("compositionend",n,!1))}();
-  </script>
+  </script> -->
     <link rel="stylesheet" href="https://abs.twimg.com/a/1515180670/css/t1/twitter_core.bundle.css" class="coreCSSBundles">
     <link rel="stylesheet" class="moreCSSBundles" href="https://abs.twimg.com/a/1515180670/css/t1/twitter_more_1.bundle.css">
     <link rel="stylesheet" class="moreCSSBundles" href="https://abs.twimg.com/a/1515180670/css/t1/twitter_more_2.bundle.css">
