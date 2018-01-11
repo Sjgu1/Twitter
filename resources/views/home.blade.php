@@ -158,9 +158,86 @@
                                                 <small class="time">
                                                 <a href="" class="tweet-timestamp js-permalink js-nav js-tooltip" data-original-title="{{$tweet->fecha}}"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1515673074" data-time-ms="1515673074000" data-long-form="true" aria-hidden="true">{{  \Carbon\Carbon::parse($tweet->fecha)->diffForHumans(null, true)  }}</span></a>
                                                 </small>
+                                                @if (Auth::guest() != $tweet->user->id)
                                                 <div class="ProfileTweet-action ProfileTweet-action--more js-more-ProfileTweet-actions">
+                                                    <div class="dropdown">
+                                                        <button class="ProfileTweet-actionButton u-textUserColorHover dropdown-toggle js-dropdown-toggle" type="button" aria-haspopup="true">
+                                                            <div class="IconContainer js-tooltip" title="Más">
+                                                                <span class="Icon Icon--caretDownLight Icon--small"></span>
+                                                                <span class="u-hiddenVisually">Más</span>
+                                                            </div>
+                                                        </button>
+                                                        <div class="dropdown-menu is-autoCentered"><div class="js-first-tabstop" tabindex="0"></div>
+                                                        <div class="dropdown-caret">
+                                                            <div class="caret-outer"></div>
+                                                            <div class="caret-inner"></div>
+                                                        </div>
+                                                        <ul tabindex="-1" role="menu" aria-labelledby="menu-1" aria-hidden="false">
+                                                            <li class="js-actionDelete" role="presentation">
+                                                                <button type="button" class="dropdown-link" style="min-width:-webkit-fill-available;"role="menuitem">Eliminar Tweet</button>
+                                                            </li>                                                         
+                                                        </ul>
+                                                    <div class="js-last-tabstop" tabindex="0"></div>
+                                                    </div>
                                                 </div>
+                                                @endif
+                                            </div>                               
+                                        </div>
+                                        <div class="js-tweet-text-container">
+                                                <p class="TweetTextSize  js-tweet-text tweet-text" lang="es" data-aria-label-part="0">{{$tweet->mensaje}}</p>
+                                        </div>
+                                        <div class="stream-item-footer">
+
+                                            <div class="ProfileTweet-actionList js-actions" role="group" aria-label="Acciones del Tweet">
+                                                <div class="ProfileTweet-action ProfileTweet-action--reply">
+                                            <button class="ProfileTweet-actionButton js-actionButton js-actionReply" data-modal="ProfileTweet-reply" type="button" aria-describedby="profile-tweet-action-reply-count-aria-951439183674998785">
+                                                <div class="IconContainer js-tooltip" title="Responder">
+                                                <span class="Icon Icon--medium Icon--reply"></span>
+                                                <span class="u-hiddenVisually">Responder</span>
+                                                </div>
+                                                <span class="ProfileTweet-actionCount">
+                                                    <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">
+                                                        <!-- Poner aqui el numero de respuestas -->1
+
+                                                    </span>
+                                                </span>
+                                            </button>
                                             </div>
+
+                                                <div class="ProfileTweet-action ProfileTweet-action--retweet js-toggleState js-toggleRt">
+                                            <button class="ProfileTweet-actionButton  js-actionButton js-actionRetweet" data-modal="ProfileTweet-retweet" type="button" aria-describedby="profile-tweet-action-retweet-count-aria-951439183674998785">
+                                                <div class="IconContainer js-tooltip" data-original-title="Retwittear">
+                                                <span class="Icon Icon--medium Icon--retweet"></span>
+                                                <span class="u-hiddenVisually">Retwittear</span>
+                                                </div>
+                                                <span class="ProfileTweet-actionCount">
+                                                <span class="ProfileTweet-actionCountForPresentation" aria-hidden="tue">
+                                                <!-- Poner aqui el numero de retweets -->3
+                                                </span>
+                                            </span>
+
+                                            </button>
+                                            </div>
+
+
+                                                <div class="ProfileTweet-action ProfileTweet-action--favorite js-toggleState">
+                                            <button class="ProfileTweet-actionButton js-actionButton js-actionFavorite" type="button" aria-describedby="profile-tweet-action-favorite-count-aria-951439183674998785">
+                                                <div class="IconContainer js-tooltip" data-original-title="Me gusta">
+                                                <span role="presentation" class="Icon Icon--heart Icon--medium"></span>
+                                                <div class="HeartAnimation"></div>
+                                                <span class="u-hiddenVisually">Me gusta</span>
+                                                </div>
+                                                <span class="ProfileTweet-actionCount ProfileTweet-actionCount--isZero">
+                                                <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">
+                                                 <!-- Poner aqui el numero de megustas -->2
+
+                                                </span>
+                                            </span>
+
+                                            </button>
+                                            </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </li>
