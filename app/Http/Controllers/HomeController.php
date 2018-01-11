@@ -38,7 +38,7 @@ class HomeController extends Controller
         Carbon::setLocale('es');
         $id = Auth::id();
         $user = User::find($id);
-        $users = DB::table('users')->where('id', '!=', $id)
+        $users = DB::table('users')->distinct()->where('id', '!=', $id)
                 ->when($user->seguidos->count(), function ($query) {
                     $user = User::find(Auth::id());
                     return $query->whereNotIn('id', $user->seguidos->modelKeys());
