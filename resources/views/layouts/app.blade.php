@@ -43,7 +43,7 @@
   </script>
     <script id="composition_state" nonce="">
     !function(){function t(t){t.target.setAttribute("data-in-composition","true")}function n(t){t.target.removeAttribute("data-in-composition")}document.addEventListener&&(document.addEventListener("compositionstart",t,!1),document.addEventListener("compositionend",n,!1))}();
-  </script> -->
+  </script>
     <link rel="stylesheet" href="https://abs.twimg.com/a/1515180670/css/t1/twitter_core.bundle.css" class="coreCSSBundles">
     <link rel="stylesheet" class="moreCSSBundles" href="https://abs.twimg.com/a/1515180670/css/t1/twitter_more_1.bundle.css">
     <link rel="stylesheet" class="moreCSSBundles" href="https://abs.twimg.com/a/1515180670/css/t1/twitter_more_2.bundle.css">
@@ -82,7 +82,7 @@
 .gallery-enabled .global-nav-inner {
 margin-right: 0px
 }
-</style>
+</style> -->
 
 </head>
 <body>
