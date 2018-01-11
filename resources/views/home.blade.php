@@ -129,7 +129,7 @@
                                 <a class="u-textInheritColor js-nav" href="/username" rel="noopener">{{ Auth::user()->name }}</a><span class="UserBadges"></span>
                                 </div>
                                 <span class="DashboardProfileCard-screenname u-inlineBlock u-dir" dir="ltr">
-                                <a class="DashboardProfileCard-screennameLink u-linkComplex u-linkClean js-nav" href="/username" rel="noopener"><span class="username u-dir" dir="ltr">@<b class="u-linkComplex-target">username</b></span></a>
+                                <a class="DashboardProfileCard-screennameLink u-linkComplex u-linkClean js-nav" href="/username" rel="noopener"><span class="username u-dir" dir="ltr">@<b class="u-linkComplex-target">{{ Auth::user()->username }}</b></span></a>
                                 </span>
                             </div>
                                 <div class="ProfileCardStats">
@@ -139,14 +139,14 @@
                                 <span class="ProfileCardStats-statValue" data-count="4" data-is-compact="false">4</span>
                                 </a>
                             </li><li class="ProfileCardStats-stat Arrange-sizeFit">
-                                <a class="ProfileCardStats-statLink u-textUserColor u-linkClean u-block js-nav js-tooltip" href="/username/following" data-element-term="following_stats" data-original-title="278 Siguiendo">
+                                <a class="ProfileCardStats-statLink u-textUserColor u-linkClean u-block js-nav js-tooltip" href="/username/following" data-element-term="following_stats" data-original-title="{{count($seguidos)}} Siguiendo">
                                     <span class="ProfileCardStats-statLabel u-block">Siguiendo</span>
-                                    <span class="ProfileCardStats-statValue" data-count="278" data-is-compact="false">278</span>
+                                    <span class="ProfileCardStats-statValue" data-count="{{count($seguidos)}}" data-is-compact="false">{{count($seguidos)}}</span>
                                 </a>
                                 </li><li class="ProfileCardStats-stat Arrange-sizeFit">
-                                <a class="ProfileCardStats-statLink u-textUserColor u-linkClean u-block js-nav js-tooltip" href="/username/followers" data-element-term="follower_stats" data-original-title="35 Seguidores">
+                                <a class="ProfileCardStats-statLink u-textUserColor u-linkClean u-block js-nav js-tooltip" href="/username/followers" data-element-term="follower_stats" data-original-title="{{count($seguidores)}} Seguidores">
                                     <span class="ProfileCardStats-statLabel u-block">Seguidores</span>
-                                    <span class="ProfileCardStats-statValue" data-count="35" data-is-compact="false">35</span>
+                                    <span class="ProfileCardStats-statValue" data-count="{{count($seguidores)}}" data-is-compact="false">{{count($seguidores)}}</span>
                                 </a>
                                 </li>
                             </ul>
@@ -254,16 +254,15 @@
                         </div>
                     </div>
                     <!--Final Cuadro central, tweets  -->
-                    <!--Cuadro derecho, usuarios  -->
                     <!-- Cuadro derecha, recomendaciones  -->
                     <div class="dashboard dashboard-right">
                     <div class="module wtf-module js-wtf-module roaming-module has-content">
                         <div class="flex-module">
                             <div class="flex-module-header">
                                 <h3>A quién seguir</h3>
-                                <small>· </small>
+                                <!--<small>· </small>
                                 <button type="button" class="btn-link js-refresh-suggestions"><small>Actualizar</small></button>
-                                <small class="view-all">· <a class="js-view-all-link js-nav" href="/who_to_follow/suggestions" data-element-term="view_all_link">Ver todos</a></small>
+                                <small class="view-all">· <a class="js-view-all-link js-nav" href="/who_to_follow/suggestions" data-element-term="view_all_link">Ver todos</a></small>-->
                             </div>
                             @foreach ($users as $user)
                             <div class="js-recommended-followers dashboard-user-recommendations flex-module-inner" data-section-id="wtf" style="opacity: 1;">
@@ -277,14 +276,14 @@
                                 
                                             <img class="avatar js-action-profile-avatar " src="https://www.atomix.com.au/media/2015/06/atomix_user31.png"alt="">
                                             <span class="account-group-inner" data-user-id="274529577">
-                                                <strong class="fullname">{{ $user->name }} </strong><span class="UserBadges"></span><span class="UserNameBreak">&nbsp;</span><span class="username u-dir u-textTruncate" dir="ltr">@<b>username</b></span>
+                                                <strong class="fullname">{{ $user->name }} </strong><span class="UserBadges"></span><span class="UserNameBreak">&nbsp;</span><span class="username u-dir u-textTruncate" dir="ltr">@<b>{{ $user->username }}</b></span>
                                             </span>
                                         </a>
     
                                     
                                         <div class="user-actions not-following not-muting" data-screen-name="{{ $user->name }}" data-user-id="{{ $user->id }}">
                                         <span class="user-actions-follow-button js-follow-btn follow-button">
-                                            <button  onClick="{{ action('HomeController@seguir', ['seguido'=>$user->id]) }}" type="button" class="
+                                            <a  href="{{ action('HomeController@seguir', ['seguido'=>$user->id]) }}" type="button" class="
                                                 EdgeButton
                                                 EdgeButton--secondary
                                                 EdgeButton--small 
@@ -292,9 +291,8 @@
                                                 button-text
                                                 follow-text">
                                                 <span aria-hidden="true">Seguir</span>
-                                                <span> <a href="{{ action('HomeController@seguir', ['seguido'=>$user->id]) }}"></a></span>
                                                 <span class="u-hiddenVisually">Seguir a <span class="username u-dir u-textTruncate" dir="ltr">@<b>username</b></span></span>
-                                            </button>
+                                            </a>
                                             <button type="button" class="
                                                 EdgeButton
                                                 EdgeButton--primary
@@ -327,10 +325,10 @@
     
                     <div class="flex-module import-prompt">
                         <div class="flex-module-footer u-table">
-                            <a href="/who_to_follow/import" class="js-tooltip u-tableCell u-alignMiddle" data-original-title="Encuentra a personas que conoces">
+                            <a href="" class="js-tooltip u-tableCell u-alignMiddle" data-original-title="Encuentra a personas que conoces">
                             <span class="Icon Icon--people Icon--small"></span><span class="u-hiddenVisually">Encuentra a personas que conoces</span>
                             </a>
-                            <a class="u-tableCell u-alignMiddle remove-discover-pymk" href="/who_to_follow/import">Encuentra a personas que conoces</a>
+                            <a class="u-tableCell u-alignMiddle remove-discover-pymk" href="">Encuentra a personas que conoces</a>
                         </div>
                     </div>
                     </div>
