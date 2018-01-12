@@ -21,3 +21,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/home/{seguido}','HomeController@seguir');
 Route::put('/home/{seguido}','HomeController@dejarDeSeguir');
+
+
+//Tweet
+Route::post('/tweet', 'HomeController@nuevoTweet');

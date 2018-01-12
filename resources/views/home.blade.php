@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
-
-            <!--  Espacio Principal-->
+<p id="demo"></p>
+<!--  Espacio Principal-->
             <div id="page-outer">
                 <div id="page-container" class="AppContent wrapper wrapper-home">
                     <!-- Cuadro lateral izquierdo -->
@@ -88,7 +88,7 @@
                                                 </div>
                                                 <div class="RichEditor-scrollContainer u-borderRadiusInherit">
                                                     <div aria-autocomplete="list" aria-expanded="false" aria-labelledby="tweet-box-home-timeline-label" aria-multiline="true" aria-owns="typeahead-dropdown-3" class="tweet-box rich-editor" contenteditable="true" data-placeholder-default="¿Qué está pasando?" data-placeholder-poll-composer-on="Haz una pregunta..." data-placeholder-reply="Twittea tu respuesta" dir="ltr" id="tweet-box-home-timeline" name="tweet" role="textbox" spellcheck="true">
-                                                        <div>
+                                                        <div >
                                                             ¿Qué está pasando?
                                                         </div>
                                                     </div>
@@ -124,7 +124,7 @@
                                             <span class="TweetBoxExtras-item TweetBox-mediaPicker"></span>
                                         </div>
                                         <div class="TweetBoxToolbar-tweetButton tweet-button">
-                                            <span class="add-tweet-button"><button aria-label="Agregar otro Tweet" class="js-add-tweet EdgeButton EdgeButton--secondary EdgeButton--icon EdgeButton--medium js-tooltip disabled" data-delay="150" data-original-title="Agregar otro Tweet" data-placement="top" disabled><span class="add-tweet-button"><span class="add-tweet-button"><span class="Icon Icon--add Icon--medium"></span></span></span></button></span> <button class="tweet-action EdgeButton EdgeButton--primary js-tweet-btn disabled" disabled type="button"><span class="button-text tweeting-text">Twittear</span> <span class="button-text replying-text">Responder</span></button>
+                                            <span class="add-tweet-button"><button aria-label="Agregar otro Tweet" class="js-add-tweet EdgeButton EdgeButton--secondary EdgeButton--icon EdgeButton--medium js-tooltip disabled" data-delay="150" data-original-title="Agregar otro Tweet" data-placement="top" disabled><span class="add-tweet-button"><span class="add-tweet-button"><span class="Icon Icon--add Icon--medium"></span></span></span></button></span> <button class="tweet-action EdgeButton EdgeButton--primary js-tweet-btn disabled" onclick="nuevoTweet()" disabled type="button"><span class="button-text tweeting-text">Twittear</span> <span class="button-text replying-text">Responder</span></button>
                                         </div>
                                     </div>
                                     <div style="position: absolute; visibility: hidden;"></div>
@@ -143,7 +143,7 @@
                         </div>
                         <div class="stream-container conversations-enabled ">
                             <div class="stream">
-                                <ol class="stream-items js-navigable-stream">
+                                <ol id="listaTweets"class="stream-items js-navigable-stream">
                                 @foreach ($tweets as $tweet)
                                 <li class="js-stream-item stream-item stream-item">
                                     <div class="tweet js-stream-tweet js-actionable-tweet js-profile-popup-actionable dismissible-content original-tweet js-original-tweet has-cards cards-forward">
@@ -351,5 +351,25 @@
     
                     </div>
                     <!--Fin derecho, usuarios  -->
+
+                    <script type="text/javascript">
+
+$(document).ready(function() { localStorage.removeItem('__draft_tweets__:home');});
+function nuevoTweet() {         
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    
+    $.post("/tweet", {
+        mensaje: document.getElementById('tweet-box-home-timeline').textContent
+    });         
+
+    window.location.reload(true);
+         
+ }
+</script>
+
 
 @endsection

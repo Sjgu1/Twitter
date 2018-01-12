@@ -35,6 +35,7 @@ class HomeController extends Controller
     }*/
 
     public function index() {
+        error_log("Paso por index");
 
         Carbon::setLocale('es');
         $id = Auth::id();
@@ -59,6 +60,7 @@ class HomeController extends Controller
         }
         $merge = $merge->sortByDesc('fecha');
         //dd(Auth::user(), Auth::Guest());
+
         return view('home', ['users' => $users, 'seguidos'=>$follows, 'seguidores'=>$followers, 'tweets'=>$merge ,'tweetsEscritos'=>$escritos]); 
     }
 
@@ -76,4 +78,16 @@ class HomeController extends Controller
         return back();
     }
 
+    public function nuevoTweet(Request $request){
+
+        $tweet = new Tweet([
+            'fecha' =>  Carbon::now(),
+            'mensaje' => $request->mensaje
+        ]);
+        $user = Auth::user();
+        $tweet->user()->associate($user);
+        $tweet->save();
+     }
+
+     
 }
