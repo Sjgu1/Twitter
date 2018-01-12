@@ -49,11 +49,11 @@ class HomeController extends Controller
         $followers=$user->seguidores;
             
         //Unir tweets propios con los de las personas que sigues
-        $tweets = User::find($id)->tweets()->orderBy('fecha', 'desc')->get();
+        $tweets = User::find($id)->tweets()->orderBy('fecha', 'desc')->with('user')->get();
         $escritos = User::find($id)->tweets()->orderBy('fecha', 'desc')->count();
         $merge = $tweets;     
         foreach ($follows as $following){
-            $followingTweets = User::find($following->id)->tweets()->orderBy('fecha', 'desc')->get();
+            $followingTweets = User::find($following->id)->tweets()->orderBy('fecha', 'desc')->with('user')->get();
 
             $merge = $merge->merge($followingTweets);
         }

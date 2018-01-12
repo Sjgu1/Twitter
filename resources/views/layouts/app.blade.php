@@ -194,7 +194,7 @@ margin-right: 0px
                             <ul class="nav right-actions">
                                 <li class="me dropdown session js-session" data-global-action="t1me" id="user-dropdown">
                                     <a href="/settings/account" class="btn js-tooltip settings dropdown-toggle js-dropdown-toggle" id="user-dropdown-toggle" data-placement="bottom" rel="noopener" role="button" aria-haspopup="true" data-original-title="Perfil y configuración ">
-                                        <img class="Avatar Avatar--size32" src="https://www.atomix.com.au/media/2015/06/atomix_user31.png" alt="Perfil y configuración " data-user-id="293967812">
+                                        <img class="Avatar Avatar--size32" src="{{Auth::user()->avatar}}" alt="Perfil y configuración " data-user-id="293967812">
                                     </a>
                                     <div class="DashUserDropdown dropdown-menu dropdown-content dropdown-menu--rightAlign is-forceRight is-autoCentered">
                                         <div class="dropdown-caret">
@@ -267,11 +267,11 @@ margin-right: 0px
         <h3 class="modal-title" id="Tweetstorm-dialog-header">Redactar un nuevo Tweet </h3>
     </div>
     <div class=" modal-body">
-        <img alt="Name" class="top-timeline-tweet-box-user-image avatar size32" src="https://www.atomix.com.au/media/2015/06/atomix_user31.png">
+        <img alt="Name" class="top-timeline-tweet-box-user-image avatar size32" src="{{Auth::user()->avatar}}">
         <form action="//upload.twitter.com/i/tweet/create_with_media.iframe" class="t1-form tweet-form pull-right" data-condensed-text="¿Qué está pasando?" data-poll-composer-rows="3" enctype="multipart/form-data" id="swift_tweetbox_1515235399021" method="post" name="swift_tweetbox_1515235399021" target="tweet-post-iframe" style="width: 508px;">
             <div class="reply-users"></div>
             <div class="tweet-content">
-                <img alt="Name" class="inline-reply-user-image avatar size32" src="https://www.atomix.com.au/media/2015/06/atomix_user31.png">
+                <img alt="Name" class="inline-reply-user-image avatar size32" src="{{Auth::user()->avatar}}">
                 <div class="TweetBox-photoIntent">
                 </div>
                 <div class="ComposerDragHelp">

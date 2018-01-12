@@ -11,7 +11,7 @@
                             </a>
                             <div class="DashboardProfileCard-content">
                                 <a class="DashboardProfileCard-avatarLink u-inlineBlock" href="/username" title="Name" tabindex="-1" aria-hidden="true" rel="noopener">
-                                    <img class="DashboardProfileCard-avatarImage js-action-profile-avatar" src="https://www.atomix.com.au/media/2015/06/atomix_user31.png" alt="">
+                                    <img class="DashboardProfileCard-avatarImage js-action-profile-avatar" src="{{ Auth::user()->avatar }}" alt="">
                                 </a>
                             <div class="DashboardProfileCard-userFields account-group">
                                 <div class="DashboardProfileCard-name u-textTruncate">
@@ -50,11 +50,11 @@
                         <div id="above-timeline-prompt"></div>
                         <div class="timeline-tweet-box">
                             <div class="home-tweet-box tweet-box component tweet-user">
-                                <img alt="Name" class="top-timeline-tweet-box-user-image avatar size32" src="https://www.atomix.com.au/media/2015/06/atomix_user31.png">
+                                <img alt="Name" class="top-timeline-tweet-box-user-image avatar size32" src="{{ Auth::user()->avatar }}">
                                 <form action="//upload.twitter.com/i/tweet/create_with_media.iframe" class="t1-form tweet-form condensed" data-condensed-text="¿Qué está pasando?" data-poll-composer-rows="3" enctype="multipart/form-data" id="swift_tweetbox_1515235399021" method="post" name="swift_tweetbox_1515235399021" target="tweet-post-iframe">
                                     <div class="reply-users"></div>
                                     <div class="tweet-content">
-                                        <img alt="Name" class="inline-reply-user-image avatar size32" src="https://www.atomix.com.au/media/2015/06/atomix_user31.png">
+                                        <img alt="Name" class="inline-reply-user-image avatar size32" src="{{ Auth::user()->avatar }}">
                                         <div class="TweetBox-photoIntent">
                                             <div class="photo-selector">
                                                 <button aria-hidden="true" class="btn icon-btn js-tooltip" data-original-title="Añadir fotos o video" tabindex="-1" type="button"><span class="tweet-camera Icon Icon--media"></span> <span class="text add-photo-label u-hiddenVisually">Añadir fotos o video</span></button>
@@ -150,15 +150,15 @@
                                         <div class="content">
                                             <div class="stream-item-header">
                                                 <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="">
-                                                    <img class="avatar js-action-profile-avatar" src="https://pbs.twimg.com/profile_images/875366648093577217/DPjc49xK_bigger.jpg" alt="">
+                                                    <img class="avatar js-action-profile-avatar" src="{{$tweet->user->avatar }}" alt="">
                                                     <span class="FullNameGroup">
                                                     <strong class="fullname show-popup-with-id u-textTruncate " data-aria-label-part="">{{$tweet->user->name}}</strong><span>‏</span><span class="UserBadges"></span><span class="UserNameBreak">&nbsp;</span></span>
                                                     <span class="username u-dir u-textTruncate" dir="ltr" data-aria-label-part="">@<b>{{$tweet->user->name}}</b></span>
                                                 </a>
                                                 <small class="time">
-                                                <a href="" class="tweet-timestamp js-permalink js-nav js-tooltip" data-original-title="{{$tweet->fecha}}"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1515673074" data-time-ms="1515673074000" data-long-form="true" aria-hidden="true">{{  \Carbon\Carbon::parse($tweet->fecha)->diffForHumans(null, true)  }}</span></a>
+                                                <a href="" class="tweet-timestamp js-permalink js-nav js-tooltip" data-original-title="{{$tweet->fecha}}"><span data-long-form="true" aria-hidden="true">{{  \Carbon\Carbon::parse($tweet->fecha)->diffForHumans(null, true)  }}</span></a>
                                                 </small>
-                                                @if (Auth::user()->id != $tweet->user_id)
+                                                @if (Auth::user()->id != $tweet->user->user_id)
                                                 
                                                 <div class="ProfileTweet-action ProfileTweet-action--more js-more-ProfileTweet-actions" style="visibility: hidden;">
                                                     <div class="dropdown">
@@ -290,7 +290,7 @@
                                     <div class="content">
                                         <a class="account-group js-recommend-link js-user-profile-link user-thumb" href="{{ action('HomeController@seguir', ['seguido'=>$user->id]) }}" >
                                 
-                                            <img class="avatar js-action-profile-avatar " src="https://www.atomix.com.au/media/2015/06/atomix_user31.png"alt="">
+                                            <img class="avatar js-action-profile-avatar " src="{{ $user->avatar }}"alt="">
                                             <span class="account-group-inner" data-user-id="274529577">
                                                 <strong class="fullname">{{ $user->name }} </strong><span class="UserBadges"></span><span class="UserNameBreak">&nbsp;</span><span class="username u-dir u-textTruncate" dir="ltr">@<b>{{ $user->username }}</b></span>
                                             </span>
