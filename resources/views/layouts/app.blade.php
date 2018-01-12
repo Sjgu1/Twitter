@@ -86,13 +86,7 @@
 margin-right: 0px
 }
 </style> 
-<style>
-.modal {
 
-display: inline-table;
-
-}
-</style>
 </head>
 <body>
 @if (Auth::guest())
