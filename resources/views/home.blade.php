@@ -25,7 +25,7 @@
                             <ul class="ProfileCardStats-statList Arrange Arrange--bottom Arrange--equal"><li class="ProfileCardStats-stat Arrange-sizeFit">
                                 <a class="ProfileCardStats-statLink u-textUserColor u-linkClean u-block js-nav js-tooltip" href="/username" data-element-term="tweet_stats" data-original-title="4 Tweets">
                                 <span class="ProfileCardStats-statLabel u-block">Tweets</span>
-                                <span class="ProfileCardStats-statValue" data-count="4" data-is-compact="false">{{count($tweets)}}</span>
+                                <span class="ProfileCardStats-statValue" data-count="4" data-is-compact="false">{{$tweetsEscritos}}</span>
                                 </a>
                             </li><li class="ProfileCardStats-stat Arrange-sizeFit">
                                 <a class="ProfileCardStats-statLink u-textUserColor u-linkClean u-block js-nav js-tooltip" href="/username/following" data-element-term="following_stats" data-original-title="{{count($seguidos)}} Siguiendo">
@@ -158,7 +158,30 @@
                                                 <small class="time">
                                                 <a href="" class="tweet-timestamp js-permalink js-nav js-tooltip" data-original-title="{{$tweet->fecha}}"><span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1515673074" data-time-ms="1515673074000" data-long-form="true" aria-hidden="true">{{  \Carbon\Carbon::parse($tweet->fecha)->diffForHumans(null, true)  }}</span></a>
                                                 </small>
-                                                @if (Auth::guest() != $tweet->user->id)
+                                                @if (Auth::user()->id != $tweet->user_id)
+                                                
+                                                <div class="ProfileTweet-action ProfileTweet-action--more js-more-ProfileTweet-actions" style="visibility: hidden;">
+                                                    <div class="dropdown">
+                                                        <button class="ProfileTweet-actionButton u-textUserColorHover dropdown-toggle js-dropdown-toggle" type="button" aria-haspopup="true">
+                                                            <div class="IconContainer js-tooltip" title="Más">
+                                                                <span class="Icon Icon--caretDownLight Icon--small"></span>
+                                                                <span class="u-hiddenVisually">Más</span>
+                                                            </div>
+                                                        </button>
+                                                        <div class="dropdown-menu is-autoCentered"><div class="js-first-tabstop" tabindex="0"></div>
+                                                        <div class="dropdown-caret">
+                                                            <div class="caret-outer"></div>
+                                                            <div class="caret-inner"></div>
+                                                        </div>
+                                                        <ul tabindex="-1" role="menu" aria-labelledby="menu-1" aria-hidden="false">
+                                                            <li class="js-actionDelete" role="presentation">
+                                                                <button type="button" class="dropdown-link" style="min-width:-webkit-fill-available;"role="menuitem">Eliminar Tweet</button>
+                                                            </li>                                                         
+                                                        </ul>
+                                                    <div class="js-last-tabstop" tabindex="0"></div>
+                                                    </div>
+                                                </div>
+                                                @else
                                                 <div class="ProfileTweet-action ProfileTweet-action--more js-more-ProfileTweet-actions">
                                                     <div class="dropdown">
                                                         <button class="ProfileTweet-actionButton u-textUserColorHover dropdown-toggle js-dropdown-toggle" type="button" aria-haspopup="true">

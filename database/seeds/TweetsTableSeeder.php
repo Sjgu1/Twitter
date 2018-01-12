@@ -14,8 +14,8 @@ class TweetsTableSeeder extends Seeder
      */
     public function run()
     {
-        $dias = 1000;
-        $segundos = 864000;
+        $dias = 1;
+        $segundos = 86400;
 
         //$dias = 1;
 
