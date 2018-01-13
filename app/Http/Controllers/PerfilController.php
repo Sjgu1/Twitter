@@ -12,33 +12,20 @@ use Carbon\CarbonInterval;
 
 
 
-class HomeController extends Controller
+class PerfilController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    /*public function index()
-    {
-        return view('home');
-    }*/
+    public function perfil($username) {
 
-    public function index() {
-        
+        $user =  User::where('username', $username)->first();
+
+        if($user == null){
+            return view('404'); 
+        }
+
         Carbon::setLocale('es');
         $id = Auth::id();
-        $user = User::find($id);
         $users = DB::table('users')->distinct()->where('id', '!=', $id)
                 ->when($user->seguidos->count(), function ($query) {
                     $user = User::find(Auth::id());
@@ -58,35 +45,9 @@ class HomeController extends Controller
             $merge = $merge->merge($followingTweets);
         }
         $merge = $merge->sortByDesc('fecha');
+        //dd($user);
         //dd(Auth::user(), Auth::Guest());
 
-        return view('home', ['users' => $users, 'seguidos'=>$follows, 'seguidores'=>$followers, 'tweets'=>$merge ,'tweetsEscritos'=>$escritos]); 
+        return view('perfil', ['user' => $user,'users' => $users, 'seguidos'=>$follows, 'seguidores'=>$followers, 'tweets'=>$merge ,'tweetsEscritos'=>$escritos]); 
     }
-
-    public function seguir($seguido){
-        $id = Auth::id();
-        $seguidor = User::find($id);
-        $seguidor->seguidos()->attach($seguido);
-        return back();
-    }
-
-    public function dejarDeSeguir($seguido){
-        $id = Auth::id();
-        $seguidor = User::find($id);
-        $seguidor->seguidos()->detach($seguido);
-        return back();
-    }
-
-    public function nuevoTweet(Request $request){
-
-        $tweet = new Tweet([
-            'fecha' =>  Carbon::now(),
-            'mensaje' => $request->mensaje
-        ]);
-        $user = Auth::user();
-        $tweet->user()->associate($user);
-        $tweet->save();
-     }
-
-     
 }

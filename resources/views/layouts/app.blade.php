@@ -134,17 +134,23 @@ margin-right: 0px
         box-sizing: content-box;
     }
     .AppContent {
-        padding: 8px 14px 15px;
+        padding: 30px 14px 15px;
+        z-index: 100;
     }
     .TwitearModal{
         width: 610px;
+    }
+
+    .fijar{
+        position: fixed;
+        z-index: 101;
     }
 </style>
 <body class="three-col logged-in user-style-username western es enhanced-mini-profile no-nav-banners supports-drag-and-drop" data-fouc-class-names="swift-loading no-nav-banners" dir="ltr">
     <div id="kb-shortcuts-msg">
         <div class="route-home ">
             <!-- Barra de navegacion -->
-            <div class="global-nav" data-section-term="top_nav">
+            <div class="fijar global-nav" data-section-term="top_nav">
                 <div class="global-nav-inner">
                     <div class="container"> 
                     <h1 class="Icon Icon--bird bird-topbar-etched">
@@ -155,7 +161,7 @@ margin-right: 0px
                             <ul class="nav js-global-actions" id="global-actions">
                                 <!-- Icono Home -->
                                 <li id="global-nav-home" class="home active " data-global-action="home">
-                                    <a class="js-nav js-tooltip js-dynamic-tooltip" data-placement="bottom" href="/" data-component-context="home_nav" data-nav="home" data-original-title="">
+                                    <a class="js-nav js-tooltip js-dynamic-tooltip" data-placement="bottom" href="/home" data-component-context="home_nav" data-nav="home" data-original-title="">
                                     <span class="Icon Icon--home Icon--large"></span>
                                     <span class="Icon Icon--homeFilled Icon--large u-textUserColor"></span>
                                     <span class="text" aria-hidden="true">Inicio</span>
@@ -251,7 +257,7 @@ margin-right: 0px
                                </script>
                 </form>
             <!--  Espacio Principal-->
-            <div id="page-outer">
+            <div id="page-outer" class="" >
                 <div id="page-container" class="AppContent wrapper wrapper-home">
                                 @yield('content')
 

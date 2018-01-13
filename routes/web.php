@@ -22,6 +22,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home/{seguido}','HomeController@seguir');
 Route::put('/home/{seguido}','HomeController@dejarDeSeguir');
 
+//Perfil
+Route::get('/{username}','PerfilController@perfil');
 
 //Tweet
 Route::post('/tweet', 'HomeController@nuevoTweet');

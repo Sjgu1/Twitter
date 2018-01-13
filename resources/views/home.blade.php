@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-<p id="demo"></p>
 <!--  Espacio Principal-->
             <div id="page-outer">
                 <div id="page-container" class="AppContent wrapper wrapper-home">
@@ -15,10 +14,10 @@
                                 </a>
                             <div class="DashboardProfileCard-userFields account-group">
                                 <div class="DashboardProfileCard-name u-textTruncate">
-                                <a class="u-textInheritColor js-nav" href="/username" rel="noopener">{{ Auth::user()->name }}</a><span class="UserBadges"></span>
+                                <a class="u-textInheritColor js-nav" href="/{{ Auth::user()->username }}" rel="noopener">{{ Auth::user()->name }}</a><span class="UserBadges"></span>
                                 </div>
                                 <span class="DashboardProfileCard-screenname u-inlineBlock u-dir" dir="ltr">
-                                <a class="DashboardProfileCard-screennameLink u-linkComplex u-linkClean js-nav" href="/username" rel="noopener"><span class="username u-dir" dir="ltr">@<b class="u-linkComplex-target">{{ Auth::user()->username }}</b></span></a>
+                                <a class="DashboardProfileCard-screennameLink u-linkComplex u-linkClean js-nav" href="{{ Auth::user()->username }}" rel="noopener"><span class="username u-dir" dir="ltr">@<b class="u-linkComplex-target">{{ Auth::user()->username }}</b></span></a>
                                 </span>
                             </div>
                                 <div class="ProfileCardStats">
