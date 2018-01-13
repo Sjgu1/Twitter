@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\Tweet;
+use Carbon\Carbon;
+use Carbon\CarbonInterval;
+
+
 
 class HomeController extends Controller
 {
@@ -30,6 +35,9 @@ class HomeController extends Controller
     }*/
 
     public function index() {
+        error_log("Paso por index");
+
+        Carbon::setLocale('es');
         $id = Auth::id();
         $user = User::find($id);
         $users = DB::table('users')->distinct()->where('id', '!=', $id)
@@ -40,7 +48,20 @@ class HomeController extends Controller
                 ->paginate(3);
         $follows=$user->seguidos;
         $followers=$user->seguidores;
-        return view('home', ['users' => $users, 'seguidos'=>$follows, 'seguidores'=>$followers]); 
+            
+        //Unir tweets propios con los de las personas que sigues
+        $tweets = User::find($id)->tweets()->orderBy('fecha', 'desc')->with('user')->get();
+        $escritos = User::find($id)->tweets()->orderBy('fecha', 'desc')->count();
+        $merge = $tweets;     
+        foreach ($follows as $following){
+            $followingTweets = User::find($following->id)->tweets()->orderBy('fecha', 'desc')->with('user')->get();
+
+            $merge = $merge->merge($followingTweets);
+        }
+        $merge = $merge->sortByDesc('fecha');
+        //dd(Auth::user(), Auth::Guest());
+
+        return view('home', ['users' => $users, 'seguidos'=>$follows, 'seguidores'=>$followers, 'tweets'=>$merge ,'tweetsEscritos'=>$escritos]); 
     }
 
     public function seguir($seguido){
@@ -57,4 +78,16 @@ class HomeController extends Controller
         return back();
     }
 
+    public function nuevoTweet(Request $request){
+
+        $tweet = new Tweet([
+            'fecha' =>  Carbon::now(),
+            'mensaje' => $request->mensaje
+        ]);
+        $user = Auth::user();
+        $tweet->user()->associate($user);
+        $tweet->save();
+     }
+
+     
 }
