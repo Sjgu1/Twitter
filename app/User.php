@@ -44,4 +44,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     {
         return $this->belongsToMany('App\User', 'seguidos_seguidores', 'id_seguido','id_seguidor');
     }
+
+    public function conversaciones()
+    {
+        return $this->belongsToMany('App\Conversation', 'conversacion_usuario');
+    }
 }
