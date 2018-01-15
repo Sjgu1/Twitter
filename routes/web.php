@@ -11,13 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('/home/{seguido}','HomeController@seguir');
-Route::put('/home/{seguido}','HomeController@dejarDeSeguir');
+Route::get('/seguir/{seguido}','HomeController@seguir');
+Route::put('/seguir/{seguido}','HomeController@dejarDeSeguir');
+
+//Perfil
+Route::get('/{username}','PerfilController@perfil');
+
+//Tweet
+Route::post('/tweet', 'HomeController@nuevoTweet');
