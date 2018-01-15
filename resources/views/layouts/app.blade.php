@@ -177,7 +177,7 @@ margin-right: 0px
                                 </li>
                                 <!-- Icono Mensajes, poner new si hya notificaciones a la class li-->
                                 <li class="dm-nav">
-                                    <a role="button" href="#" class="js-tooltip js-dynamic-tooltip global-dm-nav" data-placement="bottom" data-original-title="">
+                                    <a role="button" class="js-tooltip js-dynamic-tooltip global-dm-nav" data-placement="bottom" data-original-title="" data-toggle="modal" data-target="#mensajesModal">
                                         <span class="Icon Icon--dm Icon--large"></span>
                                         <span class="text">Mensajes</span>
                                         <span class="dm-new">
@@ -411,14 +411,154 @@ margin-right: 0px
     </div>
     </form>
         <!-- Fin Modal de twittear -->
+        
               
             <div aria-live="assertive" class="visuallyhidden" id="sr-event-log"></div>
         </div>
     </div>
     
+    
 </body>
         @endif     
     </div>
+    <!-- Modal Mensajes-->
+  <div class="modal fade modal-content" id="mensajesModal" role="dialog" style="top: 5%; left: 415px; position: absolute;width: 45vw; height: fit-content;" aria-labelledby="dm_dialog-header">
+  <div class="js-first-tabstop" tabindex="0"></div>
+    <div class="DMActivity DMInbox js-ariaDocument u-chromeOverflowFix DMActivity--open" role="document">
+  <div class="DMActivity-header">
+
+    <h2 class="DMActivity-title js-ariaTitle" id="dm_dialog-header">
+      Mensajes directos
+    </h2>
+
+    <div class="DMActivity-toolbar">
+          <button type="button" class="DMInbox-toolbar EdgeButton EdgeButton--small EdgeButton--secondary EdgeButton--icon mark-all-read js-tooltip" title="Marcar todo como leído">
+      <span class="Icon Icon--markAllRead"></span>
+      <span class="u-hiddenVisually">Marcar todo como leído</span>
+    </button>
+    <button type="button" class="DMInbox-toolbar DMComposeButton EdgeButton EdgeButton--small EdgeButton--primary dm-new-button js-initial-focus">
+      <span>Mensaje nuevo</span>
+    </button>
+
+      <button type="button" class="DMActivity-close js-close u-textUserColorHover" data-dismiss="modal">
+        <span class="Icon Icon--close Icon--medium"></span>
+        <span class="u-hiddenVisually">Cerrar</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="DMActivity-container">
+    <div class="DMActivity-notice">
+      <div class="DMNotice DMNotice--error DMErrorBar" style="display: none;">
+  <div class="DMNotice-message">    <div class="DMErrorBar-text"></div>
+</div>
+  <div class="DMNotice-actions u-emptyHide"></div>
+    <button type="button" class="DMNotice-dismiss">
+      <span class="Icon Icon--close"></span>
+      <span class="u-hiddenVisually">Descartar</span>
+    </button>
+</div>
+
+      <div class="DMNotice DMNotice--toast " style="display: none;">
+  <div class="DMNotice-message"></div>
+  <div class="DMNotice-actions u-emptyHide"></div>
+    <button type="button" class="DMNotice-dismiss">
+      <span class="Icon Icon--close"></span>
+      <span class="u-hiddenVisually">Descartar</span>
+    </button>
+</div>
+
+          <div class="DMNotice DMNotice--explicitDismiss DMNotificationsPermissionRequest" style="display: none;">
+  <div class="DMNotice-message">    ¿Te gustaría recibir notificaciones web de tus interacciones?
+</div>
+  <div class="DMNotice-actions u-emptyHide">    <button type="button" class="DMNotificationsPermissionRequest-later EdgeButton EdgeButton--tertiary js-prompt-later">Tal vez más tarde</button>
+    <button type="button" class="DMNotificationsPermissionRequest-accept EdgeButton EdgeButton--secondary js-prompt-accept">Habilitar notificaciones</button>
+</div>
+</div>
+
+
+    </div>
+
+       <nav class="DMInbox-tab u-hidden" aria-label="Bandejas de entrada de Mensajes Directos">
+  <ul class="DMInbox-tabToggle">
+    <li class="DMInbox-tabToggleItem DMInbox-inboxTab is-active">
+      <a role="button" href="#" class="DMInbox-tabCopy">Bandeja de entrada</a>
+    </li>
+    <li class="DMInbox-tabToggleItem DMInbox-requestTab">
+      <a role="button" href="#" class="DMInbox-tabCopy">Solicitudes</a>
+    </li>
+  </ul>
+</nav>
+
+
+
+    <div class="DMActivity-body js-ariaBody ">
+          <div class="DMInbox-content u-scrollY">
+      <div class="DMInbox-primary">
+        <ul class="DMInbox-conversations">  
+  
+  
+  
+  
+  
+  
+  
+  
+</ul>
+        <div class="DMInbox-empty"><div class="DMEmptyState">
+  <h2 class="DMEmptyState-header">
+    Envía un mensaje, recibe un mensaje
+  </h2>
+
+  <div class="DMEmptyState-details">
+    <p>Los Mensajes Directos son conversaciones privadas entre tú y otras personas en Twitter. Puedes compartir Tweets, contenido multimedia y mucho más.</p>
+  </div>
+
+  <div class="DMEmptyState-cta">
+    <button type="button" class="EdgeButton EdgeButton--primary dm-new-button">
+      Inicia una conversación
+    </button>
+  </div>
+</div>
+</div>
+        <div class="DMInbox-spinner u-hidden">
+          <div class="DMSpinner"></div>
+        </div>
+      </div>
+      <div class="DMInbox-secondary u-hidden is-empty">
+        <div class="DMInbox-secondaryInboxCopy">
+          Aquí verás los mensajes de las personas a las que no sigues. Ellas no sabrán que los viste hasta que los aceptes.
+        </div>
+        <ul class="DMInbox-untrustedConversations"></ul>
+        <div class="DMInbox-empty"><div class="DMEmptyState">
+  <h2 class="DMEmptyState-header">
+    No tienes ninguna solicitud de mensajes
+  </h2>
+
+  <div class="DMEmptyState-details">
+    <p>Aquí verás los mensajes de las personas a las que no sigues. Ellas no sabrán que los viste hasta que los aceptes.</p>
+  </div>
+</div>
+</div>
+        <div class="DMInbox-spinner u-hidden">
+          <div class="DMSpinner"></div>
+        </div>
+      </div>
+    </div>
+
+    </div>
+
+    <div class="DMActivity-footer u-emptyHide"></div>
+  </div>
+</div>
+
+
+    
+  <div class="js-last-tabstop" tabindex="0"></div>
+  </div>
+
+        
+        <!-- Fin Modal mensajes -->
     <script type="text/javascript">
 
 $(document).ready(function() { localStorage.removeItem('__draft_tweets__:home');});
