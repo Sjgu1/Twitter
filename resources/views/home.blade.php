@@ -157,7 +157,7 @@
                                                 <small class="time">
                                                 <a href="" class="tweet-timestamp js-permalink js-nav js-tooltip" data-original-title="{{$tweet->fecha}}"><span data-long-form="true" aria-hidden="true">{{  \Carbon\Carbon::parse($tweet->fecha)->diffForHumans(null, true)  }}</span></a>
                                                 </small>
-                                                @if (Auth::user()->id != $tweet->user->user_id)
+                                                @if (Auth::user()->id != $tweet->user->id)
                                                 
                                                 <div class="ProfileTweet-action ProfileTweet-action--more js-more-ProfileTweet-actions" style="visibility: hidden;">
                                                     <div class="dropdown">

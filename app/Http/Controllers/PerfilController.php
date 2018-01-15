@@ -38,16 +38,10 @@ class PerfilController extends Controller
         //Unir tweets propios con los de las personas que sigues
         $tweets = User::find($id)->tweets()->orderBy('fecha', 'desc')->with('user')->get();
         $escritos = User::find($id)->tweets()->orderBy('fecha', 'desc')->count();
-        $merge = $tweets;     
-        foreach ($follows as $following){
-            $followingTweets = User::find($following->id)->tweets()->orderBy('fecha', 'desc')->with('user')->get();
 
-            $merge = $merge->merge($followingTweets);
-        }
-        $merge = $merge->sortByDesc('fecha');
         //dd($user);
         //dd(Auth::user(), Auth::Guest());
 
-        return view('perfil', ['user' => $user,'users' => $users, 'seguidos'=>$follows, 'seguidores'=>$followers, 'tweets'=>$merge ,'tweetsEscritos'=>$escritos]); 
+        return view('perfil', ['user' => $user,'users' => $users, 'seguidos'=>$follows, 'seguidores'=>$followers, 'tweets'=>$tweets ,'tweetsEscritos'=>$escritos]); 
     }
 }

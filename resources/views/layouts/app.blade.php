@@ -161,7 +161,7 @@ margin-right: 0px
                             <ul class="nav js-global-actions" id="global-actions">
                                 <!-- Icono Home -->
                                 <li id="global-nav-home" class="home active " data-global-action="home">
-                                    <a class="js-nav js-tooltip js-dynamic-tooltip" data-placement="bottom" href="/home" data-component-context="home_nav" data-nav="home" data-original-title="">
+                                    <a class="js-nav js-tooltip js-dynamic-tooltip" data-placement="bottom" href="/" data-component-context="home_nav" data-nav="home" data-original-title="">
                                     <span class="Icon Icon--home Icon--large"></span>
                                     <span class="Icon Icon--homeFilled Icon--large u-textUserColor"></span>
                                     <span class="text" aria-hidden="true">Inicio</span>
@@ -212,19 +212,19 @@ margin-right: 0px
                                         </div>
                                         <ul tabindex="-1" role="menu" aria-labelledby="user-dropdown-toggle" aria-hidden="true"> 
                                             <li class="DashUserDropdown-userInfo" data-name="user-info" role="presentation">
-                                                <a href="/username" class="DashUserDropdown-userInfoLink js-nav" data-nav="view_profile" role="menuitem">
-                                                <b class="fullname">Nombre</b><span class="UserBadges"></span>
-                                                <p class="name"><span class="username u-dir u-textTruncate" dir="ltr">@<b>username</b></span></p>
+                                                <a href="/{{Auth::user()->username}}" class="DashUserDropdown-userInfoLink js-nav" data-nav="view_profile" role="menuitem">
+                                                <b class="fullname">{{Auth::user()->name}}</b><span class="UserBadges"></span>
+                                                <p class="name"><span class="username u-dir u-textTruncate" dir="ltr">@<b>{{Auth::user()->username}}</b></span></p>
                                                 </a>
                                             </li>
                                             <li class="dropdown-divider" role="presentation"></li>
                                             <li class="current-user" data-name="profile" role="presentation">
-                                                <a href="/username" class="js-nav" data-nav="view_profile" role="menuitem">
+                                                <a href="/{{Auth::user()->username}}" class="js-nav" data-nav="view_profile" role="menuitem">
                                                 <span class="DashUserDropdown-linkIcon Icon Icon--medium Icon--me"></span>Perfil
                                                 </a>
                                             </li>
                                             <li data-name="lists" role="presentation">
-                                                <a class="js-nav" href="/username/lists" data-nav="all_lists" role="menuitem">
+                                                <a class="js-nav" href="/{{Auth::user()->avatar}}/lists" data-nav="all_lists" role="menuitem">
                                                 <span class="DashUserDropdown-linkIcon Icon Icon--medium Icon--list"></span>Listas
                                                 </a>
                                             </li>
