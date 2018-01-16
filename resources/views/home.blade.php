@@ -6,10 +6,10 @@
                     <!-- Cuadro lateral izquierdo -->
                     <div class="dashboard dashboard-left">
                         <div class="DashboardProfileCard  module">
-                            <a class="DashboardProfileCard-bg u-bgUserColor u-block" href="/username" tabindex="-1" aria-hidden="true" rel="noopener">
+                            <a class="DashboardProfileCard-bg u-bgUserColor u-block" href="/{{Auth::user()->username}}" tabindex="-1" aria-hidden="true" rel="noopener">
                             </a>
                             <div class="DashboardProfileCard-content">
-                                <a class="DashboardProfileCard-avatarLink u-inlineBlock" href="/username" title="Name" tabindex="-1" aria-hidden="true" rel="noopener">
+                                <a class="DashboardProfileCard-avatarLink u-inlineBlock" href="/{{Auth::user()->username}}" title="Name" tabindex="-1" aria-hidden="true" rel="noopener">
                                     <img class="DashboardProfileCard-avatarImage js-action-profile-avatar" src="{{ Auth::user()->avatar }}" alt="">
                                 </a>
                             <div class="DashboardProfileCard-userFields account-group">
@@ -22,17 +22,17 @@
                             </div>
                                 <div class="ProfileCardStats">
                             <ul class="ProfileCardStats-statList Arrange Arrange--bottom Arrange--equal"><li class="ProfileCardStats-stat Arrange-sizeFit">
-                                <a class="ProfileCardStats-statLink u-textUserColor u-linkClean u-block js-nav js-tooltip" href="/username" data-element-term="tweet_stats" data-original-title="4 Tweets">
+                                <a class="ProfileCardStats-statLink u-textUserColor u-linkClean u-block js-nav js-tooltip" href="/{{Auth::user()->username}}" data-element-term="tweet_stats" data-original-title="4 Tweets">
                                 <span class="ProfileCardStats-statLabel u-block">Tweets</span>
                                 <span class="ProfileCardStats-statValue" data-count="4" data-is-compact="false">{{$tweetsEscritos}}</span>
                                 </a>
                             </li><li class="ProfileCardStats-stat Arrange-sizeFit">
-                                <a class="ProfileCardStats-statLink u-textUserColor u-linkClean u-block js-nav js-tooltip" href="/username/following" data-element-term="following_stats" data-original-title="{{count($seguidos)}} Siguiendo">
+                                <a class="ProfileCardStats-statLink u-textUserColor u-linkClean u-block js-nav js-tooltip" href="/{{Auth::user()->username}}/following" data-element-term="following_stats" data-original-title="{{count($seguidos)}} Siguiendo">
                                     <span class="ProfileCardStats-statLabel u-block">Siguiendo</span>
                                     <span class="ProfileCardStats-statValue" data-count="{{count($seguidos)}}" data-is-compact="false">{{count($seguidos)}}</span>
                                 </a>
                                 </li><li class="ProfileCardStats-stat Arrange-sizeFit">
-                                <a class="ProfileCardStats-statLink u-textUserColor u-linkClean u-block js-nav js-tooltip" href="/username/followers" data-element-term="follower_stats" data-original-title="{{count($seguidores)}} Seguidores">
+                                <a class="ProfileCardStats-statLink u-textUserColor u-linkClean u-block js-nav js-tooltip" href="/{{Auth::user()->username}}/followers" data-element-term="follower_stats" data-original-title="{{count($seguidores)}} Seguidores">
                                     <span class="ProfileCardStats-statLabel u-block">Seguidores</span>
                                     <span class="ProfileCardStats-statValue" data-count="{{count($seguidores)}}" data-is-compact="false">{{count($seguidores)}}</span>
                                 </a>
@@ -148,7 +148,7 @@
                                     <div class="tweet js-stream-tweet js-actionable-tweet js-profile-popup-actionable dismissible-content original-tweet js-original-tweet has-cards cards-forward">
                                         <div class="content">
                                             <div class="stream-item-header">
-                                                <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="">
+                                                <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/{{$tweet->user->username}}">
                                                     <img class="avatar js-action-profile-avatar" src="{{$tweet->user->avatar }}" alt="">
                                                     <span class="FullNameGroup">
                                                     <strong class="fullname show-popup-with-id u-textTruncate " data-aria-label-part="">{{$tweet->user->name}}</strong><span>‏</span><span class="UserBadges"></span><span class="UserNameBreak">&nbsp;</span></span>
@@ -287,7 +287,7 @@
                                     <div class="dismiss js-action-dismiss"><span class="Icon Icon--close"></span></div>
     
                                     <div class="content">
-                                        <a class="account-group js-recommend-link js-user-profile-link user-thumb" href="{{ action('HomeController@seguir', ['seguido'=>$user->id]) }}" >
+                                        <a class="account-group js-recommend-link js-user-profile-link user-thumb" href="/{{$user->username}}" >
                                 
                                             <img class="avatar js-action-profile-avatar " src="{{ $user->avatar }}"alt="">
                                             <span class="account-group-inner" data-user-id="274529577">
@@ -298,33 +298,15 @@
                                     
                                         <div class="user-actions not-following not-muting" data-screen-name="{{ $user->name }}" data-user-id="{{ $user->id }}">
                                         <span class="user-actions-follow-button js-follow-btn follow-button">
-                                            <a  href="{{ action('HomeController@seguir', ['seguido'=>$user->id]) }}" type="button" class="
-                                                EdgeButton
-                                                EdgeButton--secondary
-                                                EdgeButton--small 
-                                                
-                                                button-text
-                                                follow-text">
+                                            <a  href="{{ action('HomeController@seguir', ['seguido'=>$user->id]) }}" type="button" class="EdgeButton EdgeButton--secondary EdgeButton--small  button-text follow-text">
                                                 <span aria-hidden="true">Seguir</span>
                                                 <span class="u-hiddenVisually">Seguir a <span class="username u-dir u-textTruncate" dir="ltr">@<b>username</b></span></span>
                                             </a>
-                                            <button type="button" class="
-                                                EdgeButton
-                                                EdgeButton--primary
-                                                EdgeButton--small 
-                                                
-                                                button-text
-                                                following-text">
+                                            <button type="button" class=" EdgeButton EdgeButton--primary EdgeButton--small  button-text following-text">
                                                 <span aria-hidden="true">Siguiendo</span>
                                                 <span class="u-hiddenVisually">Siguiendo a <span class="username u-dir u-textTruncate" dir="ltr">@<b>username</b></span></span>
                                             </button>
-                                            <button type="button" class="
-                                                EdgeButton
-                                                EdgeButton--danger
-                                                EdgeButton--small 
-                                                
-                                                button-text
-                                                unfollow-text">
+                                            <button type="button" class="EdgeButton EdgeButton--danger EdgeButton--small  button-text unfollow-text">
                                                 <span aria-hidden="true">Dejar de seguir</span>
                                                 <span class="u-hiddenVisually">Dejar de seguir a <span class="username u-dir u-textTruncate" dir="ltr">@<b>username</b></span></span>
                                             </button>

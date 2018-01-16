@@ -16,11 +16,15 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
+
+Route::get('/seguir/{seguido}/dejarDeSeguir','HomeController@dejarDeSeguir');
+
 Route::get('/seguir/{seguido}','HomeController@seguir');
-Route::put('/seguir/{seguido}','HomeController@dejarDeSeguir');
 
 //Perfil
 Route::get('/{username}','PerfilController@perfil');
+Route::get('/{username}/following','PerfilController@perfilSiguiendo');
+Route::get('/{username}/followers','PerfilController@perfilSeguidores');
 
 //Tweet
 Route::post('/tweet', 'HomeController@nuevoTweet');

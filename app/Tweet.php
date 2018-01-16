@@ -12,7 +12,7 @@ class Tweet extends Model
      * @var array
      */
     protected $fillable = [
-        'fecha', 'mensaje', 'multimedia',
+        'fecha', 'mensaje', 'multimedia', 'descripcion', 'fondo'
     ];
 
     public function user() {

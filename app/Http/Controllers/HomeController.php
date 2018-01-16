@@ -64,6 +64,8 @@ class HomeController extends Controller
     }
 
     public function seguir($seguido){
+        error_log("Estoy en seguir");
+
         $id = Auth::id();
         $seguidor = User::find($id);
         $seguidor->seguidos()->attach($seguido);
@@ -71,6 +73,9 @@ class HomeController extends Controller
     }
 
     public function dejarDeSeguir($seguido){
+        error_log("Estoy en dejando de seguir");
+        error_log($seguido);
+
         $id = Auth::id();
         $seguidor = User::find($id);
         $seguidor->seguidos()->detach($seguido);
