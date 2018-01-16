@@ -16,6 +16,10 @@ class CreateConversationsTable extends Migration
         Schema::create('conversations', function (Blueprint $table) {
             $table->increments('id');
             $table->date('fechaInicio');
+            $table->integer('user1_id')->unsigned();
+            $table->foreign('user1_id')->references('id')->on('users')->onDelete('cascade');
+            $table->integer('user2_id')->unsigned();
+            $table->foreign('user2_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

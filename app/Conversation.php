@@ -6,9 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Conversation extends Model
 {
-    public function usuarios()
+    //Emisor
+    public function usuario1()
     {
-        return $this->belongsToMany('App\User', 'conversacion_usuario');
+        return $this->belongsTo('App\User', 'user1_id');
+    }
+    
+    //Remitente
+    public function usuario2()
+    {
+        return $this->belongsTo('App\User', 'user2_id');
     }
 
     public function mensajes() {

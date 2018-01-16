@@ -24,3 +24,6 @@ Route::get('/{username}','PerfilController@perfil');
 
 //Tweet
 Route::post('/tweet', 'HomeController@nuevoTweet');
+
+//Mensajes
+Route::get('/mensaje','MessageController@index');

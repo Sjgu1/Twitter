@@ -177,7 +177,7 @@ margin-right: 0px
                                 </li>
                                 <!-- Icono Mensajes, poner new si hya notificaciones a la class li-->
                                 <li class="dm-nav">
-                                    <a role="button" class="js-tooltip js-dynamic-tooltip global-dm-nav" data-placement="bottom" data-original-title="" data-toggle="modal" data-target="#mensajesModal">
+                                    <a role="button" class="js-tooltip js-dynamic-tooltip global-dm-nav" data-placement="bottom" href="{{action('MessageController@index')}}" data-original-title="" data-toggle="modal" data-target="#mensajesModal">
                                         <span class="Icon Icon--dm Icon--large"></span>
                                         <span class="text">Mensajes</span>
                                         <span class="dm-new">
@@ -422,7 +422,7 @@ margin-right: 0px
         @endif     
     </div>
     <!-- Modal Mensajes-->
-  <div class="modal fade modal-content" id="mensajesModal" role="dialog" style="top: 5%; left: 415px; position: absolute;width: 45vw; height: fit-content;" aria-labelledby="dm_dialog-header">
+  <div class="modal fade modal-content modal is-autoPosition" id="mensajesModal" role="dialog" style="top: 5%; left: 415px; position: absolute;width: 45vw; height: fit-content;" aria-labelledby="dm_dialog-header">
   <div class="js-first-tabstop" tabindex="0"></div>
     <div class="DMActivity DMInbox js-ariaDocument u-chromeOverflowFix DMActivity--open" role="document">
   <div class="DMActivity-header">
@@ -495,16 +495,40 @@ margin-right: 0px
     <div class="DMActivity-body js-ariaBody ">
           <div class="DMInbox-content u-scrollY">
       <div class="DMInbox-primary">
-        <ul class="DMInbox-conversations">  
-  
-  
-  
-  
-  
-  
-  
-  
-</ul>
+        <ul class="DMInbox-conversations"> 
+ 
+        <li class="DMInbox-conversationItem">
+        <div class="DMInboxItem" data-thread-id="301028364-390203992" data-sort-event-id="630408429719408643" data-last-message-id="630408429719408643" data-is-oto="true" data-is-muted="false">
+    <div class="DMInboxItem-avatar"><a href="/victorha_" class="js-action-profile js-user-profile-link" data-user-id="390203992">
+  <div class="DMAvatar DMAvatar--1 u-chromeOverflowFix">
+    <span class="DMAvatar-container">
+      <img class="DMAvatar-image" src="https://pbs.twimg.com/profile_images/829361515392299009/AdXn_nbO_200x200.jpg" alt="Víctor Hernández" title="Víctor Hernández">
+    </span>
+</div>
+
+</a>
+
+</div>
+
+    <div class="DMInboxItem-title account-group">
+      <b class="fullname">Víctor Hernández</b><span class="UserBadges"></span><span class="UserNameBreak">&nbsp;</span><span class="username u-dir u-textTruncate" dir="ltr">@<b>victorha_</b></span>
+    </div>
+  <div class="DMInboxItem-header">
+      <div class="DMInboxItem-timestamp"><span class="_timestamp" data-aria-label-part="last" data-time="1439136056" data-long-form="true" data-include-sec="true">
+</span>
+</div>
+  </div>
+
+  <div class="u-posRelative">
+
+      <p class="DMInboxItem-snippet ">
+      </p>
+
+  </div>
+</div>
+</li>
+
+        </ul>
         <div class="DMInbox-empty"><div class="DMEmptyState">
   <h2 class="DMEmptyState-header">
     Envía un mensaje, recibe un mensaje
