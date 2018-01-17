@@ -28,3 +28,6 @@ Route::get('/{username}/followers','PerfilController@perfilSeguidores');
 
 //Tweet
 Route::post('/tweet', 'HomeController@nuevoTweet');
+
+//Mensajes
+Route::get('/mensaje','MessageController@index');
