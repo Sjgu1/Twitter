@@ -103,6 +103,7 @@ class HomeController extends Controller
      }
     public function removeLike($tweet){
         Auth::user()->likes()->detach($tweet);
+        
         return back();         
     }
 

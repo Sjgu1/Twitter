@@ -41,12 +41,12 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function retweets()
     {
-        return $this->belongsToMany('App\Tweet', 'tweet_user_rt', 'id_tweet','id_user');
+        return $this->belongsToMany('App\Tweet', 'tweet_user_rt', 'id_tweet','id_user')->withTimestamps();;
     }
 
     public function likes()
     {
-        return $this->belongsToMany('App\Tweet', 'tweet_user_like', 'id_tweet','id_user');
+        return $this->belongsToMany('App\Tweet', 'tweet_user_like', 'id_tweet','id_user')->withTimestamps();;
     }
     public function seguidos()
     {

@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use Carbon\Carbon;
 use App\Tweet;
 use App\User;
+use Faker\Factory as Faker;
 
 class TweetsTableSeeder extends Seeder
 {
@@ -14,7 +15,7 @@ class TweetsTableSeeder extends Seeder
      */
     public function run()
     {
-        $dias = 1;
+        $dias = 5;
         $segundos = 86400;
 
         //$dias = 1;
@@ -377,8 +378,7 @@ class TweetsTableSeeder extends Seeder
 
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => 'Detenido por injurias y calumnias a la Corona y al Fiscal General del Estado en Twitter y YouTube.
-            SIEMPRE, #Respeto (Las redes no son un territorio sin ley)'
+            'mensaje' => 'Detenido por injurias y calumnias a la Corona y al Fiscal General del Estado en Twitter y YouTube.SIEMPRE, #Respeto (Las redes no son un territorio sin ley)'
         ]);
         $user = User::where('email', 'tomas@gmail.com')->first();
         $tweet->user()->associate($user);
@@ -388,8 +388,7 @@ class TweetsTableSeeder extends Seeder
         //Usuario: alicia
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => '
-            También dibujaron comida ,libros y un hospital.'
+            'mensaje' => 'También dibujaron comida ,libros y un hospital.'
         ]);
         $user = User::where('email', 'alicia@gmail.com')->first();
         $tweet->user()->associate($user);
@@ -429,12 +428,7 @@ class TweetsTableSeeder extends Seeder
 
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => 'Sino leiste este libro todavia,qué estas esperando? 
-
-            #TeoriaKingKong
-            #VirginieDespentes 
-            
-            Feminismo de y para las Putas. 💪'
+            'mensaje' => 'Sino leiste este libro todavia,qué estas esperando? #TeoriaKingKong] #VirginieDespentes Feminismo de y para las Putas. 💪'
         ]);
         $user = User::where('email', 'alicia@gmail.com')->first();
         $tweet->user()->associate($user);
@@ -502,10 +496,7 @@ class TweetsTableSeeder extends Seeder
         //Usuario: monica
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => 'Aquellos eran días de recuerdos aún no creados.
-            Eran memoria viva para el recuerdo de los días que estaban por venir. 
-            
-            #microcuento'
+            'mensaje' => 'Aquellos eran días de recuerdos aún no creados.Eran memoria viva para el recuerdo de los días que estaban por venir. #microcuento'
         ]);
         $user = User::where('email', 'monica@gmail.com')->first();
         $tweet->user()->associate($user);
@@ -513,8 +504,7 @@ class TweetsTableSeeder extends Seeder
 
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => 'Selfie. 
-            #concepto'
+            'mensaje' => 'Selfie.#concepto'
         ]);
         $user = User::where('email', 'monica@gmail.com')->first();
         $tweet->user()->associate($user);
@@ -546,8 +536,7 @@ class TweetsTableSeeder extends Seeder
 
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => 'Cuántas veces se puede desayunar el día de Reyes?
-            Es para un amigo.'
+            'mensaje' => 'Cuántas veces se puede desayunar el día de Reyes?Es para un amigo.'
         ]);
         $user = User::where('email', 'monica@gmail.com')->first();
         $tweet->user()->associate($user);
@@ -555,8 +544,7 @@ class TweetsTableSeeder extends Seeder
 
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => 'A mí los Reyes me ha echado de casa rumbo a mis vacaciones. 
-            #yesssssss'
+            'mensaje' => 'A mí los Reyes me ha echado de casa rumbo a mis vacaciones. #yesssssss'
         ]);
         $user = User::where('email', 'monica@gmail.com')->first();
         $tweet->user()->associate($user);
@@ -574,8 +562,7 @@ class TweetsTableSeeder extends Seeder
         $username= "john@gmail.com";
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => '“Con las ganas” cumple 12 años y lo celebra saliendo por la tele.
-            Esta noche, en @OT_Oficial; en las voces de Aitana y Amaia. 💛'
+            'mensaje' => '“Con las ganas” cumple 12 años y lo celebra saliendo por la tele.Esta noche, en @OT_Oficial; en las voces de Aitana y Amaia. 💛'
         ]);
         $user = User::where('email',  $username)->first();
         $tweet->user()->associate($user);
@@ -583,8 +570,7 @@ class TweetsTableSeeder extends Seeder
         
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => '¿Qué fue de aquella costumbre tan femenina y nada puritana de callar cuando sentías que un desconocido te hacía sentir su erección en la pierna o en el culo?
-            Esto de @Barbijaputa'
+            'mensaje' => '¿Qué fue de aquella costumbre tan femenina y nada puritana de callar cuando sentías que un desconocido te hacía sentir su erección en la pierna o en el culo?Esto de @Barbijaputa'
         ]);
         $user = User::where('email', $username)->first();
         $tweet->user()->associate($user);
@@ -592,12 +578,7 @@ class TweetsTableSeeder extends Seeder
 
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => 'Y, ahora,
-            ya no hay lugar
-            al que volver,
-            al que querer regresar.
-            #BSOdeviernes
-            "El frío" - @zaharapop'
+            'mensaje' => 'Y, ahora,ya no hay lugaral que volver,al que querer regresar.#BSOdeviernes"El frío" - @zaharapop'
         ]);
         $user = User::where('email', $username)->first();
         $tweet->user()->associate($user);
@@ -629,8 +610,7 @@ class TweetsTableSeeder extends Seeder
 
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => 'Los Reyes se han adelantado y me han traído la crisis de lactancia del tercer mes. 
-            #alegría #no'
+            'mensaje' => 'Los Reyes se han adelantado y me han traído la crisis de lactancia del tercer mes.  #alegría #no'
         ]);
         $user = User::where('email', $username)->first();
         $tweet->user()->associate($user);
@@ -684,8 +664,7 @@ class TweetsTableSeeder extends Seeder
 
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => '#LateMotiv327. ¿Vosotros sabíais lo de “El árbol y el río”? ¿Sí?, ¿No?
-            @davidbroncano es un experto y os lo explica.'
+            'mensaje' => '#LateMotiv327. ¿Vosotros sabíais lo de “El árbol y el río”? ¿Sí?, ¿No?@davidbroncano es un experto y os lo explica.'
         ]);
         $user = User::where('email', 'raquel@gmail.com')->first();
         $tweet->user()->associate($user);
@@ -727,8 +706,7 @@ class TweetsTableSeeder extends Seeder
 
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => "'#LateMotiv327. @BobPopLATEMOTIV se ha leído 'Fire and Fury: Inside the Trump White House' 
-
+            'mensaje' => "'#LateMotiv327. @BobPopLATEMOTIV se ha leído 'Fire and Fury: Inside the Trump White House'
             Andreu: ¿Qué tal?
             Bob: M A D R E M I A D E L A M O R H E R M O S O.'"
         ]);
@@ -791,9 +769,7 @@ class TweetsTableSeeder extends Seeder
 
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => '"Recórtate el pienso Andreu que vas como un odre de vino". 
-            Andreu (ternasco) y Broncano (el puma) están de vuelta en #0 de @MovistarPlus.
-            ¡#LateMotiv324 comienza en 20 minutos!'
+            'mensaje' => '"Recórtate el pienso Andreu que vas como un odre de vino". Andreu (ternasco) y Broncano (el puma) están de vuelta en #0 de @MovistarPlus.¡#LateMotiv324 comienza en 20 minutos!'
         ]);
         $user = User::where('email', 'noe@gmail.com')->first();
         $tweet->user()->associate($user);
@@ -859,8 +835,7 @@ class TweetsTableSeeder extends Seeder
 
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => 'A pocos días de que acabe el año, la despedida de @LateMotivCero, hasta el 2018, no se alarmen, nos ha regalado el mejor gif del 2017. 
-            @SmoothArkano vs @davidbroncano  #perreostyle'
+            'mensaje' => 'A pocos días de que acabe el año, la despedida de @LateMotivCero, hasta el 2018, no se alarmen, nos ha regalado el mejor gif del 2017. @SmoothArkano vs @davidbroncano  #perreostyle'
         ]);
         $user = User::where('email', 'hector@gmail.com')->first();
         $tweet->user()->associate($user);
@@ -910,9 +885,7 @@ class TweetsTableSeeder extends Seeder
 
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => "As a trans woman married to a cis woman, I’m in what I call Schrödinger's Marriage:
-
-Conservatives tell me that my marriage isn’t legitimate because they oppose two women being married — while at the same time calling me a man (in which case, they should have no problem, right?)"
+            'mensaje' => "As a trans woman married to a cis woman, I’m in what I call Schrödinger's Marriage:Conservatives tell me that my marriage isn’t legitimate because they oppose two women being married — while at the same time calling me a man (in which case, they should have no problem, right?)"
         ]);
         $user = User::where('email', 'joe@gmail.com')->first();
         $tweet->user()->associate($user);
@@ -941,8 +914,7 @@ Conservatives tell me that my marriage isn’t legitimate because they oppose tw
 
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => 'Maemía @akselsvindal ❄️🚀 
-            #ValGardena'
+            'mensaje' => 'Maemía @akselsvindal ❄️🚀 #ValGardena'
         ]);
         $user = User::where('email', 'joe@gmail.com')->first();
         $tweet->user()->associate($user);
@@ -1450,9 +1422,7 @@ Conservatives tell me that my marriage isn’t legitimate because they oppose tw
         $tweet->save();
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => '#взаимныйфолловинг #followback #BTC #ETH #altcoin #bitcointalk #Криптовалюты #взаимоподписка #ICO #Bounty #Blockchain #Баунти …
-
-            '
+            'mensaje' => '#взаимныйфолловинг #followback #BTC #ETH #altcoin #bitcointalk #Криптовалюты #взаимоподписка #ICO #Bounty #Blockchain #Баунти …'
         ]);
         $user = User::where('email', $usuario)->first();
         $tweet->user()->associate($user);
@@ -1601,16 +1571,14 @@ Conservatives tell me that my marriage isn’t legitimate because they oppose tw
         $tweet->save();
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => 'Wer sich nicht selbst helfen will, dem kann niemand helfen.
-            *Johann Heinrich Pestalozzi*'
+            'mensaje' => 'Wer sich nicht selbst helfen will, dem kann niemand helfen.*Johann Heinrich Pestalozzi*'
         ]);
         $user = User::where('email', $usuario)->first();
         $tweet->user()->associate($user);
         $tweet->save();
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => 'Sparsamkeit ist die Lieblingsregel aller halblebendigen Menschen.
-            *Henry Ford*'
+            'mensaje' => 'Sparsamkeit ist die Lieblingsregel aller halblebendigen Menschen.*Henry Ford*'
         ]);
         $user = User::where('email', $usuario)->first();
         $tweet->user()->associate($user);
@@ -1619,8 +1587,7 @@ Conservatives tell me that my marriage isn’t legitimate because they oppose tw
         $usuario = "jose@gmail.com";;
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => 'Journalisten: Wegelagerer und Indiskretins.
-            *Helmut Schmidt*'
+            'mensaje' => 'Journalisten: Wegelagerer und Indiskretins.*Helmut Schmidt*'
         ]);
         $user = User::where('email', $usuario)->first();
         $tweet->user()->associate($user);
@@ -1635,9 +1602,7 @@ Conservatives tell me that my marriage isn’t legitimate because they oppose tw
         $tweet->save();
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => 'Kein Problem wird gelöst, wenn wir träge darauf warten, dass Gott sich darum kümmert.
-    
-            *Martin Luther King*'
+            'mensaje' => 'Kein Problem wird gelöst, wenn wir träge darauf warten, dass Gott sich darum kümmert.*Martin Luther King*'
         ]);
         $user = User::where('email', $usuario)->first();
         $tweet->user()->associate($user);
@@ -1647,8 +1612,7 @@ Conservatives tell me that my marriage isn’t legitimate because they oppose tw
         $usuario = "julio@gmail.com";;
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => 'Mit Verlaub, Herr Präsident, Sie sind ein Arschloch.
-            *Joschka Fischer*'
+            'mensaje' => 'Mit Verlaub, Herr Präsident, Sie sind ein Arschloch.*Joschka Fischer*'
         ]);
         $user = User::where('email', $usuario)->first();
         $tweet->user()->associate($user);
@@ -2025,8 +1989,22 @@ Conservatives tell me that my marriage isn’t legitimate because they oppose tw
         $tweet->user()->associate($user);
         $tweet->save();
 
-
-
+        $faker = Faker::create();
+        $users = User::all();
+        foreach($users as $user){
+            $num=range(1,235);
+            shuffle($num);
+            for ($i=0; $i<rand(10,60); $i++) {      
+          
+                
+                $tweet = new Tweet([
+                    'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
+                    'mensaje' => $faker->realText($maxNbChars = 200, $indexSize = 2),
+                ]);
+                $tweet->user()->associate($user);
+                $tweet->save();
+            }  
+        }
         
 
     

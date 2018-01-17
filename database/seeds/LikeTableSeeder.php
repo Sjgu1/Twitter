@@ -18,7 +18,7 @@ class LikeTableSeeder extends Seeder
         DB::table('tweet_user_like')->delete();
         sleep(2);
 
-        $segundos = 1000000;
+        $segundos = 100;
         $minutos = 90;
         $horas = 90;
         $dt = Carbon::now();
@@ -27,7 +27,7 @@ class LikeTableSeeder extends Seeder
         foreach($users as $user){
             $num=range(1,235);
             shuffle($num);
-            for ($i=0; $i<rand(10,60); $i++) {      
+            for ($i=0; $i<rand(30,60); $i++) {      
                 $tweet= Tweet::where('id', $num[$i])->first(); 
                 $fecha = Carbon::parse($tweet->fecha)->addSeconds(rand(0, $segundos))->addMinutes(rand(0, $minutos))->addHours(rand(0, $horas));
                 
@@ -38,9 +38,8 @@ class LikeTableSeeder extends Seeder
                 DB::table('tweet_user_like')->insert([     
                     'id_tweet' => $num[$i],
                     'id_user' => $user->id,
-                    'fecha_creacion' => $fecha
+                    'created_at' => $fecha
                 ]);  
-                $user->likes()->attach($tweet->id);
             }  
         }
 

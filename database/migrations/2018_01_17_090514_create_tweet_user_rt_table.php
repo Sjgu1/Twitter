@@ -19,7 +19,6 @@ class CreateTweetUserRtTable extends Migration
             $table->integer('id_user')->unsigned();
             $table->foreign('id_tweet')->references('id')->on('tweets');
             $table->foreign('id_user')->references('id')->on('users');
-            $table->dateTime('fecha_creacion')->nullable();
             $table->timestamps();
         });
     }

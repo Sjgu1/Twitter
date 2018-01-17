@@ -21,12 +21,12 @@ class Tweet extends Model
 
     public function retweetsUsers()
     {
-        return $this->belongsToMany('App\User', 'tweet_user_rt', 'id_user','id_tweet');
+        return $this->belongsToMany('App\User', 'tweet_user_rt', 'id_user','id_tweet')->withTimestamps();;
     }
     
     public function likesUsers()
     {
-        return $this->belongsToMany('App\User', 'tweet_user_like', 'id_user','id_tweet');
+        return $this->belongsToMany('App\User', 'tweet_user_like', 'id_user','id_tweet')->withTimestamps();;
     }
 
 }
