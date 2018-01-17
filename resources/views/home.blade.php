@@ -45,6 +45,7 @@
                     </div>
                     <!-- Fin Cuadro lateral izquierd-->
                     <!-- Cuadro central, tweets  -->
+                    
                     <div aria-labelledby="content-main-heading" class="content-main top-timeline-tweetbox" id="timeline" role="main" tabindex="-1">
                         <div id="above-timeline-prompt"></div>
                         <div class="timeline-tweet-box">
@@ -226,22 +227,42 @@
                                             </button>
                                             </div>
 
-                                                <div class="ProfileTweet-action ProfileTweet-action--retweet js-toggleState js-toggleRt">
-                                            <button class="ProfileTweet-actionButton  js-actionButton js-actionRetweet" data-modal="ProfileTweet-retweet" type="button" aria-describedby="profile-tweet-action-retweet-count-aria-951439183674998785">
-                                                <div class="IconContainer js-tooltip" data-original-title="Retwittear">
-                                                <span class="Icon Icon--medium Icon--retweet"></span>
-                                                <span class="u-hiddenVisually">Retwittear</span>
-                                                </div>
-                                                <span class="ProfileTweet-actionCount">
-                                                <span class="ProfileTweet-actionCountForPresentation" aria-hidden="tue">
-                                                <!-- Poner aqui el numero de retweets -->3
+                                                <div class="ProfileTweet-action " >
+                                            @foreach($conectado->retweets()->get() as $reTweetUsuario)
+                                            <?php $haRetwiteado=false ?>
+                                                @if($tweet->id == $reTweetUsuario->id)
+                                                <?php $haRetwiteado=true ?>
+                                                @break
+                                                @endif
+
+
+                                            @endforeach
+                                            @if($haRetwiteado == false)
+                                                <a href="{{ action('HomeController@addRT', ['tweet'=>$tweet->id]) }}" class="ProfileTweet-actionButton" data-modal="ProfileTweet-retweet" type="button" aria-describedby="profile-tweet-action-retweet-count-aria-951439183674998785">
+                                                    <div class="IconContainer js-tooltip" data-original-title="Retwittear">
+                                                    <span class="Icon Icon--medium Icon--retweet"></span>
+                                                    <span class="u-hiddenVisually">Retwittear</span>
+                                                    </div>
+                                                    <span class="ProfileTweet-actionCount">
+                                                    <span class="ProfileTweet-actionCountForPresentation" aria-hidden="tue" >{{$tweet->retweetsUsers()->count()}}
+                                                    </span>
                                                 </span>
-                                            </span>
 
-                                            </button>
+                                                </a>
+                                                @else
+                                                <a href="{{ action('HomeController@removeRT', ['tweet'=>$tweet->id]) }}" class="ProfileTweet-actionButton js-actionButton js-actionRetweet"  style="color:#17bf63;"data-modal="ProfileTweet-retweet" type="button" aria-describedby="profile-tweet-action-retweet-count-aria-951439183674998785">
+                                                    <div class="IconContainer js-tooltip" data-original-title="Deshacer Retweet">
+                                                    <span class="Icon Icon--medium Icon--retweet"></span>
+                                                    <span class="u-hiddenVisually">Deshacer Retweet</span>
+                                                    </div>
+                                                    <span class="ProfileTweet-actionCount">
+                                                    <span class="ProfileTweet-actionCountForPresentation" aria-hidden="tue" style="color:#17bf63;" >{{$tweet->retweetsUsers()->count()}}
+                                                    </span>
+                                                </span>
+
+                                                </a>
+                                                @endif
                                             </div>
-
-
                                                 <div class="ProfileTweet-action ProfileTweet-action--favorite js-toggleState">
                                             <button class="ProfileTweet-actionButton js-actionButton js-actionFavorite" type="button" aria-describedby="profile-tweet-action-favorite-count-aria-951439183674998785">
                                                 <div class="IconContainer js-tooltip" data-original-title="Me gusta">

@@ -16,10 +16,13 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 
-
+//Seguir
 Route::get('/seguir/{seguido}/dejarDeSeguir','HomeController@dejarDeSeguir');
-
 Route::get('/seguir/{seguido}','HomeController@seguir');
+
+//RT
+Route::get('/{tweet}/hacerRT','HomeController@addRT');
+Route::get('/{tweet}/quitar/deshacerRT','HomeController@removeRT');
 
 //Perfil
 Route::get('/{username}','PerfilController@perfil');

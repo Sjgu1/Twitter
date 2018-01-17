@@ -59,7 +59,7 @@ class PerfilController extends Controller
         //dd($user);
         //dd(Auth::user(), Auth::Guest());
 
-        return view('perfil/perfil', ['user' => $user,'users' => $users, 'seguidos'=>$follows, 'seguidores'=>$followers, 'tweets'=>$tweets ,'tweetsEscritos'=>$escritos,
+        return view('perfil/perfil', ['conectado'=> Auth::user(),'user' => $user,'users' => $users, 'seguidos'=>$follows, 'seguidores'=>$followers, 'tweets'=>$tweets ,'tweetsEscritos'=>$escritos,
         'usuarioConectadoFollowing' => $this->checkFollowingDeUsuarioConectado($id)]); 
     }
 

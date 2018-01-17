@@ -35,7 +35,14 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     ];
 
  
- 
+    public function tweets() {
+        return $this->hasMany('App\Tweet');
+    }
+
+    public function retweets()
+    {
+        return $this->belongsToMany('App\Tweet', 'tweet_user_rt', 'id_tweet','id_user');
+    }
     public function seguidos()
     {
         return $this->belongsToMany('App\User', 'seguidos_seguidores', 'id_seguidor', 'id_seguido');
@@ -56,12 +63,5 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->hasMany('App\Conversation', 'user2_id');
     }
 
-    public function tweets() {
-        return $this->hasMany('App\Tweet');
-    }
 
-    public function retweets()
-    {
-        return $this->belongsToMany('App\Tweet', 'tweet_user_rt', 'id_tweet','id_user');
-    }
 }

@@ -59,13 +59,11 @@ class HomeController extends Controller
         }
         $merge = $merge->sortByDesc('fecha');
         //dd(Auth::user(), Auth::Guest());
-
-        return view('home', ['users' => $users, 'seguidos'=>$follows, 'seguidores'=>$followers, 'tweets'=>$merge ,'tweetsEscritos'=>$escritos]); 
+       // dd($user->retweets()->get());
+        return view('home', ['conectado'=> $user,'users' => $users, 'seguidos'=>$follows, 'seguidores'=>$followers, 'tweets'=>$merge ,'tweetsEscritos'=>$escritos]); 
     }
 
     public function seguir($seguido){
-        error_log("Estoy en seguir");
-
         $id = Auth::id();
         $seguidor = User::find($id);
         $seguidor->seguidos()->attach($seguido);
@@ -73,9 +71,6 @@ class HomeController extends Controller
     }
 
     public function dejarDeSeguir($seguido){
-        error_log("Estoy en dejando de seguir");
-        error_log($seguido);
-
         $id = Auth::id();
         $seguidor = User::find($id);
         $seguidor->seguidos()->detach($seguido);
@@ -91,6 +86,16 @@ class HomeController extends Controller
         $user = Auth::user();
         $tweet->user()->associate($user);
         $tweet->save();
+     }
+
+    public function addRT($tweet){
+        error_log($tweet);
+        Auth::user()->retweets()->attach($tweet);
+        return back();         
+     }
+    public function removeRT($tweet){
+        Auth::user()->retweets()->detach($tweet);
+        return back();         
      }
 
      
