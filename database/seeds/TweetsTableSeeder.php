@@ -1989,6 +1989,8 @@ class TweetsTableSeeder extends Seeder
         $tweet->user()->associate($user);
         $tweet->save();
 
+
+        /* //Extra Seeders
         $faker = Faker::create();
         $users = User::all();
         foreach($users as $user){
@@ -2001,7 +2003,7 @@ class TweetsTableSeeder extends Seeder
                 $tweet->save();
             }  
         }
-        
+        */
 
     
 

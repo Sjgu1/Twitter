@@ -20,7 +20,7 @@ class RTTableSeeder extends Seeder
 
         $segundos = 100;
         $minutos = 90;
-        $horas = 90;
+        $horas = 24;
         $dt = Carbon::now();
         
         $contador = 0;
@@ -28,7 +28,7 @@ class RTTableSeeder extends Seeder
         foreach($users as $user){
             $num=range(1,Tweet::all()->count());           
             shuffle($num);
-            $max = rand(70,150);
+            $max = rand(1,5);
             $last = count($num)-1;
 
 
@@ -43,6 +43,10 @@ class RTTableSeeder extends Seeder
                     $tweet= Tweet::where('id', $num[$valor])->first(); 
 
                     $fecha = Carbon::parse($tweet->fecha)->addSeconds(rand(0, $segundos))->addMinutes(rand(0, $minutos))->addHours(rand(0, $horas));
+
+                    if($fecha->isFuture()){
+                        $fecha = Carbon::parse($tweet->fecha)->addSeconds(rand(0, $segundos))->addMinutes(rand(0, $minutos))->addHours(rand(0, 2));
+                    } 
 
                     if($fecha->isFuture()){
                         $fecha = Carbon::now();

@@ -159,10 +159,23 @@
                         <div class="stream-container conversations-enabled ">
                             <div class="stream">
                                 <ol id="listaTweets"class="stream-items js-navigable-stream">
-                                @foreach ($tweets as $tweet)
 
+                                @foreach ($tweets as $tweet)
+                            
                                 <li class="js-stream-item stream-item stream-item">
                                     <div class="tweet js-stream-tweet js-actionable-tweet js-profile-popup-actionable dismissible-content original-tweet js-original-tweet has-cards cards-forward">
+                                    <div class="context">
+                                    @if($tweet->esRT == true)
+
+                                            <div class="tweet-context with-icn">
+                                                <span class="Icon Icon--small Icon--retweeted"></span>
+                                                 <span class="js-retweet-text">
+                                                    <a class="pretty-link js-user-profile-link" href="/{{$tweet->userRT->username}}" data-user-id="81577367" rel="noopener"><b>{{$tweet->userRT->username}}</b></a> retwitteó
+                                                        </span>
+                                                </div>
+                                                @endif
+                                            </div>
+                                           
                                         <div class="content">
                                             <div class="stream-item-header">
                                                 <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/{{$tweet->user->username}}">

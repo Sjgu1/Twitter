@@ -56,10 +56,43 @@ class HomeController extends Controller
             $followingTweets = User::find($following->id)->tweets()->orderBy('fecha', 'desc')->with('user')->get();
 
             $merge = $merge->merge($followingTweets);
+            
         }
         $merge = $merge->sortByDesc('fecha');
+
+        //Mis cosas para los rt
+        foreach ($merge as $tweet){
+            $tweet->esRT = false;
+            $tweet->userRT = false;
+            $tweet->fechaRT = $tweet->fecha;
+
+        }
+        $rtPorUsuario = $user->retweets;
+        foreach($rtPorUsuario as $tweet){
+            $tweet->esRT = true;
+            $tweet->userRT = $user;
+            $tweet->fechaRT = DB::table('tweet_user_rt')->where('id_tweet','=', $user->id)->where('id_user', '=',$tweet->id)->pluck('created_at')->get(0);
+            //dd( $tweet->fechaRT);
+        } 
+        $merge = $merge->merge($rtPorUsuario);
+
+        foreach($follows as $siguiendo){
+            $rtPorUsuario = $siguiendo->retweets;
+            foreach($rtPorUsuario as $tweet){
+                $tweet->esRT = true;
+                $tweet->userRT = $siguiendo;
+                $tweet->fechaRT = DB::table('tweet_user_rt')->where('id_tweet','=', $siguiendo->id)->where('id_user', '=',$tweet->id)->pluck('created_at')->get(0);
+            }
+            $merge = $merge->merge($rtPorUsuario);
+        } 
+        $merge = $merge->sortByDesc('fechaRT');
+
+
         //dd(Auth::user(), Auth::Guest());
-       // dd($user->retweets()->get());
+        //$retweets = DB::table('tweet_user_rt')->where('id_user', 1)->get();
+        //$retweets = $merge->merge($follows);
+        //$user->nuevo= true;
+        //print_r($rtPorUsuario);
         return view('home', ['conectado'=> $user,'users' => $users, 'seguidos'=>$follows, 'seguidores'=>$followers, 'tweets'=>$merge ,'tweetsEscritos'=>$escritos]); 
     }
 
@@ -69,7 +102,6 @@ class HomeController extends Controller
         $seguidor->seguidos()->attach($seguido);
         return back();
     }
-
     public function dejarDeSeguir($seguido){
         $id = Auth::id();
         $seguidor = User::find($id);
