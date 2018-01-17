@@ -23,26 +23,34 @@ class RTTableSeeder extends Seeder
         $horas = 90;
         $dt = Carbon::now();
         
+        $contador = 0;
         $users = User::all();
         foreach($users as $user){
-            $num=range(1,393);
+            $num=range(1,Tweet::all()->count());           
             shuffle($num);
-            for ($i=0; $i<rand(50,150); $i++) {      
-                $tweet= Tweet::where('id', $num[$i])->first(); 
-                $fecha = Carbon::parse($tweet->fecha)->addSeconds(rand(0, $segundos))->addMinutes(rand(0, $minutos))->addHours(rand(0, $horas));
-                
-                if($fecha->isFuture()){
-                    $fecha = Carbon::now();
-                }               
+            $max = rand(70,150);
+            $last = count($num)-1;
 
-                DB::table('tweet_user_rt')->insert([     
-                    'id_tweet' => $num[$i],
-                    'id_user' => $user->id,
-                    'created_at' => $fecha
-                ]);  
-            }  
+
+            for ($i = 0; $i < $max; $i++) {
+
+                if (count($num))
+                {
+                    $contador++;
+                    $valor = rand(0, $last );
+                    $user->retweets()->attach( $num[ $valor ] );
+
+                    $tweet= Tweet::where('id', $num[$valor])->first(); 
+
+                    $fecha = Carbon::parse($tweet->fecha)->addSeconds(rand(0, $segundos))->addMinutes(rand(0, $minutos))->addHours(rand(0, $horas));
+
+                    if($fecha->isFuture()){
+                        $fecha = Carbon::now();
+                    } 
+                    DB::table('tweet_user_rt')->where('id', $contador)->update(['created_at'=> $fecha]);    
+                }
+            }
         }
-
     }
     
 }

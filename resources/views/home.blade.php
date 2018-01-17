@@ -160,6 +160,7 @@
                             <div class="stream">
                                 <ol id="listaTweets"class="stream-items js-navigable-stream">
                                 @foreach ($tweets as $tweet)
+
                                 <li class="js-stream-item stream-item stream-item">
                                     <div class="tweet js-stream-tweet js-actionable-tweet js-profile-popup-actionable dismissible-content original-tweet js-original-tweet has-cards cards-forward">
                                         <div class="content">
@@ -279,7 +280,8 @@
                                                 @endif
                                             </div>
                                                 <div class="ProfileTweet-action">
-                                                @foreach($conectado->likes()->get() as $likesUsuario)
+                                                <?php $haDadoLike=false ?>
+                                                @foreach($conectado->likes as $likesUsuario)
                                             <?php $haDadoLike=false ?>
                                                 @if($tweet->id == $likesUsuario->id)
                                                 <?php $haDadoLike=true ?>

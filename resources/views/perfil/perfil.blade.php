@@ -370,6 +370,8 @@
 																					@endif
 																				</div>
 																				<div class="ProfileTweet-action">
+																				<?php $haDadoLike=false ?>
+
                                                 @foreach($conectado->likes()->get() as $likesUsuario)
                                             <?php $haDadoLike=false ?>
                                                 @if($tweet->id == $likesUsuario->id)
