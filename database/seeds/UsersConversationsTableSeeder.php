@@ -28,6 +28,36 @@ class UsersConversationsTableSeeder extends Seeder
         $conver->usuario1()->associate($user);
         $conver->usuario2()->associate($user2);
         $conver->save();
+
+        //sergio-bea
+        $conver = new Conversation([
+            'fechaInicio' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
+        ]);
+        $user = User::where('email', 'sergio@gmail.com')->first();
+        $user2 = User::where('email', 'bea@gmail.com')->first();
+        $conver->usuario1()->associate($user);
+        $conver->usuario2()->associate($user2);
+        $conver->save();
+
+        //andre-mario
+        $conver = new Conversation([
+            'fechaInicio' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
+        ]);
+        $user = User::where('email', 'andre@gmail.com')->first();
+        $user2 = User::where('email', 'mario@gmail.com')->first();
+        $conver->usuario1()->associate($user);
+        $conver->usuario2()->associate($user2);
+        $conver->save();
+
+        //sergio-raquel
+        $conver = new Conversation([
+            'fechaInicio' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
+        ]);
+        $user = User::where('email', 'sergio@gmail.com')->first();
+        $user2 = User::where('email', 'raquel@gmail.com')->first();
+        $conver->usuario1()->associate($user);
+        $conver->usuario2()->associate($user2);
+        $conver->save();
         
     }
 }
