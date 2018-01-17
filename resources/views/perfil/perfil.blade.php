@@ -91,10 +91,10 @@
 													</a>
 												</li>
 												<li class="ProfileNav-item ProfileNav-item--favorites" data-more-item=".ProfileNav-dropdownItem--favorites">
-													<a class="ProfileNav-stat ProfileNav-stat--link u-borderUserColor u-textCenter js-tooltip js-nav u-textUserColor" title="1 Me gusta" data-nav="favorites" href="/i/likes">
+													<a class="ProfileNav-stat ProfileNav-stat--link u-borderUserColor u-textCenter js-tooltip js-nav u-textUserColor" title="{{$user->likes()->count()}} Me gusta" data-nav="favorites" href="/{{$user->username}}/likes">
 														<span class="ProfileNav-label" aria-hidden="true">Me gusta</span>
 														<span class="u-hiddenVisually">Me gusta</span>
-														<span class="ProfileNav-value" data-count="1" data-is-compact="false">1</span>
+														<span class="ProfileNav-value" data-count="{{$user->likes->count()}}" data-is-compact="false">{{$user->likes()->count()}}</span>
 													</a>
 												</li>
 												<li class="ProfileNav-item ProfileNav-item--lists" data-more-item=".ProfileNav-dropdownItem--lists">
@@ -369,27 +369,53 @@
 																					</a>
 																					@endif
 																				</div>
-																				<div class="ProfileTweet-action ProfileTweet-action--favorite js-toggleState">
-																					<button class="ProfileTweet-actionButton js-actionButton js-actionFavorite" type="button" aria-describedby="profile-tweet-action-favorite-count-aria-951439183674998785">
-																						<div class="IconContainer js-tooltip" data-original-title="Me gusta">
-																							<span role="presentation" class="Icon Icon--heart Icon--medium"></span>
-																							<div class="HeartAnimation"></div>
-																							<span class="u-hiddenVisually">Me gusta</span>
-																						</div>
-																						<span class="ProfileTweet-actionCount ProfileTweet-actionCount--isZero">
-																							<span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">
-																								<!-- Poner aqui el numero de megustas -->2
+																				<div class="ProfileTweet-action">
+                                                @foreach($conectado->likes()->get() as $likesUsuario)
+                                            <?php $haDadoLike=false ?>
+                                                @if($tweet->id == $likesUsuario->id)
+                                                <?php $haDadoLike=true ?>
+                                                @break
+                                                @endif
 
-                                                
-																							
-																							</span>
-																						</span>
-																					</button>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																</li>
+
+                                            @endforeach
+                                            @if($haDadoLike == false)
+                                            <a href="{{ action('HomeController@addLike', ['tweet'=>$tweet->id]) }}" class="ProfileTweet-actionButton " type="button" aria-describedby="profile-tweet-action-favorite-count-aria-951439183674998785">
+                                                <div class="IconContainer js-tooltip" data-original-title="Me gusta">
+                                                <span role="presentation" class="Icon Icon--heart Icon--medium"></span>
+                                                <div class="HeartAnimation"></div>
+                                                <span class="u-hiddenVisually">Me gusta</span>
+                                                </div>
+                                                <span class="ProfileTweet-actionCount ProfileTweet-actionCount--isZero">
+                                                <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">{{$tweet->likesUsers()->count()}}
+
+                                                </span>
+                                            </span>
+
+                                            </a>
+
+                                            @else
+                                            <a  style="color:#e0245e;" href="{{ action('HomeController@removeLike', ['tweet'=>$tweet->id]) }}" class="ProfileTweet-actionButton " type="button" aria-describedby="profile-tweet-action-favorite-count-aria-951439183674998785">
+                                                <div  style="color:#e0245e;"class="IconContainer js-tooltip" data-original-title="Deshacer me gusta">
+                                                <span  style="color:#e0245e;"role="presentation" class="Icon Icon--heart Icon--medium"></span>
+                                                <div class="HeartAnimation" style=" background-position: right;"></div>
+                                                <span class="u-hiddenVisually">Deshacer me gusta</span>
+                                                </div>
+                                                <span class="ProfileTweet-actionCount ProfileTweet-actionCount--isZero">
+                                                <span  style="color:#e0245e;" class="ProfileTweet-actionCountForPresentation" aria-hidden="true">
+                                                 <!-- Poner aqui el numero de megustas -->{{$tweet->likesUsers()->count()}}
+
+                                                </span>
+                                            </span>
+                                            </a>
+                                            @endif
+
+                                            </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </li>
                                 @endforeach
                                 
 															

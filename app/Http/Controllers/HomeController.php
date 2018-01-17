@@ -89,7 +89,6 @@ class HomeController extends Controller
      }
 
     public function addRT($tweet){
-        error_log($tweet);
         Auth::user()->retweets()->attach($tweet);
         return back();         
      }
@@ -97,6 +96,15 @@ class HomeController extends Controller
         Auth::user()->retweets()->detach($tweet);
         return back();         
      }
+
+     public function addLike($tweet){
+        Auth::user()->likes()->attach($tweet);
+        return back();         
+     }
+    public function removeLike($tweet){
+        Auth::user()->likes()->detach($tweet);
+        return back();         
+    }
 
      
 }

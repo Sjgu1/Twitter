@@ -1,5 +1,20 @@
 @extends('layouts.app')
 @section('content')
+<style>
+.HeartAnimation {
+    position: absolute;
+    background-image: url(http://abs.twimg.com/a/1515735725/img/animations/web_heart_animation_edge.png);
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: 2900%;
+    height: 50px;
+    width: 50px;
+    left: 50%;
+    top: 50%;
+    -ms-transform: translate(-50%,-47.5%);
+    transform: translate(-50%,-47.5%);
+}
+</style>
 <!--  Espacio Principal-->
             <div id="page-outer">
                 <div id="page-container" class="AppContent wrapper wrapper-home">
@@ -250,7 +265,7 @@
 
                                                 </a>
                                                 @else
-                                                <a href="{{ action('HomeController@removeRT', ['tweet'=>$tweet->id]) }}" class="ProfileTweet-actionButton js-actionButton js-actionRetweet"  style="color:#17bf63;"data-modal="ProfileTweet-retweet" type="button" aria-describedby="profile-tweet-action-retweet-count-aria-951439183674998785">
+                                                <a href="{{ action('HomeController@removeRT', ['tweet'=>$tweet->id]) }}" class="ProfileTweet-actionButton"  style="color:#17bf63;"data-modal="ProfileTweet-retweet" type="button" aria-describedby="profile-tweet-action-retweet-count-aria-951439183674998785">
                                                     <div class="IconContainer js-tooltip" data-original-title="Deshacer Retweet">
                                                     <span class="Icon Icon--medium Icon--retweet"></span>
                                                     <span class="u-hiddenVisually">Deshacer Retweet</span>
@@ -263,21 +278,47 @@
                                                 </a>
                                                 @endif
                                             </div>
-                                                <div class="ProfileTweet-action ProfileTweet-action--favorite js-toggleState">
-                                            <button class="ProfileTweet-actionButton js-actionButton js-actionFavorite" type="button" aria-describedby="profile-tweet-action-favorite-count-aria-951439183674998785">
+                                                <div class="ProfileTweet-action">
+                                                @foreach($conectado->likes()->get() as $likesUsuario)
+                                            <?php $haDadoLike=false ?>
+                                                @if($tweet->id == $likesUsuario->id)
+                                                <?php $haDadoLike=true ?>
+                                                @break
+                                                @endif
+
+
+                                            @endforeach
+                                            @if($haDadoLike == false)
+                                            <a href="{{ action('HomeController@addLike', ['tweet'=>$tweet->id]) }}" class="ProfileTweet-actionButton " type="button" aria-describedby="profile-tweet-action-favorite-count-aria-951439183674998785">
                                                 <div class="IconContainer js-tooltip" data-original-title="Me gusta">
                                                 <span role="presentation" class="Icon Icon--heart Icon--medium"></span>
                                                 <div class="HeartAnimation"></div>
                                                 <span class="u-hiddenVisually">Me gusta</span>
                                                 </div>
                                                 <span class="ProfileTweet-actionCount ProfileTweet-actionCount--isZero">
-                                                <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">
-                                                 <!-- Poner aqui el numero de megustas -->2
+                                                <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">{{$tweet->likesUsers()->count()}}
 
                                                 </span>
                                             </span>
 
-                                            </button>
+                                            </a>
+
+                                            @else
+                                            <a  style="color:#e0245e;" href="{{ action('HomeController@removeLike', ['tweet'=>$tweet->id]) }}" class="ProfileTweet-actionButton " type="button" aria-describedby="profile-tweet-action-favorite-count-aria-951439183674998785">
+                                                <div  style="color:#e0245e;"class="IconContainer js-tooltip" data-original-title="Deshacer me gusta">
+                                                <span  style="color:#e0245e;"role="presentation" class="Icon Icon--heart Icon--medium"></span>
+                                                <div class="HeartAnimation" style=" background-position: right;"></div>
+                                                <span class="u-hiddenVisually">Deshacer me gusta</span>
+                                                </div>
+                                                <span class="ProfileTweet-actionCount ProfileTweet-actionCount--isZero">
+                                                <span  style="color:#e0245e;" class="ProfileTweet-actionCountForPresentation" aria-hidden="true">
+                                                 <!-- Poner aqui el numero de megustas -->{{$tweet->likesUsers()->count()}}
+
+                                                </span>
+                                            </span>
+                                            </a>
+                                            @endif
+
                                             </div>
                                             </div>
 

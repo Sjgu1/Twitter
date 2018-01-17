@@ -24,5 +24,9 @@ class Tweet extends Model
         return $this->belongsToMany('App\User', 'tweet_user_rt', 'id_user','id_tweet');
     }
     
+    public function likesUsers()
+    {
+        return $this->belongsToMany('App\User', 'tweet_user_like', 'id_user','id_tweet');
+    }
 
 }

@@ -24,6 +24,10 @@ Route::get('/seguir/{seguido}','HomeController@seguir');
 Route::get('/{tweet}/hacerRT','HomeController@addRT');
 Route::get('/{tweet}/quitar/deshacerRT','HomeController@removeRT');
 
+//Like
+Route::get('/{tweet}/hacerLike','HomeController@addLike');
+Route::get('/{tweet}/quitar/deshacerLike','HomeController@removeLike');
+
 //Perfil
 Route::get('/{username}','PerfilController@perfil');
 Route::get('/{username}/following','PerfilController@perfilSiguiendo');
