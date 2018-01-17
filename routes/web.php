@@ -32,6 +32,8 @@ Route::get('/{tweet}/quitar/deshacerLike','HomeController@removeLike');
 Route::get('/{username}','PerfilController@perfil');
 Route::get('/{username}/following','PerfilController@perfilSiguiendo');
 Route::get('/{username}/followers','PerfilController@perfilSeguidores');
+Route::get('/{username}/likes','PerfilController@perfilLikes');
+
 
 //Tweet
 Route::post('/tweet', 'HomeController@nuevoTweet');

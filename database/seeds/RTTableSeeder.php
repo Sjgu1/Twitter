@@ -25,9 +25,9 @@ class RTTableSeeder extends Seeder
         
         $users = User::all();
         foreach($users as $user){
-            $num=range(1,235);
+            $num=range(1,393);
             shuffle($num);
-            for ($i=0; $i<rand(30,60); $i++) {      
+            for ($i=0; $i<rand(50,150); $i++) {      
                 $tweet= Tweet::where('id', $num[$i])->first(); 
                 $fecha = Carbon::parse($tweet->fecha)->addSeconds(rand(0, $segundos))->addMinutes(rand(0, $minutos))->addHours(rand(0, $horas));
                 

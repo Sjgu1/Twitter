@@ -175,6 +175,42 @@
       <div class="DMInbox-primary">
         <ul class="DMInbox-conversations"> 
        @foreach($convers as $conver)
+			 @if(Auth::id() == $conver->usuario2->id)
+			 <li class="DMInbox-conversationItem">
+        <div class="DMInboxItem" data-thread-id="301028364-390203992" data-sort-event-id="630408429719408643" data-last-message-id="630408429719408643" data-is-oto="true" data-is-muted="false">
+    <div class="DMInboxItem-avatar"><a href="/victorha_" class="js-action-profile js-user-profile-link" data-user-id="390203992">
+  <div class="DMAvatar DMAvatar--1 u-chromeOverflowFix">
+    <span class="DMAvatar-container">
+      <img class="DMAvatar-image" src="{{$conver->usuario1->avatar}}" alt="{{$conver->usuario1->name}}" title="{{$conver->usuario1->name}}">
+    </span>
+</div>
+
+</a>
+
+</div>
+
+    <div class="DMInboxItem-title account-group">
+      <b class="fullname">{{$conver->usuario1->name}}</b><span class="UserBadges"></span><span class="UserNameBreak">&nbsp;</span><span class="username u-dir u-textTruncate" dir="ltr">@<b>{{$conver->usuario1->username}}</b></span>
+    </div>
+  <div class="DMInboxItem-header">
+      <div class="DMInboxItem-timestamp"><span class="_timestamp" data-aria-label-part="last" data-time="1439136056" data-long-form="true" data-include-sec="true">
+</span>
+</div>
+  </div>
+
+  <div class="u-posRelative">
+
+      <p class="DMInboxItem-snippet ">
+      </p>
+
+  </div>
+</div>
+</li>
+
+
+@else
+
+
         <li class="DMInbox-conversationItem">
         <div class="DMInboxItem" data-thread-id="301028364-390203992" data-sort-event-id="630408429719408643" data-last-message-id="630408429719408643" data-is-oto="true" data-is-muted="false">
     <div class="DMInboxItem-avatar"><a href="/victorha_" class="js-action-profile js-user-profile-link" data-user-id="390203992">
@@ -205,6 +241,7 @@
   </div>
 </div>
 </li>
+@endif
 @endforeach
         </ul>
         <div class="DMInbox-empty"><div class="DMEmptyState">

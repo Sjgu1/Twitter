@@ -62,6 +62,31 @@ class PerfilController extends Controller
         return view('perfil/perfil', ['conectado'=> Auth::user(),'user' => $user,'users' => $users, 'seguidos'=>$follows, 'seguidores'=>$followers, 'tweets'=>$tweets ,'tweetsEscritos'=>$escritos,
         'usuarioConectadoFollowing' => $this->checkFollowingDeUsuarioConectado($id)]); 
     }
+    public function perfilLikes($username) {
+
+        $user =  User::where('username', $username)->first();
+
+        if($user == null){
+            return view('404'); 
+        }
+
+        Carbon::setLocale('es');
+        $id = $user->id;
+        $users = $this->sugerenciasUsuarios();
+        $follows=$user->seguidos;
+        $followers=$user->seguidores;
+            
+        //Unir tweets propios con los de las personas que sigues
+        $tweets = User::find($id)->tweets()->orderBy('fecha', 'desc')->with('user')->get();
+        $escritos = User::find($id)->tweets()->orderBy('fecha', 'desc')->count();
+
+        //dd($user);
+        //dd(Auth::user(), Auth::Guest());
+        //dd(Tweet::where('id', 2)->first()->likesUsers);
+
+        return view('perfil/likes', ['conectado'=> Auth::user(),'user' => $user,'users' => $users, 'seguidos'=>$follows, 'seguidores'=>$followers, 'tweets'=>$tweets ,'tweetsEscritos'=>$escritos,
+        'usuarioConectadoFollowing' => $this->checkFollowingDeUsuarioConectado($id)]); 
+    }
 
     public function perfilSiguiendo($username) {
 

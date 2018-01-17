@@ -1992,11 +1992,7 @@ class TweetsTableSeeder extends Seeder
         $faker = Faker::create();
         $users = User::all();
         foreach($users as $user){
-            $num=range(1,235);
-            shuffle($num);
-            for ($i=0; $i<rand(10,60); $i++) {      
-          
-                
+            for ($i=0; $i<rand(2,5); $i++) {      
                 $tweet = new Tweet([
                     'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
                     'mensaje' => $faker->realText($maxNbChars = 200, $indexSize = 2),

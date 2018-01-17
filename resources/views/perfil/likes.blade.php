@@ -69,15 +69,15 @@
 									<div class="ProfileCanopy-nav">
 										<div class="ProfileNav" role="navigation" data-user-id="293967812">
 											<ul class="ProfileNav-list">
-												<li class="ProfileNav-item ProfileNav-item--tweets is-active">
-													<a class="ProfileNav-stat ProfileNav-stat--link u-borderUserColor u-textCenter js-tooltip js-nav" title="4 Tweets" data-nav="tweets" tabindex="0">
+												<li class="ProfileNav-item ProfileNav-item--tweets">
+													<a  href="/{{$user->username}}" class="ProfileNav-stat ProfileNav-stat--link u-borderUserColor u-textCenter js-tooltip js-nav" title="{{$user->tweets->count()}} Tweets" data-nav="tweets" tabindex="0">
 														<span class="ProfileNav-label" aria-hidden="true">Tweets</span>
 														<span class="u-hiddenVisually">Tweets, página actual.</span>
 														<span class="ProfileNav-value" data-count="4" data-is-compact="false">{{$user->tweets->count()}}</span>
 													</a>
 												</li>
 												<li class="ProfileNav-item ProfileNav-item--following">
-													<a class="ProfileNav-stat ProfileNav-stat--link u-borderUserColor u-textCenter js-tooltip js-nav u-textUserColor" title="279 Siguiendo" data-nav="following" href="{{$user->username}}/following">
+													<a class="ProfileNav-stat ProfileNav-stat--link u-borderUserColor u-textCenter js-tooltip js-nav u-textUserColor" title="279 Siguiendo" data-nav="following" href="/{{$user->username}}/following">
 														<span class="ProfileNav-label" aria-hidden="true">Siguiendo</span>
 														<span class="u-hiddenVisually">Siguiendo</span>
 														<span class="ProfileNav-value" data-count="279" data-is-compact="false">{{$user->seguidos->count()}}</span>
@@ -90,7 +90,7 @@
 														<span class="ProfileNav-value" data-count="35" data-is-compact="false">{{$user->seguidores->count()}}</span>
 													</a>
 												</li>
-												<li class="ProfileNav-item ProfileNav-item--favorites" data-more-item=".ProfileNav-dropdownItem--favorites">
+												<li class="ProfileNav-item ProfileNav-item--favorites  is-active">
 													<a class="ProfileNav-stat ProfileNav-stat--link u-borderUserColor u-textCenter js-tooltip js-nav u-textUserColor" title="{{$user->likes()->count()}} Me gusta" data-nav="favorites" href="/{{$user->username}}/likes">
 														<span class="ProfileNav-label" aria-hidden="true">Me gusta</span>
 														<span class="u-hiddenVisually">Me gusta</span>
@@ -213,25 +213,16 @@
 										<div class="js-profileClusterFollow"></div>
 									</div>
 									<div class="Grid-cell u-lg-size2of3" data-test-selector="ProfileTimeline">
-										<div class="ProfileHeading">
-											<div class="ProfileHeading-spacer"></div>
-											<div class="ProfileHeading-content">
-												<h2 id="content-main-heading" class="ProfileHeading-title u-hiddenVisually ">Tweets</h2>
-												<ul class="ProfileHeading-toggle">
-													<li class="ProfileHeading-toggleItem  is-active" data-element-term="tweets_toggle">
-														<span aria-hidden="true">Tweets</span>
-														<span class="u-hiddenVisually">Tweets, página actual.</span>
-													</li>
-													<li class="ProfileHeading-toggleItem  u-textUserColor" data-element-term="tweets_with_replies_toggle">
-														<a class="ProfileHeading-toggleLink js-nav" href="/{{$user->username}}/with_replies" data-nav="tweets_with_replies_toggle">Tweets y respuestas</a>
-													</li>
-												</ul>
-											</div>
-										</div>
+                                    <div class="ProfileHeading">
+                                    <div class="ProfileHeading-spacer"></div>
+                                      <div class="ProfileHeading-content">
+                                        <h2 id="content-main-heading" class="ProfileHeading-title ">Me gusta</h2>
+                                      </div>
+                                  </div>
 										<div class="stream-container conversations-enabled ">
 											<div class="stream">
 												<ol id="listaTweets"class="stream-items js-navigable-stream">
-                                                    @foreach ($tweets as $tweet)
+                                                    @foreach ($user->likes()->get() as $tweet)
                                 
 													
 													<li class="js-stream-item stream-item stream-item">

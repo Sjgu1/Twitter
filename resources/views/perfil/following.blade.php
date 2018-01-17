@@ -90,10 +90,10 @@
 													</a>
 												</li>
 												<li class="ProfileNav-item ProfileNav-item--favorites" data-more-item=".ProfileNav-dropdownItem--favorites">
-													<a class="ProfileNav-stat ProfileNav-stat--link u-borderUserColor u-textCenter js-tooltip js-nav u-textUserColor" title="1 Me gusta" data-nav="favorites" href="/i/likes">
+													<a class="ProfileNav-stat ProfileNav-stat--link u-borderUserColor u-textCenter js-tooltip js-nav u-textUserColor" title="{{$user->likes()->count()}} Me gusta" data-nav="favorites"href="/{{$user->username}}/likes" >
 														<span class="ProfileNav-label" aria-hidden="true">Me gusta</span>
 														<span class="u-hiddenVisually">Me gusta</span>
-														<span class="ProfileNav-value" data-count="1" data-is-compact="false">1</span>
+														<span class="ProfileNav-value" data-count="{{$user->likes()->count()}}" data-is-compact="false">{{$user->likes()->count()}}</span>
 													</a>
 												</li>
 												<li class="ProfileNav-item ProfileNav-item--lists" data-more-item=".ProfileNav-dropdownItem--lists">
@@ -119,7 +119,7 @@
 														</div>
 														<ul>
 															<li>
-																<a href="/i/likes" class="ProfileNav-dropdownItem ProfileNav-dropdownItem--favorites is-hidden u-bgUserColorHover u-bgUserColorFocus u-linkClean js-nav" style="">Me gusta</a>
+																<a href="/{{$user->username}}/likes" class="ProfileNav-dropdownItem ProfileNav-dropdownItem--favorites is-hidden u-bgUserColorHover u-bgUserColorFocus u-linkClean js-nav" style="">Me gusta</a>
 															</li>
 															<li>
 																<a href="/{{$user->username}}/lists" class="ProfileNav-dropdownItem ProfileNav-dropdownItem--lists is-hidden u-bgUserColorHover u-bgUserColorFocus u-linkClean js-nav" style="">Listas</a>

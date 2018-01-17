@@ -21,7 +21,7 @@
                     <!-- Cuadro lateral izquierdo -->
                     <div class="dashboard dashboard-left">
                         <div class="DashboardProfileCard  module">
-                            <a class="DashboardProfileCard-bg u-bgUserColor u-block" href="/{{Auth::user()->username}}" tabindex="-1" aria-hidden="true" rel="noopener">
+                            <a class="DashboardProfileCard-bg u-bgUserColor u-block" style="background-image: url({{Auth::user()->fondo}})"href="/{{Auth::user()->username}}" tabindex="-1" aria-hidden="true" rel="noopener">
                             </a>
                             <div class="DashboardProfileCard-content">
                                 <a class="DashboardProfileCard-avatarLink u-inlineBlock" href="/{{Auth::user()->username}}" title="Name" tabindex="-1" aria-hidden="true" rel="noopener">

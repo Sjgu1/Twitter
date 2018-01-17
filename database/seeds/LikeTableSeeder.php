@@ -25,10 +25,12 @@ class LikeTableSeeder extends Seeder
         
         $users = User::all();
         foreach($users as $user){
-            $num=range(1,235);
+            $num=range(1,393);           
             shuffle($num);
-            for ($i=0; $i<rand(30,60); $i++) {      
+            $max = rand(70,150 );
+            for ($i=0; $i<$max; $i++) {      
                 $tweet= Tweet::where('id', $num[$i])->first(); 
+
                 $fecha = Carbon::parse($tweet->fecha)->addSeconds(rand(0, $segundos))->addMinutes(rand(0, $minutos))->addHours(rand(0, $horas));
                 
                 if($fecha->isFuture()){
@@ -36,10 +38,12 @@ class LikeTableSeeder extends Seeder
                 }               
 
                 DB::table('tweet_user_like')->insert([     
-                    'id_tweet' => $num[$i],
+                    'id_tweet' => $tweet->id,
                     'id_user' => $user->id,
                     'created_at' => $fecha
-                ]);  
+                ]);
+                
+  
             }  
         }
 
