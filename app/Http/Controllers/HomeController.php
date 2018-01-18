@@ -64,7 +64,10 @@ class HomeController extends Controller
         foreach ($merge as $tweet){
             $tweet->esRT = false;
             $tweet->userRT = false;
+            $tweet->esLike = false;
+            $tweet->userLike = false;
             $tweet->fechaRT = $tweet->fecha;
+
 
         }
         $rtPorUsuario = $user->retweets;
@@ -72,9 +75,17 @@ class HomeController extends Controller
             $tweet->esRT = true;
             $tweet->userRT = $user;
             $tweet->fechaRT = DB::table('tweet_user_rt')->where('id_tweet','=', $user->id)->where('id_user', '=',$tweet->id)->pluck('created_at')->get(0);
-            //dd( $tweet->fechaRT);
         } 
         $merge = $merge->merge($rtPorUsuario);
+
+        $likePorUsuario = $user->likes;
+        foreach($likePorUsuario as $tweet){
+
+            $tweet->esLike = true;
+            $tweet->userLike = $user;
+            $tweet->fechaRT = DB::table('tweet_user_like')->where('id_tweet','=', $user->id)->where('id_user', '=',$tweet->id)->pluck('created_at')->get(0);
+        } 
+        $merge = $merge->merge($likePorUsuario);
 
         foreach($follows as $siguiendo){
             $rtPorUsuario = $siguiendo->retweets;
@@ -84,6 +95,16 @@ class HomeController extends Controller
                 $tweet->fechaRT = DB::table('tweet_user_rt')->where('id_tweet','=', $siguiendo->id)->where('id_user', '=',$tweet->id)->pluck('created_at')->get(0);
             }
             $merge = $merge->merge($rtPorUsuario);
+        } 
+
+        foreach($follows as $siguiendo){
+            $likePorUsuario = $siguiendo->likes;
+            foreach($likePorUsuario as $tweet){
+                $tweet->esLike = true;
+                $tweet->userLike = $siguiendo;
+                $tweet->fechaRT = DB::table('tweet_user_like')->where('id_tweet','=', $siguiendo->id)->where('id_user', '=',$tweet->id)->pluck('created_at')->get(0);
+            }
+            $merge = $merge->merge($likePorUsuario);
         } 
         $merge = $merge->sortByDesc('fechaRT');
 

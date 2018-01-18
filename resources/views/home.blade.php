@@ -173,7 +173,14 @@
                                                     <a class="pretty-link js-user-profile-link" href="/{{$tweet->userRT->username}}" data-user-id="81577367" rel="noopener"><b>{{$tweet->userRT->username}}</b></a> retwitteó
                                                         </span>
                                                 </div>
-                                                @endif
+                                    @elseif($tweet->esLike == true)
+                                    <div class="tweet-context with-icn">
+                                                <span class="Icon Icon--small Icon--heartBadge"></span>
+                                                 <span class="js-like-text">
+                                                    <a class="pretty-link js-user-profile-link" href="/{{$tweet->userLike->username}}" data-user-id="81577367" rel="noopener"><b>{{$tweet->userLike->username}}</b></a> indicó que le gusta
+                                                        </span>
+                                                </div>
+                                    @endif
                                             </div>
                                            
                                         <div class="content">
