@@ -15,6 +15,8 @@
     transform: translate(-50%,-47.5%);
 }
 </style>
+
+
 <!--  Espacio Principal-->
             <div id="page-outer">
                 <div id="page-container" class="AppContent wrapper wrapper-home">
@@ -60,7 +62,8 @@
                     </div>
                     <!-- Fin Cuadro lateral izquierd-->
                     <!-- Cuadro central, tweets  -->
-                    
+
+              
                     <div aria-labelledby="content-main-heading" class="content-main top-timeline-tweetbox" id="timeline" role="main" tabindex="-1">
                         <div id="above-timeline-prompt"></div>
                         <div class="timeline-tweet-box">
@@ -162,9 +165,9 @@
 
                                 @foreach ($tweets as $tweet)
                             
-                                <li class="js-stream-item stream-item stream-item">
-                                    <div class="tweet js-stream-tweet js-actionable-tweet js-profile-popup-actionable dismissible-content original-tweet js-original-tweet has-cards cards-forward">
-                                    <div class="context">
+                                <li class=" stream-item " >
+                                <div  type="button" onclick="redirigir('{{$tweet->user->username}}', '{{$tweet->id}}')" class="tweet  js-profile-popup-actionable dismissible-content original-tweet js-original-tweet has-cards cards-forward">
+                                <div class="context">
                                     @if($tweet->esRT == true)
 
                                             <div class="tweet-context with-icn">
@@ -352,6 +355,12 @@
                             </div>
                         </div>
                     </div>
+                    <script>
+                    function redirigir(usuario, tweet){
+                        window.location.href = "/"+usuario+"/status/"+tweet
+
+                    }
+                    </script>
                     <!--Final Cuadro central, tweets  -->
                     <!-- Cuadro derecha, recomendaciones  -->
                     <div class="dashboard dashboard-right">
@@ -434,6 +443,8 @@ function nuevoTweet() {
     window.location.reload(true);
          
  }
+
+
 </script>
 
 

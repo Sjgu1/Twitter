@@ -1,6 +1,7 @@
 @extends('layouts.app') @section('content')
 
 
+
 <style>
     body.three-col .wrapper {
         width: unset;
@@ -57,6 +58,7 @@
 													<a href="/{{$user->username}}" class="ProfileCardMini-screennameLink u-linkComplex js-nav u-dir" dir="ltr" tabindex="-1">
 														<span class="username u-dir" dir="ltr">@
 															
+															
 															<b class="u-linkComplex-target">{{$user->username}}</b>
 														</span>
 													</a>
@@ -109,6 +111,7 @@
 														<span class="ProfileNav-label">&nbsp;</span>
 														<span class="ProfileNav-value">Más 
 															
+															
 															<span class="ProfileNav-dropdownCaret Icon Icon--medium Icon--caretDown"></span>
 														</span>
 													</a>
@@ -131,6 +134,7 @@
 													</div>
 												</li>
                                                 @if(Auth::id() == $user->id)
+												
 												<li class="ProfileNav-item ProfileNav-item--userActions u-floatRight u-textRight with-rightCaret ">
 													<div class="UserActions   u-textLeft">
 														<button type="button" class="UserActions-editButton edit-button EdgeButton EdgeButton--tertiary" data-scribe-element="profile_edit_button">
@@ -143,114 +147,137 @@
 													</div>
 												</li>
                                                 @else
-                                                <li class="ProfileNav-item ProfileNav-item--userActions u-floatRight u-textRight with-rightCaret ">
-                                                    <div class="UserActions   u-textLeft">
+                                                
+												<li class="ProfileNav-item ProfileNav-item--userActions u-floatRight u-textRight with-rightCaret ">
+													<div class="UserActions   u-textLeft">
                                                     @if($usuarioConectadoFollowing == true)
-                                                        <div class="user-actions btn-group following" data-user-id="2163424327" data-screen-name="jstpwalsh" data-name="Justin Walsh" data-protected="false">
+                                                        
+														<div class="user-actions btn-group following" data-user-id="2163424327" data-screen-name="jstpwalsh" data-name="Justin Walsh" data-protected="false">
                                                     @else
-                                                        <div class="user-actions btn-group not-following not-muting " data-user-id="2163424327" data-screen-name="jstpwalsh" data-name="Justin Walsh" data-protected="false">
+                                                        
+															<div class="user-actions btn-group not-following not-muting " data-user-id="2163424327" data-screen-name="jstpwalsh" data-name="Justin Walsh" data-protected="false">
 
                                                     @endif
-                                                            <span class="user-actions-follow-button js-follow-btn follow-button">
-                                                                <a type="button" class="EdgeButton EdgeButton--secondary EdgeButton--medium  button-text follow-text" href="{{ action('HomeController@seguir', ['seguido'=>$user->id]) }}">
-                                                                    <span aria-hidden="true">Seguir</span>
-                                                                    <span class="u-hiddenVisually">Seguir a <span class="username u-dir u-textTruncate" dir="ltr">@<b>{{$user->username}}</b></span></span>
-                                                                </a>
-                                                                <button type="button" class=" EdgeButton EdgeButton--primary EdgeButton--medium  button-text following-text">
-                                                                    <span aria-hidden="true">Siguiendo</span>
-                                                                    <span class="u-hiddenVisually">Siguiendo a <span class="username u-dir u-textTruncate" dir="ltr">@<b>{{$user->username}}</b></span></span>
-                                                                </button>
-                                                                <a type="button" class=" EdgeButton EdgeButton--danger EdgeButton--medium  button-text unfollow-text" href="{{ action('HomeController@dejarDeSeguir', ['seguido'=>$user->id]) }}">
-                                                                    <span aria-hidden="true">Dejar de seguir</span>
-                                                                    <span class="u-hiddenVisually">Dejar de seguir a <span class="username u-dir u-textTruncate" dir="ltr">@<b>{{$user->username}}</b></span></span>
-                                                                </a>
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </li>
+                                                            
+																<span class="user-actions-follow-button js-follow-btn follow-button">
+																	<a type="button" class="EdgeButton EdgeButton--secondary EdgeButton--medium  button-text follow-text" href="{{ action('HomeController@seguir', ['seguido'=>$user->id]) }}">
+																		<span aria-hidden="true">Seguir</span>
+																		<span class="u-hiddenVisually">Seguir a 
+																			<span class="username u-dir u-textTruncate" dir="ltr">@
+																				<b>{{$user->username}}</b>
+																			</span>
+																		</span>
+																	</a>
+																	<button type="button" class=" EdgeButton EdgeButton--primary EdgeButton--medium  button-text following-text">
+																		<span aria-hidden="true">Siguiendo</span>
+																		<span class="u-hiddenVisually">Siguiendo a 
+																			<span class="username u-dir u-textTruncate" dir="ltr">@
+																				<b>{{$user->username}}</b>
+																			</span>
+																		</span>
+																	</button>
+																	<a type="button" class=" EdgeButton EdgeButton--danger EdgeButton--medium  button-text unfollow-text" href="{{ action('HomeController@dejarDeSeguir', ['seguido'=>$user->id]) }}">
+																		<span aria-hidden="true">Dejar de seguir</span>
+																		<span class="u-hiddenVisually">Dejar de seguir a 
+																			<span class="username u-dir u-textTruncate" dir="ltr">@
+																				<b>{{$user->username}}</b>
+																			</span>
+																		</span>
+																	</a>
+																</span>
+															</div>
+														</div>
+													</li>
                                                 @endif
-											</ul>
+											
+												</ul>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<!--  Espacio Principal-->
-				<div id="page-outer">
-					<div id="page-container" class=" wrapper wrapper-home" style="padding: 0px 100px 40px;">
-						<div class="Grid Grid--withGutter">
-							<div class="Grid-cell u-size1of3 u-lg-size1of4">
-								<div class="Grid Grid--withGutter">
-									<div class="Grid-cell">
-										<div class="ProfileSidebar ProfileSidebar--withLeftAlignment">
-											<div class="ProfileHeaderCard">
-												<h1 class="ProfileHeaderCard-name">
-													<a href="/{{$user->username}}" class="ProfileHeaderCard-nameLink u-textInheritColor js-nav">{{$user->name}}</a>
-												</h1>
-												<h2 class="ProfileHeaderCard-screenname u-inlineBlock u-dir" dir="ltr">
-													<a class="ProfileHeaderCard-screennameLink u-linkComplex js-nav" href="/{{$user->username}}">
-														<span class="username u-dir" dir="ltr">@
+					<!--  Espacio Principal-->
+					<div id="page-outer">
+						<div id="page-container" class=" wrapper wrapper-home" style="padding: 0px 100px 40px;">
+							<div class="Grid Grid--withGutter">
+								<div class="Grid-cell u-size1of3 u-lg-size1of4">
+									<div class="Grid Grid--withGutter">
+										<div class="Grid-cell">
+											<div class="ProfileSidebar ProfileSidebar--withLeftAlignment">
+												<div class="ProfileHeaderCard">
+													<h1 class="ProfileHeaderCard-name">
+														<a href="/{{$user->username}}" class="ProfileHeaderCard-nameLink u-textInheritColor js-nav">{{$user->name}}</a>
+													</h1>
+													<h2 class="ProfileHeaderCard-screenname u-inlineBlock u-dir" dir="ltr">
+														<a class="ProfileHeaderCard-screennameLink u-linkComplex js-nav" href="/{{$user->username}}">
+															<span class="username u-dir" dir="ltr">@
 															
-															<b class="u-linkComplex-target">{{$user->username}}</b>
-														</span>
-													</a>
-												</h2>
-												<p class="ProfileHeaderCard-bio u-dir" dir="ltr"></p>
-												<div class="ProfileHeaderCard-joinDate">
-													<span class="Icon Icon--calendar Icon--medium" aria-hidden="true" role="presentation"></span>
-													<span class="ProfileHeaderCard-joinDateText js-tooltip u-dir" dir="ltr" data-original-title="{{$user->created_at}}">{{-- \Carbon\Carbon::setLocale('LC_TIME', 'German') --}}Se unió  {{  \Carbon\Carbon::parse($user->created_at)->formatLocalized('%A %d %B %Y') }}</span>
+															
+																<b class="u-linkComplex-target">{{$user->username}}</b>
+															</span>
+														</a>
+													</h2>
+													<p class="ProfileHeaderCard-bio u-dir" dir="ltr"></p>
+													<div class="ProfileHeaderCard-joinDate">
+														<span class="Icon Icon--calendar Icon--medium" aria-hidden="true" role="presentation"></span>
+														<span class="ProfileHeaderCard-joinDateText js-tooltip u-dir" dir="ltr" data-original-title="{{$user->created_at}}">{{-- \Carbon\Carbon::setLocale('LC_TIME', 'German') --}}Se unió  {{  \Carbon\Carbon::parse($user->created_at)->formatLocalized('%A %d %B %Y') }}</span>
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="Grid-cell u-size2of3 u-lg-size3of4">
-								<div class="Grid Grid--withGutter">
-									<div class="Grid-cell">
-										<div class="js-profileClusterFollow"></div>
-									</div>
-									<div class="Grid-cell u-lg-size2of3" data-test-selector="ProfileTimeline">
-										<div class="ProfileHeading">
-											<div class="ProfileHeading-spacer"></div>
-											<div class="ProfileHeading-content">
-												<h2 id="content-main-heading" class="ProfileHeading-title u-hiddenVisually ">Tweets</h2>
-												<ul class="ProfileHeading-toggle">
-													<li class="ProfileHeading-toggleItem  is-active" data-element-term="tweets_toggle">
-														<span aria-hidden="true">Tweets</span>
-														<span class="u-hiddenVisually">Tweets, página actual.</span>
-													</li>
-													<li class="ProfileHeading-toggleItem  u-textUserColor" data-element-term="tweets_with_replies_toggle">
-														<a class="ProfileHeading-toggleLink js-nav" href="/{{$user->username}}/with_replies" data-nav="tweets_with_replies_toggle">Tweets y respuestas</a>
-													</li>
-												</ul>
-											</div>
+								<div class="Grid-cell u-size2of3 u-lg-size3of4">
+									<div class="Grid Grid--withGutter">
+										<div class="Grid-cell">
+											<div class="js-profileClusterFollow"></div>
 										</div>
-										<div class="stream-container conversations-enabled ">
-											<div class="stream">
-												<ol id="listaTweets"class="stream-items js-navigable-stream">
+										<div class="Grid-cell u-lg-size2of3" data-test-selector="ProfileTimeline">
+											<div class="ProfileHeading">
+												<div class="ProfileHeading-spacer"></div>
+												<div class="ProfileHeading-content">
+													<h2 id="content-main-heading" class="ProfileHeading-title u-hiddenVisually ">Tweets</h2>
+													<ul class="ProfileHeading-toggle">
+														<li class="ProfileHeading-toggleItem  is-active" data-element-term="tweets_toggle">
+															<span aria-hidden="true">Tweets</span>
+															<span class="u-hiddenVisually">Tweets, página actual.</span>
+														</li>
+														<li class="ProfileHeading-toggleItem  u-textUserColor" data-element-term="tweets_with_replies_toggle">
+															<a class="ProfileHeading-toggleLink js-nav" href="/{{$user->username}}/with_replies" data-nav="tweets_with_replies_toggle">Tweets y respuestas</a>
+														</li>
+													</ul>
+												</div>
+											</div>
+											<div class="stream-container conversations-enabled ">
+												<div class="stream">
+													<ol id="listaTweets"class="stream-items js-navigable-stream">
                                                     @foreach ($tweets as $tweet)
                                 
 													
-													<li class="js-stream-item stream-item stream-item">
-														<div class="tweet js-stream-tweet js-actionable-tweet js-profile-popup-actionable dismissible-content original-tweet js-original-tweet has-cards cards-forward">
-															<div class="content">
+													
+														<li class="js-stream-item stream-item stream-item">
+															<div onclick="redirigir('{{$tweet->user->username}}', '{{$tweet->id}}')" class="tweet js-stream-tweet js-actionable-tweet js-profile-popup-actionable dismissible-content original-tweet js-original-tweet has-cards cards-forward">
+																<div class="content">
 															@if($tweet->esRT == true)
 
-                                           				 <div class="tweet-context with-icn">
-                                                				<span class="Icon Icon--small Icon--retweeted" style="color:#657786;"></span>
-                                                 				<span class="js-retweet-text">
-                                                    			<b>
+                                           				 
+																	<div class="tweet-context with-icn">
+																		<span class="Icon Icon--small Icon--retweeted" style="color:#657786;"></span>
+																		<span class="js-retweet-text">
+																			<b>
 																	@if($conectado->username == $user->username)
 																 </b> retwitteado por ti
 																	@else
-																	{{$user->username}}</b> retwitteó
+																	{{$user->username}}
+																		</b> retwitteó
 																	@endif
-                                                        </span>
-                                                		</div>
+                                                        
+																	</span>
+																</div>
                                     					@endif
+																
 																<div class="stream-item-header">
 																	<a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="">
 																		<img class="avatar js-action-profile-avatar" src="{{$tweet->user->avatar }}" alt="">
@@ -262,6 +289,7 @@
 																			</span>
 																			<span class="username u-dir u-textTruncate" dir="ltr" data-aria-label-part="">@
 																				
+																				
 																				<b>{{$tweet->user->name}}</b>
 																			</span>
 																		</a>
@@ -270,9 +298,9 @@
 																				<span data-long-form="true" aria-hidden="true">{{  \Carbon\Carbon::parse($tweet->fecha)->diffForHumans(null, true)  }}</span>
 																			</a>
 																		</small>
-                                                @if (Auth::user()->id != $tweet->user->user_id)
-                                                
-                                                
+																		
+                                                						@if (Auth::user()->id != $tweet->user->id)
+                                                									
 																		
 																		<div class="ProfileTweet-action ProfileTweet-action--more js-more-ProfileTweet-actions" style="visibility: hidden;">
 																			<div class="dropdown">
@@ -296,12 +324,13 @@
 																					<div class="js-last-tabstop" tabindex="0"></div>
 																				</div>
 																			</div>
-                                                @else
+                                                						@else
                                                 
+																			
 																			
 																			<div class="ProfileTweet-action ProfileTweet-action--more js-more-ProfileTweet-actions">
 																				<div class="dropdown">
-																					<button class="ProfileTweet-actionButton u-textUserColorHover dropdown-toggle js-dropdown-toggle" type="button" aria-haspopup="true">
+																					<button class="ProfileTweet-actionButton u-textUserColorHover dropdown-toggle js-dropdown-toggle" data-toggle="dropdown" type="button" aria-haspopup="true">
 																						<div class="IconContainer js-tooltip" title="Más">
 																							<span class="Icon Icon--caretDownLight Icon--small"></span>
 																							<span class="u-hiddenVisually">Más</span>
@@ -321,8 +350,9 @@
 																						<div class="js-last-tabstop" tabindex="0"></div>
 																					</div>
 																				</div>
-                                                @endif
+                                                								@endif
                                             
+																			
 																			
 																			</div>
 																		</div>
@@ -343,14 +373,17 @@
 
                                                     
 																							
+																							
 																							</span>
 																						</span>
 																					</button>
 																				</div>
 																				<div class="ProfileTweet-action " >
 																				@foreach($conectado->retweets()->get() as $reTweetUsuario)
-																				<?php $haRetwiteado=false ?>
+																				
+																					<?php $haRetwiteado=false ?>
 																					@if($tweet->id == $reTweetUsuario->id)
+																					
 																					<?php $haRetwiteado=true ?>
 																					@break
 																					@endif
@@ -358,83 +391,93 @@
 									
 																				@endforeach
 																				@if($haRetwiteado == false)
+																					
 																					<a href="{{ action('HomeController@addRT', ['tweet'=>$tweet->id]) }}" class="ProfileTweet-actionButton" data-modal="ProfileTweet-retweet" type="button" aria-describedby="profile-tweet-action-retweet-count-aria-951439183674998785">
 																						<div class="IconContainer js-tooltip" data-original-title="Retwittear">
-																						<span class="Icon Icon--medium Icon--retweet"></span>
-																						<span class="u-hiddenVisually">Retwittear</span>
+																							<span class="Icon Icon--medium Icon--retweet"></span>
+																							<span class="u-hiddenVisually">Retwittear</span>
 																						</div>
 																						<span class="ProfileTweet-actionCount">
-																						<span class="ProfileTweet-actionCountForPresentation" aria-hidden="tue" >{{$tweet->retweetsUsers()->count()}}
+																							<span class="ProfileTweet-actionCountForPresentation" aria-hidden="tue" >{{$tweet->retweetsUsers()->count()}}
 																						</span>
-																					</span>
-									
+																						</span>
 																					</a>
 																					@else
+																					
 																					<a href="{{ action('HomeController@removeRT', ['tweet'=>$tweet->id]) }}" class="ProfileTweet-actionButton js-actionButton js-actionRetweet"  style="color:#17bf63;"data-modal="ProfileTweet-retweet" type="button" aria-describedby="profile-tweet-action-retweet-count-aria-951439183674998785">
 																						<div class="IconContainer js-tooltip" data-original-title="Deshacer Retweet">
-																						<span class="Icon Icon--medium Icon--retweet"></span>
-																						<span class="u-hiddenVisually">Deshacer Retweet</span>
+																							<span class="Icon Icon--medium Icon--retweet"></span>
+																							<span class="u-hiddenVisually">Deshacer Retweet</span>
 																						</div>
 																						<span class="ProfileTweet-actionCount">
-																						<span class="ProfileTweet-actionCountForPresentation" aria-hidden="tue" style="color:#17bf63;" >{{$tweet->retweetsUsers()->count()}}
+																							<span class="ProfileTweet-actionCountForPresentation" aria-hidden="tue" style="color:#17bf63;" >{{$tweet->retweetsUsers()->count()}}
 																						</span>
-																					</span>
-									
+																						</span>
 																					</a>
 																					@endif
+																				
 																				</div>
 																				<div class="ProfileTweet-action">
-																				<?php $haDadoLike=false ?>
+																					<?php $haDadoLike=false ?>
 
                                                 @foreach($conectado->likes()->get() as $likesUsuario)
-                                            <?php $haDadoLike=false ?>
+                                            
+																					<?php $haDadoLike=false ?>
                                                 @if($tweet->id == $likesUsuario->id)
-                                                <?php $haDadoLike=true ?>
+                                                
+																					<?php $haDadoLike=true ?>
                                                 @break
                                                 @endif
 
 
                                             @endforeach
                                             @if($haDadoLike == false)
-                                            <a href="{{ action('HomeController@addLike', ['tweet'=>$tweet->id]) }}" class="ProfileTweet-actionButton " type="button" aria-describedby="profile-tweet-action-favorite-count-aria-951439183674998785">
-                                                <div class="IconContainer js-tooltip" data-original-title="Me gusta">
-                                                <span role="presentation" class="Icon Icon--heart Icon--medium"></span>
-                                                <div class="HeartAnimation"></div>
-                                                <span class="u-hiddenVisually">Me gusta</span>
-                                                </div>
-                                                <span class="ProfileTweet-actionCount ProfileTweet-actionCount--isZero">
-                                                <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">{{$tweet->likesUsers()->count()}}
+                                            
+																					<a href="{{ action('HomeController@addLike', ['tweet'=>$tweet->id]) }}" class="ProfileTweet-actionButton " type="button" aria-describedby="profile-tweet-action-favorite-count-aria-951439183674998785">
+																						<div class="IconContainer js-tooltip" data-original-title="Me gusta">
+																							<span role="presentation" class="Icon Icon--heart Icon--medium"></span>
+																							<div class="HeartAnimation"></div>
+																							<span class="u-hiddenVisually">Me gusta</span>
+																						</div>
+																						<span class="ProfileTweet-actionCount ProfileTweet-actionCount--isZero">
+																							<span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">{{$tweet->likesUsers()->count()}}
 
                                                 </span>
-                                            </span>
-
-                                            </a>
+																						</span>
+																					</a>
 
                                             @else
-                                            <a  style="color:#e0245e;" href="{{ action('HomeController@removeLike', ['tweet'=>$tweet->id]) }}" class="ProfileTweet-actionButton " type="button" aria-describedby="profile-tweet-action-favorite-count-aria-951439183674998785">
-                                                <div  style="color:#e0245e;"class="IconContainer js-tooltip" data-original-title="Deshacer me gusta">
-                                                <span  style="color:#e0245e;"role="presentation" class="Icon Icon--heart Icon--medium"></span>
-                                                <div class="HeartAnimation" style=" background-position: right;"></div>
-                                                <span class="u-hiddenVisually">Deshacer me gusta</span>
-                                                </div>
-                                                <span class="ProfileTweet-actionCount ProfileTweet-actionCount--isZero">
-                                                <span  style="color:#e0245e;" class="ProfileTweet-actionCountForPresentation" aria-hidden="true">
-                                                 <!-- Poner aqui el numero de megustas -->{{$tweet->likesUsers()->count()}}
+                                            
+																					<a  style="color:#e0245e;" href="{{ action('HomeController@removeLike', ['tweet'=>$tweet->id]) }}" class="ProfileTweet-actionButton " type="button" aria-describedby="profile-tweet-action-favorite-count-aria-951439183674998785">
+																						<div  style="color:#e0245e;"class="IconContainer js-tooltip" data-original-title="Deshacer me gusta">
+																							<span  style="color:#e0245e;"role="presentation" class="Icon Icon--heart Icon--medium"></span>
+																							<div class="HeartAnimation" style=" background-position: right;"></div>
+																							<span class="u-hiddenVisually">Deshacer me gusta</span>
+																						</div>
+																						<span class="ProfileTweet-actionCount ProfileTweet-actionCount--isZero">
+																							<span  style="color:#e0245e;" class="ProfileTweet-actionCountForPresentation" aria-hidden="true">
+																								<!-- Poner aqui el numero de megustas -->{{$tweet->likesUsers()->count()}}
 
-                                                </span>
-                                            </span>
-                                            </a>
+                                                
+																							</span>
+																						</span>
+																					</a>
                                             @endif
 
-                                            </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </li>
+                                            
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</li>
                                 @endforeach
-                                
-															
+												
+																<script>
+												function redirigir(usuario, tweet){
+													window.location.href = "/"+usuario+"/status/"+tweet
+
+												}
+												</script>
 															</ol>
 														</div>
 													</div>
@@ -475,6 +518,7 @@
                                                                                 @foreach ($users as $user)
                             
 																				
+																				
 																				<div class="UserSmallListItem js-recommended-followers dashboard-user-recommendations flex-module-inner" data-section-id="wtf" style="opacity: 1;">
 																					<div class="UserSmallListItem js-account-summary account-summary js-actionable-user" data-user-id="{{ $user->id }}" data-feedback-token="500" data-impression-id="">
 																						<div class="UserSmallListItem-context"></div>
@@ -490,6 +534,7 @@
 																										<span class="UserNameBreak">&nbsp;</span>
 																										<span class="username u-dir u-textTruncate" dir="ltr">@
 																											
+																											
 																											<b>{{ $user->username }}</b>
 																										</span>
 																									</span>
@@ -500,7 +545,9 @@
 																											<span aria-hidden="true">Seguir</span>
 																											<span class="u-hiddenVisually">Seguir a 
 																												
+																												
 																												<span class="username u-dir u-textTruncate" dir="ltr">@
+																													
 																													
 																													<b>username</b>
 																												</span>
@@ -510,7 +557,9 @@
 																											<span aria-hidden="true">Siguiendo</span>
 																											<span class="u-hiddenVisually">Siguiendo a 
 																												
+																												
 																												<span class="username u-dir u-textTruncate" dir="ltr">@
+																													
 																													
 																													<b>username</b>
 																												</span>
@@ -520,7 +569,9 @@
 																											<span aria-hidden="true">Dejar de seguir</span>
 																											<span class="u-hiddenVisually">Dejar de seguir a 
 																												
+																												
 																												<span class="username u-dir u-textTruncate" dir="ltr">@
+																													
 																													
 																													<b>username</b>
 																												</span>
@@ -533,6 +584,7 @@
 																						</div>
 																					</div>
                                                                                     @endforeach
+																					
 																					
 																					<!--flex-module-->
 																				</div>

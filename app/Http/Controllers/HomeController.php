@@ -107,7 +107,7 @@ class HomeController extends Controller
             $merge = $merge->merge($likePorUsuario);
         } 
         $merge = $merge->sortByDesc('fechaRT');
-
+        $merge = $user->tweets;
 
         //dd(Auth::user(), Auth::Guest());
         //$retweets = DB::table('tweet_user_rt')->where('id_user', 1)->get();

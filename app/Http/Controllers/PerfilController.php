@@ -152,6 +152,16 @@ class PerfilController extends Controller
         return view('perfil/followers', ['user' => $user,'users' => $users, 'following'=>$follows, 'followers'=>$followers, 'tweets'=>$tweets ,'tweetsEscritos'=>$escritos,
         'usuarioConectadoFollowing' => $this->checkFollowingDeUsuarioConectado($id)]); 
     }
+    public function perfilTweet($username, $id) {
+
+        $user =  User::where('username', $username)->first();
+        $tweet =  Tweet::where('id', $id)->first();
+
+
+        if($user->id != $tweet->user->id || $user==null || $tweet== null)
+            return view(404);
+        return view('tweet/tweet', ['user' => $user, 'tweet'=>$tweet ,'usuarioConectadoFollowing' => $this->checkFollowingDeUsuarioConectado($user->id)]);  
+    }
 
 
 }
