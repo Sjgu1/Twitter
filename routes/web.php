@@ -11,17 +11,33 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('/home/{seguido}','HomeController@seguir');
-Route::put('/home/{seguido}','HomeController@dejarDeSeguir');
+//Seguir
+Route::get('/seguir/{seguido}/dejarDeSeguir','HomeController@dejarDeSeguir');
+Route::get('/seguir/{seguido}','HomeController@seguir');
+
+//RT
+Route::get('/{tweet}/hacerRT','HomeController@addRT');
+Route::get('/{tweet}/quitar/deshacerRT','HomeController@removeRT');
+
+//Like
+Route::get('/{tweet}/hacerLike','HomeController@addLike');
+Route::get('/{tweet}/quitar/deshacerLike','HomeController@removeLike');
+
+//Perfil
+Route::get('/{username}','PerfilController@perfil');
+Route::get('/{username}/following','PerfilController@perfilSiguiendo');
+Route::get('/{username}/followers','PerfilController@perfilSeguidores');
+Route::get('/{username}/likes','PerfilController@perfilLikes');
 
 
 //Tweet
 Route::post('/tweet', 'HomeController@nuevoTweet');
+Route::get('/{username}/status/{id}','PerfilController@perfilTweet');
+
+//Mensajes
+Route::get('/mensaje','MessageController@index');

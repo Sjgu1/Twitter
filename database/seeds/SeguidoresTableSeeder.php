@@ -57,7 +57,7 @@ class SeguidoresTableSeeder extends Seeder
             'id_seguidor' => 2,
             'id_seguido' => 39]);
         DB::table('seguidos_seguidores')->insert([     
-            'id_seguidor' => 1,
+            'id_seguidor' => 2,
             'id_seguido' => 23]);
         DB::table('seguidos_seguidores')->insert([     
             'id_seguidor' => 2,
@@ -133,9 +133,6 @@ class SeguidoresTableSeeder extends Seeder
         DB::table('seguidos_seguidores')->insert([     
             'id_seguidor' => 4,
             'id_seguido' => 26]);
-        DB::table('seguidos_seguidores')->insert([     
-            'id_seguidor' => 4,
-            'id_seguido' => 3]);
         DB::table('seguidos_seguidores')->insert([     
             'id_seguidor' => 4,
             'id_seguido' => 35]);

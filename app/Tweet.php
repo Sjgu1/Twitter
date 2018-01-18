@@ -12,11 +12,21 @@ class Tweet extends Model
      * @var array
      */
     protected $fillable = [
-        'fecha', 'mensaje', 'multimedia',
+        'fecha', 'mensaje', 'multimedia', 'descripcion', 'fondo'
     ];
 
     public function user() {
         return $this->belongsTo('App\User');
+    }
+
+    public function retweetsUsers()
+    {
+        return $this->belongsToMany('App\User', 'tweet_user_rt', 'id_user','id_tweet')->withTimestamps();;
+    }
+    
+    public function likesUsers()
+    {
+        return $this->belongsToMany('App\User', 'tweet_user_like', 'id_user','id_tweet')->withTimestamps();;
     }
 
 }

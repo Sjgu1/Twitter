@@ -35,8 +35,7 @@ class HomeController extends Controller
     }*/
 
     public function index() {
-        error_log("Paso por index");
-
+        
         Carbon::setLocale('es');
         $id = Auth::id();
         $user = User::find($id);
@@ -57,11 +56,65 @@ class HomeController extends Controller
             $followingTweets = User::find($following->id)->tweets()->orderBy('fecha', 'desc')->with('user')->get();
 
             $merge = $merge->merge($followingTweets);
+            
         }
         $merge = $merge->sortByDesc('fecha');
-        //dd(Auth::user(), Auth::Guest());
 
-        return view('home', ['users' => $users, 'seguidos'=>$follows, 'seguidores'=>$followers, 'tweets'=>$merge ,'tweetsEscritos'=>$escritos]); 
+        //Mis cosas para los rt
+        foreach ($merge as $tweet){
+            $tweet->esRT = false;
+            $tweet->userRT = false;
+            $tweet->esLike = false;
+            $tweet->userLike = false;
+            $tweet->fechaRT = $tweet->fecha;
+
+
+        }
+        $rtPorUsuario = $user->retweets;
+        foreach($rtPorUsuario as $tweet){
+            $tweet->esRT = true;
+            $tweet->userRT = $user;
+            $tweet->fechaRT = DB::table('tweet_user_rt')->where('id_tweet','=', $user->id)->where('id_user', '=',$tweet->id)->pluck('created_at')->get(0);
+        } 
+        $merge = $merge->merge($rtPorUsuario);
+
+        $likePorUsuario = $user->likes;
+        foreach($likePorUsuario as $tweet){
+
+            $tweet->esLike = true;
+            $tweet->userLike = $user;
+            $tweet->fechaRT = DB::table('tweet_user_like')->where('id_tweet','=', $user->id)->where('id_user', '=',$tweet->id)->pluck('created_at')->get(0);
+        } 
+        $merge = $merge->merge($likePorUsuario);
+
+        foreach($follows as $siguiendo){
+            $rtPorUsuario = $siguiendo->retweets;
+            foreach($rtPorUsuario as $tweet){
+                $tweet->esRT = true;
+                $tweet->userRT = $siguiendo;
+                $tweet->fechaRT = DB::table('tweet_user_rt')->where('id_tweet','=', $siguiendo->id)->where('id_user', '=',$tweet->id)->pluck('created_at')->get(0);
+            }
+            $merge = $merge->merge($rtPorUsuario);
+        } 
+
+        foreach($follows as $siguiendo){
+            $likePorUsuario = $siguiendo->likes;
+            foreach($likePorUsuario as $tweet){
+                $tweet->esLike = true;
+                $tweet->userLike = $siguiendo;
+                $tweet->fechaRT = DB::table('tweet_user_like')->where('id_tweet','=', $siguiendo->id)->where('id_user', '=',$tweet->id)->pluck('created_at')->get(0);
+            }
+            $merge = $merge->merge($likePorUsuario);
+        } 
+        $merge = $merge->sortByDesc('fechaRT');
+        $merge = $user->tweets;
+
+        //dd(Auth::user(), Auth::Guest());
+        //$retweets = DB::table('tweet_user_rt')->where('id_user', 1)->get();
+        //$retweets = $merge->merge($follows);
+        //$user->nuevo= true;
+        //print_r($rtPorUsuario);
+        return view('home', ['conectado'=> $user,'users' => $users, 'seguidos'=>$follows, 'seguidores'=>$followers, 'tweets'=>$merge ,'tweetsEscritos'=>$escritos]); 
     }
 
     public function seguir($seguido){
@@ -70,7 +123,6 @@ class HomeController extends Controller
         $seguidor->seguidos()->attach($seguido);
         return back();
     }
-
     public function dejarDeSeguir($seguido){
         $id = Auth::id();
         $seguidor = User::find($id);
@@ -88,6 +140,25 @@ class HomeController extends Controller
         $tweet->user()->associate($user);
         $tweet->save();
      }
+
+    public function addRT($tweet){
+        Auth::user()->retweets()->attach($tweet);
+        return back();         
+     }
+    public function removeRT($tweet){
+        Auth::user()->retweets()->detach($tweet);
+        return back();         
+     }
+
+     public function addLike($tweet){
+        Auth::user()->likes()->attach($tweet);
+        return back();         
+     }
+    public function removeLike($tweet){
+        Auth::user()->likes()->detach($tweet);
+        
+        return back();         
+    }
 
      
 }
