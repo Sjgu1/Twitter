@@ -237,6 +237,20 @@
 													<li class="js-stream-item stream-item stream-item">
 														<div class="tweet js-stream-tweet js-actionable-tweet js-profile-popup-actionable dismissible-content original-tweet js-original-tweet has-cards cards-forward">
 															<div class="content">
+															@if($tweet->esRT == true)
+
+                                           				 <div class="tweet-context with-icn">
+                                                				<span class="Icon Icon--small Icon--retweeted" style="color:#657786;"></span>
+                                                 				<span class="js-retweet-text">
+                                                    			<b>
+																	@if($conectado->username == $user->username)
+																 </b> retwitteado por ti
+																	@else
+																	{{$user->username}}</b> retwitteó
+																	@endif
+                                                        </span>
+                                                		</div>
+                                    					@endif
 																<div class="stream-item-header">
 																	<a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="">
 																		<img class="avatar js-action-profile-avatar" src="{{$tweet->user->avatar }}" alt="">

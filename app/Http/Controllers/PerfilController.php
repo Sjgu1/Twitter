@@ -56,6 +56,21 @@ class PerfilController extends Controller
         $tweets = User::find($id)->tweets()->orderBy('fecha', 'desc')->with('user')->get();
         $escritos = User::find($id)->tweets()->orderBy('fecha', 'desc')->count();
 
+
+        //Mis cosas para los rt
+        foreach ($tweets as $tweet){
+            $tweet->esRT = false;
+            $tweet->userRT = false;
+            $tweet->fechaRT = $tweet->fecha;
+        }
+        $rtPorUsuario = $user->retweets;
+        foreach($rtPorUsuario as $tweet){
+            $tweet->esRT = true;
+            $tweet->userRT = $user;
+            $tweet->fechaRT = DB::table('tweet_user_rt')->where('id_tweet','=', $user->id)->where('id_user', '=',$tweet->id)->pluck('created_at')->get(0);
+        } 
+        $tweets = $tweets->merge($rtPorUsuario);
+        $tweets = $tweets->sortByDesc('fechaRT');
         //dd($user);
         //dd(Auth::user(), Auth::Guest());
 
