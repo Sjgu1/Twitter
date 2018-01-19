@@ -166,7 +166,7 @@
                                 @foreach ($tweets as $tweet)
                             
                                 <li class=" stream-item " >
-                                <div  type="button" onclick="redirigir('{{$tweet->user->username}}', '{{$tweet->id}}')" class="tweet  js-profile-popup-actionable dismissible-content original-tweet js-original-tweet has-cards cards-forward">
+                                <div  type="button"  class="tweet  js-profile-popup-actionable dismissible-content original-tweet js-original-tweet has-cards cards-forward">
                                 <div class="context">
                                     @if($tweet->esRT == true)
 
@@ -186,7 +186,8 @@
                                     @endif
                                             </div>
                                            
-                                        <div class="content">
+                                        <div class="content" >
+                                        
                                             <div class="stream-item-header">
                                                 <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/{{$tweet->user->username}}">
                                                     <img class="avatar js-action-profile-avatar" src="{{$tweet->user->avatar }}" alt="">
@@ -214,7 +215,7 @@
                                                         </div>
                                                         <ul tabindex="-1" role="menu" aria-labelledby="menu-1" aria-hidden="false">
                                                             <li class="js-actionDelete" role="presentation">
-                                                                <button type="button" class="dropdown-link" style="min-width:-webkit-fill-available;"role="menuitem">Eliminar Tweet</button>
+                                                                <a href =" {{ action('HomeController@removeTweet', ['tweet'=>$tweet->id]) }}"  type="button" class="dropdown-link" style="min-width:-webkit-fill-available;"role="menuitem">Eliminar Tweet</a>
                                                             </li>                                                         
                                                         </ul>
                                                     <div class="js-last-tabstop" tabindex="0"></div>
@@ -236,7 +237,7 @@
                                                         </div>
                                                         <ul tabindex="-1" role="menu" aria-labelledby="menu-1" aria-hidden="false">
                                                             <li class="js-actionDelete" role="presentation">
-                                                                <button type="button" class="dropdown-link" style="min-width:-webkit-fill-available;"role="menuitem">Eliminar Tweet</button>
+                                                            <a href =" {{ action('HomeController@removeTweet', ['tweet'=>$tweet->id]) }}" type="button" class="dropdown-link" style="min-width:-webkit-fill-available;"role="menuitem">Eliminar Tweet</a>
                                                             </li>                                                         
                                                         </ul>
                                                     <div class="js-last-tabstop" tabindex="0"></div>
@@ -245,9 +246,15 @@
                                                 @endif
                                             </div>                               
                                         </div>
-                                        <div class="js-tweet-text-container">
+                                        <div class="js-tweet-text-container" onclick="redirigir('{{$tweet->user->username}}', '{{$tweet->id}}')">
                                                 <p class="TweetTextSize  js-tweet-text tweet-text" lang="es" data-aria-label-part="0">{{$tweet->mensaje}}</p>
                                         </div>
+                                        <script>
+                                        function redirigir(usuario, tweet){
+                                            window.location.href = "/"+usuario+"/status/"+tweet
+
+                                        }
+                                        </script>
                                         <div class="stream-item-footer">
 
                                             <div class="ProfileTweet-actionList js-actions" role="group" aria-label="Acciones del Tweet">
@@ -355,12 +362,7 @@
                             </div>
                         </div>
                     </div>
-                    <script>
-                    function redirigir(usuario, tweet){
-                        window.location.href = "/"+usuario+"/status/"+tweet
-
-                    }
-                    </script>
+                    
                     <!--Final Cuadro central, tweets  -->
                     <!-- Cuadro derecha, recomendaciones  -->
                     <div class="dashboard dashboard-right">

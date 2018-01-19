@@ -107,7 +107,7 @@ class HomeController extends Controller
             $merge = $merge->merge($likePorUsuario);
         } 
         $merge = $merge->sortByDesc('fechaRT');
-        $merge = $user->tweets;
+        //$merge = $user->tweets;
 
         //dd(Auth::user(), Auth::Guest());
         //$retweets = DB::table('tweet_user_rt')->where('id_user', 1)->get();
@@ -158,6 +158,21 @@ class HomeController extends Controller
         Auth::user()->likes()->detach($tweet);
         
         return back();         
+    }
+
+    public function removeTweet($tweet){
+        
+        $tw= Tweet::find($tweet);
+        if($tw == null){
+            return view('404');
+
+        }
+        if(Auth::id() ==  $tw->user->id){
+            
+            $tw->delete();
+        }
+
+        return redirect("/");
     }
 
      

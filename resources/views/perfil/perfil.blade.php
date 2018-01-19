@@ -258,7 +258,7 @@
 													
 													
 														<li class="js-stream-item stream-item stream-item">
-															<div onclick="redirigir('{{$tweet->user->username}}', '{{$tweet->id}}')" class="tweet js-stream-tweet js-actionable-tweet js-profile-popup-actionable dismissible-content original-tweet js-original-tweet has-cards cards-forward">
+															<div  class="tweet js-stream-tweet js-actionable-tweet js-profile-popup-actionable dismissible-content original-tweet js-original-tweet has-cards cards-forward">
 																<div class="content">
 															@if($tweet->esRT == true)
 
@@ -318,7 +318,7 @@
 																					</div>
 																					<ul tabindex="-1" role="menu" aria-labelledby="menu-1" aria-hidden="false">
 																						<li class="js-actionDelete" role="presentation">
-																							<button type="button" class="dropdown-link" style="min-width:-webkit-fill-available;"role="menuitem">Eliminar Tweet</button>
+																						<a href =" {{ action('HomeController@removeTweet', ['tweet'=>$tweet->id]) }}"  type="button" class="dropdown-link" style="min-width:-webkit-fill-available;"role="menuitem">Eliminar Tweet</a>
 																						</li>
 																					</ul>
 																					<div class="js-last-tabstop" tabindex="0"></div>
@@ -344,7 +344,7 @@
 																						</div>
 																						<ul tabindex="-1" role="menu" aria-labelledby="menu-1" aria-hidden="false">
 																							<li class="js-actionDelete" role="presentation">
-																								<button type="button" class="dropdown-link" style="min-width:-webkit-fill-available;"role="menuitem">Eliminar Tweet</button>
+																							<a href =" {{ action('HomeController@removeTweet', ['tweet'=>$tweet->id]) }}"  type="button" class="dropdown-link" style="min-width:-webkit-fill-available;"role="menuitem">Eliminar Tweet</a>
 																							</li>
 																						</ul>
 																						<div class="js-last-tabstop" tabindex="0"></div>
@@ -356,7 +356,13 @@
 																			
 																			</div>
 																		</div>
-																		<div class="js-tweet-text-container">
+																		<div class="js-tweet-text-container" onclick="redirigir('{{$tweet->user->username}}', '{{$tweet->id}}')">
+																		<script>
+												function redirigir(usuario, tweet){
+													window.location.href = "/"+usuario+"/status/"+tweet
+
+												}
+												</script>
 																			<p class="TweetTextSize  js-tweet-text tweet-text" lang="es" data-aria-label-part="0">{{$tweet->mensaje}}</p>
 																		</div>
 																		<div class="stream-item-footer">
@@ -472,12 +478,7 @@
 																</li>
                                 @endforeach
 												
-																<script>
-												function redirigir(usuario, tweet){
-													window.location.href = "/"+usuario+"/status/"+tweet
-
-												}
-												</script>
+																
 															</ol>
 														</div>
 													</div>

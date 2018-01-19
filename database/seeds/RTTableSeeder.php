@@ -34,13 +34,12 @@ class RTTableSeeder extends Seeder
 
             for ($i = 0; $i < $max; $i++) {
 
-                if (count($num))
-                {
+                
                     $contador++;
                     $valor = rand(0, $last );
-                    $user->retweets()->attach( $num[ $valor ] );
+                    $user->retweets()->attach( $num[ $i ] );
 
-                    $tweet= Tweet::where('id', $num[$valor])->first(); 
+                    $tweet= Tweet::where('id', $num[$i])->first(); 
 
                     $fecha = Carbon::parse($tweet->fecha)->addSeconds(rand(0, $segundos))->addMinutes(rand(0, $minutos))->addHours(rand(0, $horas));
 
@@ -53,7 +52,7 @@ class RTTableSeeder extends Seeder
                     } 
                     DB::table('tweet_user_rt')->where('id', $contador)->update(['created_at'=> $fecha]);    
                 }
-            }
+            
         }
     }
     

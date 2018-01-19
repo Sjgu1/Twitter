@@ -1,7 +1,86 @@
 @extends('layouts.app')
 @section('content')
 
+<!-- Cuadro derecha, Usuarios Like  -->
+<div class="dashboard dashboard-right" style="width:230px;float:left; margin-top: 30px ">
+                    <div class="module wtf-module js-wtf-module roaming-module has-content">
+                        <div class="flex-module">
+                            <div class="flex-module-header">
+                                <h3>Han retwiteado</h3>
+                                <!--<small>· </small>
+                                <button type="button" class="btn-link js-refresh-suggestions"><small>Actualizar</small></button>
+                                <small class="view-all">· <a class="js-view-all-link js-nav" href="/who_to_follow/suggestions" data-element-term="view_all_link">Ver todos</a></small>-->
+                            </div>
+                            @foreach ($tweet->retweetsUsers as $userRT)
+                            <div class="js-recommended-followers dashboard-user-recommendations flex-module-inner" data-section-id="wtf" style="opacity: 1;">
+                                <div class="UserSmallListItem js-account-summary account-summary" data-user-id="{{ $userRT->id }}" data-feedback-token="500" data-impression-id="">
+                                    <div class="UserSmallListItem-context"></div>
+                            
+                                    <div class="dismiss js-action-dismiss"><span class="Icon Icon--close"></span></div>
+    
+                                    <div class="content">
+                                        <a class="account-group js-recommend-link js-user-profile-link user-thumb" href="/{{$userRT->username}}" >
+                                
+                                            <img class="avatar js-action-profile-avatar " src="{{ $userRT->avatar }}"alt="">
+                                            <span class="account-group-inner" data-user-id="274529577">
+                                                <strong class="fullname">{{ $userRT->name }} </strong><span class="UserBadges"></span><span class="UserNameBreak">&nbsp;</span><span class="username u-dir u-textTruncate" dir="ltr">@<b>{{ $userRT->username }}</b></span>
+                                            </span>
+                                        </a>
+    
+                                    
 
+																			@if(Auth::id() == $userRT->id)
+																							<div class="user-actions btn-group following not-muting including " data-user-id="{{$userRT->username}}" data-screen-name="{{$userRT->username}}" data-name="{{$userRT->name}}" data-protected="false" style="visibility:hidden;">
+																							@else
+                                                                                            <?php $comprobacion=false ?>
+                                                                                            <?php $esUsuarioConectado=false ?>
+
+                                                                                                @foreach(Auth::user()->seguidos as $siguiendo)
+                                                                                                    @if($userRT->id == Auth::id() )
+                                                                                                    <?php $esUsuarioConectado=true ?>
+                                                                                                    @break
+                                                                                                    @elseif($siguiendo->id == $userRT->id )
+                                                                                                    <?php $comprobacion=true ?>
+                                                                                                    @break                                                                                                    
+                                                                                                    
+                                                                                                    @endif
+
+                                                                                                @endforeach
+                                                                                                @if($esUsuarioConectado == true)
+                                                                                                <div class="user-actions btn-group no-following not-muting including " data-user-id="{{$userRT->username}}" data-screen-name="{{$userRT->username}}" data-name="{{$userRT->name}}" data-protected="false" style="visibility: hidden;">
+                                                                                                @elseif($comprobacion == true && $esUsuarioConectado ==false)
+                                                                                                <div class="user-actions btn-group following not-muting including " data-user-id="{{$userRT->username}}" data-screen-name="{{$userRT->username}}" data-name="{{$userRT->name}}" data-protected="false">
+                                                                                                @else ($comprobacion == false && $esUsuarioConectado ==false)
+                                                                                                <div class="user-actions btn-group not-following not-muting including " data-user-id="{{$userRT->username}}" data-screen-name="{{$userRT->username}}" data-name="{{$userRT->name}}" data-protected="false">
+
+                                                                                                @endif
+                                                                                            @endif 
+                                        <span class="user-actions-follow-button js-follow-btn follow-button">
+                                            <a  href="{{ action('HomeController@seguir', ['seguido'=>$userRT->id]) }}" type="button" class="EdgeButton EdgeButton--secondary EdgeButton--small  button-text follow-text">
+                                                <span aria-hidden="true">Seguir</span>
+                                                <span class="u-hiddenVisually">Seguir a <span class="username u-dir u-textTruncate" dir="ltr">@<b>username</b></span></span>
+                                            </a>
+                                            <button type="button" class=" EdgeButton EdgeButton--primary EdgeButton--small  button-text following-text">
+                                                <span aria-hidden="true">Siguiendo</span>
+                                                <span class="u-hiddenVisually">Siguiendo a <span class="username u-dir u-textTruncate" dir="ltr">@<b>username</b></span></span>
+                                            </button>
+                                            <a  href="{{ action('HomeController@dejarDeSeguir', ['seguido'=>$userRT->id]) }}" type="button" class="EdgeButton EdgeButton--danger EdgeButton--small  button-text unfollow-text">
+                                                <span aria-hidden="true">Dejar de seguir</span>
+                                                <span class="u-hiddenVisually">Dejar de seguir a <span class="username u-dir u-textTruncate" dir="ltr">@<b>username</b></span></span>
+                                            </a>
+                                
+                                        </span>
+                                        </div>
+                                    </div><!--content-->  
+                                </div>
+                        
+                            </div>
+                            @endforeach
+                        </div><!--flex-module-->
+                    </div>
+    
+                    </div>
+                    <!--Fin derecho, usuarios  -->
 
 
 <div class="PermalinkOverlay-modal" id="permalink-overlay-dialog" role="alertdialog" aria-labelledby="permalink-overlay-header" aria-describedby="permalink-overlay-body">
@@ -49,7 +128,7 @@
 													</div>
 													<ul tabindex="-1" role="menu" aria-labelledby="menu-1" aria-hidden="false">
 														<li class="js-actionDelete" role="presentation">
-															<button type="button" class="dropdown-link" style="min-width:-webkit-fill-available;" role="menuitem">Eliminar Tweet</button>
+														<a href =" {{ action('HomeController@removeTweet', ['tweet'=>$tweet->id]) }}" type="button" class="dropdown-link" style="min-width:-webkit-fill-available;" role="menuitem">Eliminar Tweet</a>
 														</li>
 													</ul>
 													<div class="js-last-tabstop" tabindex="0"></div>
@@ -244,9 +323,97 @@
 					</div>
 					<div class="js-last-tabstop" tabindex="0"></div>
 				</div>
+				
 			</div>
+			
+			<!-- Cuadro derecha, Usuarios Like  -->
+			<div class="col-md-1"></div>
+<div class="dashboard dashboard-right" style="width:230px;float:right; margin-top: 30px ">
+                    <div class="module wtf-module js-wtf-module roaming-module has-content">
+                        <div class="flex-module">
+                            <div class="flex-module-header">
+                                <h3>Han dado a me gusta</h3>
+                                <!--<small>· </small>
+                                <button type="button" class="btn-link js-refresh-suggestions"><small>Actualizar</small></button>
+                                <small class="view-all">· <a class="js-view-all-link js-nav" href="/who_to_follow/suggestions" data-element-term="view_all_link">Ver todos</a></small>-->
+                            </div>
+                            @foreach ($tweet->likesUsers as $userLike)
+                            <div class="js-recommended-followers dashboard-user-recommendations flex-module-inner" data-section-id="wtf" style="opacity: 1;">
+                                <div class="UserSmallListItem js-account-summary account-summary" data-user-id="{{ $userLike->id }}" data-feedback-token="500" data-impression-id="">
+                                    <div class="UserSmallListItem-context"></div>
+                            
+                                    <div class="dismiss js-action-dismiss"><span class="Icon Icon--close"></span></div>
+    
+                                    <div class="content">
+                                        <a class="account-group js-recommend-link js-user-profile-link user-thumb" href="/{{$userLike->username}}" >
+                                
+                                            <img class="avatar js-action-profile-avatar " src="{{ $userLike->avatar }}"alt="">
+                                            <span class="account-group-inner" data-user-id="274529577">
+                                                <strong class="fullname">{{ $userLike->name }} </strong><span class="UserBadges"></span><span class="UserNameBreak">&nbsp;</span><span class="username u-dir u-textTruncate" dir="ltr">@<b>{{ $userLike->username }}</b></span>
+                                            </span>
+                                        </a>
+    
+                                    
+
+																			@if(Auth::id() == $userLike->id)
+																							<div class="user-actions btn-group following not-muting including " data-user-id="66816631" data-screen-name="{{$userLike->username}}" data-name="{{$userLike->name}}" data-protected="false" style="visibility:hidden;">
+																							@else
+                                                                                            <?php $comprobacion=false ?>
+                                                                                            <?php $esUsuarioConectado=false ?>
+
+                                                                                                @foreach(Auth::user()->seguidos as $siguiendo)
+                                                                                                    @if($userLike->id == Auth::id() )
+                                                                                                    <?php $esUsuarioConectado=true ?>
+                                                                                                    @break
+                                                                                                    @elseif($siguiendo->id == $userLike->id )
+                                                                                                    <?php $comprobacion=true ?>
+                                                                                                    @break                                                                                                    
+                                                                                                    
+                                                                                                    @endif
+
+                                                                                                @endforeach
+                                                                                                @if($esUsuarioConectado == true)
+                                                                                                <div class="user-actions btn-group no-following not-muting including " data-user-id="{{$userLike->username}}" data-screen-name="{{$userLike->username}}" data-name="{{$userLike->name}}" data-protected="false" style="visibility: hidden;">
+                                                                                                @elseif($comprobacion == true && $esUsuarioConectado ==false)
+                                                                                                <div class="user-actions btn-group following not-muting including " data-user-id="{{$userLike->username}}" data-screen-name="{{$userLike->username}}" data-name="{{$userLike->name}}" data-protected="false">
+                                                                                                @else ($comprobacion == false && $esUsuarioConectado ==false)
+                                                                                                <div class="user-actions btn-group not-following not-muting including " data-user-id="{{$userLike->username}}" data-screen-name="{{$userLike->username}}" data-name="{{$userLike->name}}" data-protected="false">
+
+                                                                                                @endif
+                                                                                            @endif 
+                                        <span class="user-actions-follow-button js-follow-btn follow-button">
+                                            <a  href="{{ action('HomeController@seguir', ['seguido'=>$userLike->id]) }}" type="button" class="EdgeButton EdgeButton--secondary EdgeButton--small  button-text follow-text">
+                                                <span aria-hidden="true">Seguir</span>
+                                                <span class="u-hiddenVisually">Seguir a <span class="username u-dir u-textTruncate" dir="ltr">@<b>username</b></span></span>
+                                            </a>
+                                            <button type="button" class=" EdgeButton EdgeButton--primary EdgeButton--small  button-text following-text">
+                                                <span aria-hidden="true">Siguiendo</span>
+                                                <span class="u-hiddenVisually">Siguiendo a <span class="username u-dir u-textTruncate" dir="ltr">@<b>username</b></span></span>
+                                            </button>
+                                            <a  href="{{ action('HomeController@dejarDeSeguir', ['seguido'=>$userLike->id]) }}" type="button" class="EdgeButton EdgeButton--danger EdgeButton--small  button-text unfollow-text">
+                                                <span aria-hidden="true">Dejar de seguir</span>
+                                                <span class="u-hiddenVisually">Dejar de seguir a <span class="username u-dir u-textTruncate" dir="ltr">@<b>username</b></span></span>
+                                            </a>
+                                
+                                        </span>
+                                        </div>
+                                    </div><!--content-->  
+                                </div>
+                        
+                            </div>
+                            @endforeach
+                        </div><!--flex-module-->
+                    </div>
+    
+                    </div>
+                    <!--Fin derecho, usuarios  -->
+			
 		</div>
+		
 	</div>
 </div>
+
+
+
 
   @endsection
