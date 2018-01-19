@@ -330,6 +330,32 @@
 																			<div class="js-tweet-text-container">
 																				<p class="TweetTextSize  js-tweet-text tweet-text" lang="es" data-aria-label-part="0">{{$tweet->mensaje}}</p>
 																			</div>
+																			@if($tweet->esRespuesta != null)
+                                        <div class="QuoteTweet u-block js-tweet-details-fixer" onclick="redirigir('{{$tweet->esRespuesta->user->username}}','{{$tweet->esRespuesta->id}}')">
+                                        <div class="QuoteTweet-container">
+                                            <a class="QuoteTweet-link js-nav" href="/{{$tweet->esRespuesta->user->username}}/status/{{$tweet->esRespuesta->id}}"  aria-hidden="true">
+                                            </a>
+                                            <div class="QuoteTweet-innerContainer u-cf js-permalink js-media-container"data-item-type="tweet" data-screen-name="jarbochov" data-user-id="683" href="/{{$tweet->esRespuesta->user->username}}/status/{{$tweet->esRespuesta->id}}" tabindex="0">
+                                            <div class="tweet-content">
+                                                <div class="QuoteTweet-authorAndText u-alignTop">
+                                                    
+                                        <div class="QuoteTweet-originalAuthor u-cf u-textTruncate stream-item-header account-group js-user-profile-link">
+                                            <b class="QuoteTweet-fullname u-linkComplex-target">{{$tweet->esRespuesta->user->name}}</b><span class="UserBadges"></span><span class="UserNameBreak">&nbsp;</span><span class="username u-dir u-textTruncate" dir="ltr">@<b>{{$tweet->esRespuesta->user->username}}</b></span>
+                                        </div>
+
+                                                    <div class="ReplyingToContextBelowAuthor" data-aria-label-part="">
+                                            En respuesta a <span class="username u-dir u-textTruncate" dir="ltr">@<b>{{$tweet->user->username}}</b></span>
+
+                                        </div>
+
+                                                
+                                                <div class="QuoteTweet-text tweet-text u-dir" lang="en" data-aria-label-part="2" dir="ltr">{{$tweet->esRespuesta->mensaje}}</div>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        @endif
 																			<div class="stream-item-footer">
 																				<div class="ProfileTweet-actionList js-actions" role="group" aria-label="Acciones del Tweet">
 																					<div class="ProfileTweet-action ProfileTweet-action--reply">
@@ -340,7 +366,7 @@
 																							</div>
 																							<span class="ProfileTweet-actionCount">
 																								<span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">
-																									<!-- Poner aqui el numero de respuestas -->1
+																									<!-- Poner aqui el numero de respuestas -->{{$tweet->respuestas()->count()}}
 
                                                     
 																							

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use App\User;
 use App\Tweet;
 use Carbon\Carbon;
@@ -140,6 +141,12 @@ class HomeController extends Controller
         $tweet->user()->associate($user);
         $tweet->save();
      }
+
+     
+     public function addRespuesta(Request $request){
+        error_log("prueas");
+        return Redirect::back()->with('message','Operation Successful !');
+         }
 
     public function addRT($tweet){
         Auth::user()->retweets()->attach($tweet);

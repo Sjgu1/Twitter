@@ -38,6 +38,8 @@ Route::get('/{username}/likes','PerfilController@perfilLikes');
 //Tweet
 Route::post('/tweet', 'HomeController@nuevoTweet');
 Route::get('/{username}/status/{id}','PerfilController@perfilTweet');
+Route::post('/{username}/status/{id}','HomeController@addRespuesta');
+
 Route::get('/tweet/{tweet}','HomeController@removeTweet');
 
 
