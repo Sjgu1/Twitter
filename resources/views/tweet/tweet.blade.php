@@ -151,6 +151,21 @@
 											<div class="js-tweet-text-container">
 												<p class="TweetTextSize TweetTextSize--jumbo js-tweet-text tweet-text" lang="es" data-aria-label-part="0">{{$tweet->mensaje}}</p>
 											</div>
+											@if($tweet->multimedia != null && $tweet->multimedia != ""  )
+										<div class="AdaptiveMediaOuterContainer">
+											<div class="AdaptiveMedia is-square">
+											<div class="AdaptiveMedia-container">
+												<div class="AdaptiveMedia-singlePhoto" style="padding-top: calc(0.75 * 100% - 0.5px);">
+											<div class="AdaptiveMedia-photoContainer js-adaptive-photo " data-image-url="{{$tweet->multimedia}}" data-element-context="platform_photo_card" style="background-color:rgba(46,42,64,1.0);" data-dominant-color="[46,42,64]" loaded="true">
+										<img data-aria-label-part="" src="{{$tweet->multimedia}}" alt="" style="width: 100%; top: -0px;">
+										</div>
+
+
+										</div>
+											</div>
+											</div>
+										</div>
+										@endif
 											<div class="AdaptiveMediaOuterContainer">
 												<div class="js-tweet-details-fixer tweet-details-fixer">
 													<div class="client-and-actions">	<span class="metadata">
@@ -404,6 +419,21 @@
 										<div class="js-tweet-text-container" onclick="redirigir('{{$tweetRespuesta->user->username}}', '{{$tweetRespuesta->id}}')">
 											<p class="TweetTextSize  js-tweet-text tweet-text" lang="es" data-aria-label-part="0">{{$tweetRespuesta->mensaje}}</p>
 										</div>
+										@if($tweet->multimedia != null && $tweet->multimedia != ""  )
+										<div class="AdaptiveMediaOuterContainer">
+											<div class="AdaptiveMedia is-square">
+											<div class="AdaptiveMedia-container">
+												<div class="AdaptiveMedia-singlePhoto" style="padding-top: calc(0.75 * 100% - 0.5px);">
+											<div class="AdaptiveMedia-photoContainer js-adaptive-photo " data-image-url="{{$tweetRespuesta->multimedia}}" data-element-context="platform_photo_card" style="background-color:rgba(46,42,64,1.0);" data-dominant-color="[46,42,64]" loaded="true">
+										<img data-aria-label-part="" src="{{$tweetRespuesta->multimedia}}" alt="" style="width: 100%; top: -0px;">
+										</div>
+
+
+										</div>
+											</div>
+											</div>
+										</div>
+										@endif
 										<script>
 											function redirigir(usuario, tweet){
 											                                            window.location.href = "/"+usuario+"/status/"+tweet

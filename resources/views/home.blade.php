@@ -212,7 +212,23 @@
 										</div>
 										<div class="js-tweet-text-container" onclick="redirigir('{{$tweet->user->username}}', '{{$tweet->id}}')">
 											<p class="TweetTextSize  js-tweet-text tweet-text" lang="es" data-aria-label-part="0">{{$tweet->mensaje}}</p>
-										</div>@if($tweet->esRespuesta != null)
+										</div>
+										@if($tweet->multimedia != null && $tweet->multimedia != ""  )
+										<div class="AdaptiveMediaOuterContainer">
+											<div class="AdaptiveMedia is-square">
+											<div class="AdaptiveMedia-container">
+												<div class="AdaptiveMedia-singlePhoto" style="padding-top: calc(0.75 * 100% - 0.5px);">
+											<div class="AdaptiveMedia-photoContainer js-adaptive-photo " data-image-url="{{$tweet->multimedia}}" data-element-context="platform_photo_card" style="background-color:rgba(46,42,64,1.0);" data-dominant-color="[46,42,64]" loaded="true">
+										<img data-aria-label-part="" src="{{$tweet->multimedia}}" alt="" style="width: 100%; top: -0px;">
+										</div>
+
+
+										</div>
+											</div>
+											</div>
+										</div>
+										@endif
+										@if($tweet->esRespuesta != null)
 										<div class="QuoteTweet u-block js-tweet-details-fixer" onclick="redirigir('{{$tweet->esRespuesta->user->username}}','{{$tweet->esRespuesta->id}}')">
 											<div class="QuoteTweet-container">
 												<a class="QuoteTweet-link js-nav" href="/{{$tweet->esRespuesta->user->username}}/status/{{$tweet->esRespuesta->id}}" aria-hidden="true"></a>
