@@ -40,8 +40,9 @@
                         <div class="pull-right nav-extras">
                             <!-- Input de buscar-->
                             <div role="search">
-                                <form class="t1-form form-search js-search-form" action="/search" id="global-nav-search">
-                                    <input class="search-input" type="text" id="search-query" placeholder="Buscar en Twitter" name="q" autocomplete="off" spellcheck="false" aria-autocomplete="list" aria-expanded="false" aria-owns="typeahead-dropdown-1" dir="ltr" style="direction: ltr; text-align: left;">
+                                <form class="t1-form form-search js-search-form" action="/" method="POST"  meid="global-nav-search">
+																{!! csrf_field() !!}
+																		<input class="search-input" type="text" id="busqueda" placeholder="Buscar en Twitter" name="q" autocomplete="off" spellcheck="false" aria-autocomplete="list" aria-expanded="false" aria-owns="typeahead-dropdown-1" dir="ltr" style="direction: ltr; text-align: left;">
                                     <span class="search-icon js-search-action">
                                         <button type="submit" class="Icon Icon--medium Icon--search nav-search" tabindex="-1">
                                         </button>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Controllers\Controller;
 use App\User;
 use App\Tweet;
 use Carbon\Carbon;
@@ -122,7 +123,7 @@ class HomeController extends Controller
         $id = Auth::id();
         $seguidor = User::find($id);
         $seguidor->seguidos()->attach($seguido);
-        return back();
+        return back()->withInput();;
     }
     public function dejarDeSeguir($seguido){
         $id = Auth::id();
@@ -204,4 +205,6 @@ class HomeController extends Controller
 
         return back();
     }
+
+
 }

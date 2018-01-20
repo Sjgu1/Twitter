@@ -19,6 +19,7 @@ Route::get('/', 'HomeController@index')->name('home');
 //Seguir
 Route::get('/seguir/{seguido}/dejarDeSeguir','HomeController@dejarDeSeguir');
 Route::get('/seguir/{seguido}','HomeController@seguir');
+Route::post('/','PerfilController@buscar');
 
 //RT
 Route::get('/{tweet}/hacerRT','HomeController@addRT');
