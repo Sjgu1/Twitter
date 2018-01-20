@@ -25,6 +25,49 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
+                            <label for="username" class="col-md-4 control-label">Username</label>
+
+                            <div class="col-md-6">
+                                <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" required autofocus>
+
+                                @if ($errors->has('username'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('username') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('avatar') ? ' has-error' : '' }}">
+                            <label for="avatar" class="col-md-4 control-label">Avatar</label>
+
+                            <div class="col-md-6">
+                                <input id="avatar" type="text" class="form-control" name="avatar" value="{{ old('avatar') }}" required autofocus>
+
+                                @if ($errors->has('avatar'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('avatar') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('fondo') ? ' has-error' : '' }}">
+                            <label for="fondo" class="col-md-4 control-label">Fondo</label>
+
+                            <div class="col-md-6">
+                                <input id="fondo" type="text" class="form-control" name="fondo" value="{{ old('fondo') }}" required autofocus>
+
+                                @if ($errors->has('fondo'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('fondo') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
@@ -34,6 +77,20 @@
                                 @if ($errors->has('email'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('descripcion') ? ' has-error' : '' }}">
+                            <label for="descripcion" class="col-md-4 control-label">Descripcion</label>
+
+                            <div class="col-md-6">
+                                <input id="descripcion" type="descripcion" class="form-control" name="descripcion" value="{{ old('descripcion') }}" >
+
+                                @if ($errors->has('email'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('descripcion') }}</strong>
                                     </span>
                                 @endif
                             </div>

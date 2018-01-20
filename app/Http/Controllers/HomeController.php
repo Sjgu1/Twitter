@@ -133,17 +133,23 @@ class HomeController extends Controller
     }
 
     public function nuevoTweet(Request $request){
-        error_log($request->mensaje);
-        error_log($request->multimedia);
-
+   ;
+        
+        if($request->tweet_multimedia == null){
+            $enviar = $request->tweet_multimedia2;
+        }else{
+            $enviar = $request->tweet_multimedia;
+        }
+        error_log($enviar);
         $tweet = new Tweet([
             'fecha' =>  Carbon::now(),
-            'mensaje' => $request->mensaje,
-            'multimedia' =>$request->multimedia
+            'mensaje' => $request->tweet_content,
+            'multimedia' =>$enviar
         ]);
         $user = Auth::user();
         $tweet->user()->associate($user);
         $tweet->save();
+        return back();
      }
 
 

@@ -61,9 +61,13 @@
 			<div class="timeline-tweet-box">
 				<div class="home-tweet-box tweet-box component tweet-user">
 					<img alt="Name" class="top-timeline-tweet-box-user-image avatar size32" src="{{ Auth::user()->avatar }}">
-					<form action="//upload.twitter.com/i/tweet/create_with_media.iframe" class="t1-form tweet-form condensed" data-condensed-text="¿Qué está pasando?" data-poll-composer-rows="3" enctype="multipart/form-data" id="swift_tweetbox_1515235399021" method="post" name="swift_tweetbox_1515235399021" target="tweet-post-iframe">
-						<div class="reply-users"></div>
-						
+					<form  action="/tweet/nuevo" method="POST" class="t1-form tweet-form condensed" data-condensed-text="¿Qué está pasando?" data-poll-composer-rows="3" enctype="multipart/form-data" id="swift_tweetbox_1515235399021" method="post" name="swift_tweetbox_1515235399021">
+                    {!! csrf_field() !!}
+                        <div class="reply-users"></div>
+						<div class="tweet-content">
+							<div class="TweetBox-photoIntent">
+							
+							</div>
 							<div class="ComposerDragHelp"> <span class="ComposerDragHelp-text"></span>
 							</div><span class="visuallyhidden" id="tweet-box-home-timeline-label">Texto del Tweet</span>
 							<div class="RichEditor RichEditor--emojiPicker">
@@ -104,15 +108,17 @@
 								</div>
 								<div class="RichEditor-mozillaCursorWorkaround">&nbsp;</div>
 							</div>
-							<textarea aria-hidden="true" class="tweet-box-shadow hidden" name="status"></textarea>
+							<textarea   name="tweet_content" id="tweet_content" aria-hidden="true" class="tweet-box-shadow hidden">{!! csrf_field() !!}</textarea>
 							<!-- El input de imagenes -->
 							<div style="padding-top:10px;padding-bottom:10px; " >		
 						<span class="tweet-camera Icon Icon--media"  style="padding-top:5px;font-size: 25px; color:#1ea1f2;"></span>
-						<div style="min-height: 35px; max-height: 35px; min-width: 450px; max-width: 450px;" aria-autocomplete="list" aria-expanded="false" aria-labelledby="tweet-box-home-timeline-label" aria-multiline="true"  class="tweet-box rich-editor pull-right RichEditor-scrollContainer u-borderRadiusInherit" contenteditable="true" dir="ltr" id="tweet-box-home-timeline-src" name="tweet-box-home-timeline-src" role="textbox" spellcheck="true">
-						
+						<div style="min-height: 35px;max-height: 35px; min-width: 450px; max-width: 450px;"  aria-multiline="true" aria-owns="typeahead-dropdown-2" class="tweet-box rich-editor pull-right RichEditor-scrollContainer u-borderRadiusInherit" contenteditable="true"  data-placeholder-poll-composer-on="Haz una pregunta..." data-placeholder-reply="Twittea tu respuesta" dir="ltr" id="tweet_multimedia_div" name="tweet_multimedia_div" role="textbox" spellcheck="true">
+						<input type="hidden" id="tweet_multimedia" name="tweet_multimedia">
+						<div>
+						</div>
 							</div>
-							<!-- El input de imagenes -->
 
+							<!-- El input de imagenes -->
 							<div class="TweetBoxAttachments">
 								<div class="thumbnail-container">
 									<div class="thumbnail-wrapper">
@@ -125,11 +131,10 @@
 						<div class="TweetBoxToolbar">
 							<div class="TweetBoxExtras tweet-box-extras"> <span class="TweetBoxExtras-item TweetBox-mediaPicker"></span>
 							</div>
-							<div class="TweetBoxToolbar-tweetButton tweet-button"> 
-								</button>
+							<div class="TweetBoxToolbar-tweetButton tweet-button"> <span class="add-tweet-button">
 								</span>
-								<button class="tweet-action EdgeButton EdgeButton--primary js-tweet-btn disabled" onclick="nuevoTweet()" disabled type="button"><span class="button-text tweeting-text">Twittear</span>  <span class="button-text replying-text">Responder</span>
-								</button>
+                                <button onclick="cambiar()" type="submit" id="sendButton" style="background-color: #1da1f2;border: 1px solid #1da1f2;color: #fff;" class=" EdgeButton EdgeButton--primary ">Twittear</button>
+
 							</div>
 						</div>
 						<div style="position: absolute; visibility: hidden;"></div>
@@ -366,6 +371,8 @@
 			<script type="text/javascript">
 				$(document).ready(function() { localStorage.removeItem('__draft_tweets__:home');});
 				function nuevoTweet() {         
+
+					alert(document.getElementById('tweet-box-home-timeline').textContent);
 				    $.ajaxSetup({
 				        headers: {
 				            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -374,11 +381,33 @@
 				    console.log( document.getElementById('tweet-box-home-timeline-src'))
 				    $.post("/tweet", {
 				        mensaje: document.getElementById('tweet-box-home-timeline').textContent,
-						multimedia: document.getElementById('tweet-box-home-timeline-src').textContent,
+						multimedia: document.getElementById('tweet-box-home-timeline-src').textContent
 
 				    });         
 				
 				    window.location.reload(true);
 				         
 				 }
-			</script>@endsection
+			</script>
+			
+			<script>
+			$(document).ready(function(){
+				document.getElementById('sendButton').disabled = true
+				$('#tweet-box-home-timeline').keyup(function(){
+
+					console.log("blablabla")
+					if(document.getElementById('tweet-box-home-timeline').textContent.length !=0 && document.getElementById('tweet-box-home-timeline').textContent.length <= 280)
+					document.getElementById('sendButton').disabled = false
+					else
+					document.getElementById('sendButton').disabled = true
+				})
+			});
+			</script>
+
+<script>
+
+function cambiar(){
+    $('#tweet_multimedia').val( document.getElementById('tweet_multimedia_div').textContent);
+}
+
+</script>@endsection
