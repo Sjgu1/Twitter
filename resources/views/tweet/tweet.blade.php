@@ -245,17 +245,7 @@
                         <div class="reply-users"></div>
 						<div class="tweet-content">
 							<div class="TweetBox-photoIntent">
-								<div class="photo-selector">
-									<button aria-hidden="true" class="btn icon-btn js-tooltip" data-original-title="Añadir fotos o video" tabindex="-1" type="button"><span class="tweet-camera Icon Icon--media"></span>  <span class="text add-photo-label u-hiddenVisually">Añadir fotos o video</span>
-									</button>
-									<div class="image-selector">
-										<input class="file-data" name="media_data_empty" type="hidden">
-										<div class="multi-photo-data-container hidden"></div>
-										<label class="t1-label"><span class="visuallyhidden">Añadir fotos o video</span> 
-											<input accept="image/gif,image/jpeg,image/jpg,image/png,video/mp4,video/x-m4v" class="file-input js-tooltip" data-delay="150" data-original-title="Añadir fotos o video" multiple name="media_empty" type="file">
-										</label>
-									</div>
-								</div>
+							
 							</div>
 							<div class="ComposerDragHelp"> <span class="ComposerDragHelp-text"></span>
 							</div><span class="visuallyhidden" id="tweet-box-home-timeline-label">Texto del Tweet</span>
@@ -298,6 +288,16 @@
 								<div class="RichEditor-mozillaCursorWorkaround">&nbsp;</div>
 							</div>
 							<textarea   name="tweet_content" id="tweet_content" aria-hidden="true" class="tweet-box-shadow hidden">{!! csrf_field() !!}</textarea>
+							<!-- El input de imagenes -->
+							<div style="padding-top:10px;padding-bottom:10px; " >		
+						<span class="tweet-camera Icon Icon--media"  style="padding-top:5px;font-size: 25px; color:#1ea1f2;"></span>
+						<div style="min-height: 35px; min-width: 550px;"  aria-multiline="true" aria-owns="typeahead-dropdown-2" class="tweet-box rich-editor pull-right RichEditor-scrollContainer u-borderRadiusInherit" contenteditable="true"  data-placeholder-poll-composer-on="Haz una pregunta..." data-placeholder-reply="Twittea tu respuesta" dir="ltr" id="tweet_multimedia_div" name="tweet_multimedia_div" role="textbox" spellcheck="true">
+						<input type="hidden" id="tweet_multimedia" name="tweet_multimedia">
+						<div>
+						</div>
+							</div>
+
+							<!-- El input de imagenes -->
 							<div class="TweetBoxAttachments">
 								<div class="thumbnail-container">
 									<div class="thumbnail-wrapper">
@@ -312,7 +312,7 @@
 							</div>
 							<div class="TweetBoxToolbar-tweetButton tweet-button"> <span class="add-tweet-button">
 								</span>
-                                <button type="submit" id="sendButton" style="background-color: #1da1f2;border: 1px solid #1da1f2;color: #fff;" class=" EdgeButton EdgeButton--primary ">Responder</button>
+                                <button onclick="cambiar()" type="submit" id="sendButton" style="background-color: #1da1f2;border: 1px solid #1da1f2;color: #fff;" class=" EdgeButton EdgeButton--primary ">Responder</button>
 
 							</div>
 						</div>
@@ -480,7 +480,7 @@
 						<div class="js-last-tabstop" tabindex="0"></div>
 					</div>
 				</div>
-                
+                </div>
 				<!-- Cuadro derecha, Usuarios Like  -->
 				<div class="col-md-1"></div>
 				<div class="dashboard dashboard-right" style="width:230px;float:right; margin-top: 30px ">
@@ -573,5 +573,13 @@
 			});
 			</script>
 
+<script>
+document.getElementById('tweet_multimedia').onHTMLUpdate = function() {
+    alert("ha cambiado");
+}
+function cambiar(){
+    $('#tweet_multimedia').val( document.getElementById('tweet_multimedia_div').textContent);
+}
 
+</script>
 @endsection

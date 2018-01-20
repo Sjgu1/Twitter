@@ -132,10 +132,13 @@ class HomeController extends Controller
     }
 
     public function nuevoTweet(Request $request){
+        error_log($request->mensaje);
+        error_log($request->multimedia);
 
         $tweet = new Tweet([
             'fecha' =>  Carbon::now(),
-            'mensaje' => $request->mensaje
+            'mensaje' => $request->mensaje,
+            'multimedia' =>$request->multimedia
         ]);
         $user = Auth::user();
         $tweet->user()->associate($user);
@@ -181,11 +184,11 @@ class HomeController extends Controller
 
     public function addRespuesta(Request $request,  $username, $id){
         error_log($id);
-        error_log($username);
-
+        error_log($request->tweet_multimedia);
         $tweet = new Tweet([
             'fecha' =>  Carbon::now(),
-            'mensaje' => $request->tweet_content
+            'mensaje' => $request->tweet_content,
+            'multimedia' => $request->tweet_multimedia
         ]);
         $user = Auth::user();
         $tweet->user()->associate($user);

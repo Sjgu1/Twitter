@@ -63,21 +63,7 @@
 					<img alt="Name" class="top-timeline-tweet-box-user-image avatar size32" src="{{ Auth::user()->avatar }}">
 					<form action="//upload.twitter.com/i/tweet/create_with_media.iframe" class="t1-form tweet-form condensed" data-condensed-text="¿Qué está pasando?" data-poll-composer-rows="3" enctype="multipart/form-data" id="swift_tweetbox_1515235399021" method="post" name="swift_tweetbox_1515235399021" target="tweet-post-iframe">
 						<div class="reply-users"></div>
-						<div class="tweet-content">
-							<img alt="Name" class="inline-reply-user-image avatar size32" src="{{ Auth::user()->avatar }}">
-							<div class="TweetBox-photoIntent">
-								<div class="photo-selector">
-									<button aria-hidden="true" class="btn icon-btn js-tooltip" data-original-title="Añadir fotos o video" tabindex="-1" type="button"><span class="tweet-camera Icon Icon--media"></span>  <span class="text add-photo-label u-hiddenVisually">Añadir fotos o video</span>
-									</button>
-									<div class="image-selector">
-										<input class="file-data" name="media_data_empty" type="hidden">
-										<div class="multi-photo-data-container hidden"></div>
-										<label class="t1-label"><span class="visuallyhidden">Añadir fotos o video</span> 
-											<input accept="image/gif,image/jpeg,image/jpg,image/png,video/mp4,video/x-m4v" class="file-input js-tooltip" data-delay="150" data-original-title="Añadir fotos o video" multiple name="media_empty" type="file">
-										</label>
-									</div>
-								</div>
-							</div>
+						
 							<div class="ComposerDragHelp"> <span class="ComposerDragHelp-text"></span>
 							</div><span class="visuallyhidden" id="tweet-box-home-timeline-label">Texto del Tweet</span>
 							<div class="RichEditor RichEditor--emojiPicker">
@@ -119,6 +105,14 @@
 								<div class="RichEditor-mozillaCursorWorkaround">&nbsp;</div>
 							</div>
 							<textarea aria-hidden="true" class="tweet-box-shadow hidden" name="status"></textarea>
+							<!-- El input de imagenes -->
+							<div style="padding-top:10px;padding-bottom:10px; " >		
+						<span class="tweet-camera Icon Icon--media"  style="padding-top:5px;font-size: 25px; color:#1ea1f2;"></span>
+						<div style="min-height: 35px; min-width: 450px;" aria-autocomplete="list" aria-expanded="false" aria-labelledby="tweet-box-home-timeline-label" aria-multiline="true"  class="tweet-box rich-editor pull-right RichEditor-scrollContainer u-borderRadiusInherit" contenteditable="true" dir="ltr" id="tweet-box-home-timeline-src" name="tweet-box-home-timeline-src" role="textbox" spellcheck="true">
+						
+							</div>
+							<!-- El input de imagenes -->
+
 							<div class="TweetBoxAttachments">
 								<div class="thumbnail-container">
 									<div class="thumbnail-wrapper">
@@ -131,8 +125,7 @@
 						<div class="TweetBoxToolbar">
 							<div class="TweetBoxExtras tweet-box-extras"> <span class="TweetBoxExtras-item TweetBox-mediaPicker"></span>
 							</div>
-							<div class="TweetBoxToolbar-tweetButton tweet-button"> <span class="add-tweet-button"><button aria-label="Agregar otro Tweet" class="js-add-tweet EdgeButton EdgeButton--secondary EdgeButton--icon EdgeButton--medium js-tooltip disabled" data-delay="150" data-original-title="Agregar otro Tweet" data-placement="top" disabled><span class="add-tweet-button"><span class="add-tweet-button"><span class="Icon Icon--add Icon--medium"></span></span>
-								</span>
+							<div class="TweetBoxToolbar-tweetButton tweet-button"> 
 								</button>
 								</span>
 								<button class="tweet-action EdgeButton EdgeButton--primary js-tweet-btn disabled" onclick="nuevoTweet()" disabled type="button"><span class="button-text tweeting-text">Twittear</span>  <span class="button-text replying-text">Responder</span>
@@ -362,9 +355,11 @@
 				            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				        }
 				    });
-				    
+				    console.log( document.getElementById('tweet-box-home-timeline-src'))
 				    $.post("/tweet", {
-				        mensaje: document.getElementById('tweet-box-home-timeline').textContent
+				        mensaje: document.getElementById('tweet-box-home-timeline').textContent,
+						multimedia: document.getElementById('tweet-box-home-timeline-src').textContent,
+
 				    });         
 				
 				    window.location.reload(true);
