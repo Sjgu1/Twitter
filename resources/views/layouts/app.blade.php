@@ -34,7 +34,6 @@
 				document.getElementById('sendButton2').disabled = false
 				$('#tweet-box-home-timeline-nav').keyup(function(){
 
-					console.log("blablabla")
 					if(document.getElementById('tweet-box-home-timeline-nav').textContent.length !=0 && document.getElementById('tweet-box-home-timeline-nav').textContent.length <= 280)
 					document.getElementById('sendButton2').disabled = false
 					else

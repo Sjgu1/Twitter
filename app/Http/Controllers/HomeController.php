@@ -190,12 +190,18 @@ class HomeController extends Controller
      
 
     public function addRespuesta(Request $request,  $username, $id){
-        error_log($id);
+        //dd($request);
         error_log($request->tweet_multimedia);
+        if( $request->tweet_multimedia == null){
+            $enviar = null;
+        }
+        else{
+            $enviar =  $request->tweet_multimedia;
+        }
         $tweet = new Tweet([
             'fecha' =>  Carbon::now(),
             'mensaje' => $request->tweet_content,
-            'multimedia' => $request->tweet_multimedia
+            'multimedia' => $enviar
         ]);
         $user = Auth::user();
         $tweet->user()->associate($user);
