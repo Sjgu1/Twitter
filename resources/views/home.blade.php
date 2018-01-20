@@ -108,7 +108,7 @@
 							<!-- El input de imagenes -->
 							<div style="padding-top:10px;padding-bottom:10px; " >		
 						<span class="tweet-camera Icon Icon--media"  style="padding-top:5px;font-size: 25px; color:#1ea1f2;"></span>
-						<div style="min-height: 35px; min-width: 450px;" aria-autocomplete="list" aria-expanded="false" aria-labelledby="tweet-box-home-timeline-label" aria-multiline="true"  class="tweet-box rich-editor pull-right RichEditor-scrollContainer u-borderRadiusInherit" contenteditable="true" dir="ltr" id="tweet-box-home-timeline-src" name="tweet-box-home-timeline-src" role="textbox" spellcheck="true">
+						<div style="min-height: 35px; max-height: 35px; min-width: 450px; max-width: 450px;" aria-autocomplete="list" aria-expanded="false" aria-labelledby="tweet-box-home-timeline-label" aria-multiline="true"  class="tweet-box rich-editor pull-right RichEditor-scrollContainer u-borderRadiusInherit" contenteditable="true" dir="ltr" id="tweet-box-home-timeline-src" name="tweet-box-home-timeline-src" role="textbox" spellcheck="true">
 						
 							</div>
 							<!-- El input de imagenes -->

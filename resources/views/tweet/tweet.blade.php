@@ -306,7 +306,7 @@
 							<!-- El input de imagenes -->
 							<div style="padding-top:10px;padding-bottom:10px; " >		
 						<span class="tweet-camera Icon Icon--media"  style="padding-top:5px;font-size: 25px; color:#1ea1f2;"></span>
-						<div style="min-height: 35px; min-width: 550px;"  aria-multiline="true" aria-owns="typeahead-dropdown-2" class="tweet-box rich-editor pull-right RichEditor-scrollContainer u-borderRadiusInherit" contenteditable="true"  data-placeholder-poll-composer-on="Haz una pregunta..." data-placeholder-reply="Twittea tu respuesta" dir="ltr" id="tweet_multimedia_div" name="tweet_multimedia_div" role="textbox" spellcheck="true">
+						<div style="min-height: 35px;max-height: 35px; min-width: 550px; max-width: 550px;"  aria-multiline="true" aria-owns="typeahead-dropdown-2" class="tweet-box rich-editor pull-right RichEditor-scrollContainer u-borderRadiusInherit" contenteditable="true"  data-placeholder-poll-composer-on="Haz una pregunta..." data-placeholder-reply="Twittea tu respuesta" dir="ltr" id="tweet_multimedia_div" name="tweet_multimedia_div" role="textbox" spellcheck="true">
 						<input type="hidden" id="tweet_multimedia" name="tweet_multimedia">
 						<div>
 						</div>
