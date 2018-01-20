@@ -235,64 +235,30 @@ margin-right: 0px
                     </div>
                 </div>
                 <textarea aria-hidden="true" class="tweet-box-shadow hidden" name="status"></textarea>
+                <!-- El input de imagenes -->
+						<!-- El input de imagenes -->
+                        <div style="padding-top:10px;padding-bottom:10px; " >		
+						<span class="tweet-camera Icon Icon--media"  style="padding-top:5px;font-size: 25px; color:#1ea1f2;"></span>
+						<div style="min-height: 35px;max-height: 35px; min-width: 450px;max-width: 450px" aria-autocomplete="list" aria-expanded="false" aria-labelledby="tweet-box-home-timeline-label" aria-multiline="true" aria-owns="typeahead-dropdown-2" class="tweet-box rich-editor pull-right RichEditor-scrollContainer u-borderRadiusInherit" contenteditable="true"  data-placeholder-poll-composer-on="Haz una pregunta..." data-placeholder-reply="Twittea tu respuesta" dir="ltr" id="tweet-box-home-timeline-src-nav" name="tweet-box-home-timeline-src-nav" role="textbox" spellcheck="true"><div>
+						</div>
+							</div>
+							<!-- El input de imagenes -->
                 <div class="TweetBoxAttachments" style="z-index: 5000;">
                     <div class="thumbnail-container">
                         <div class="thumbnail-wrapper">
                             <div class="ComposerThumbnails"></div>
                         </div>
                     </div>
-                    <div class="photo-tagging-container user-select-container dropdown-menu hidden" style="display: none;">
-                        <div class="tagging-dropdown">
-                            <div class="dropdown-caret center">
-                                <div class="caret-outer"></div>
-                                <div class="caret-inner"></div>
-                            </div>
-                            <div class="photo-tagging-controls user-select-controls">
-                                <label class="t1-label"><span class="Icon Icon--search nav-search" tabindex="-1"></span> <span class="u-hiddenVisually">Usuarios en esta foto</span> <input aria-autocomplete="list" aria-expanded="true" aria-owns="typeahead-dropdown-2" class="js-initial-focus" placeholder="Busca y etiqueta hasta a 10 personas" type="text"></label>
-                            </div>
-                            <div class="typeahead-container">
-                                <div aria-hidden="false" aria-multiselectable="true" class="dropdown-menu typeahead" id="typeahead-dropdown-2" role="listbox" style="display: none;">
-                                    <div aria-hidden="true" class="dropdown-caret">
-                                        <div class="caret-outer"></div>
-                                        <div class="caret-inner"></div>
-                                    </div>
-                                    <div class="dropdown-inner js-typeahead-results" role="presentation">
-                                        <div class="typeahead-user-select block0" role="presentation">
-                                            <div class="typeahead-empty-suggestions" role="presentation" style="display: none;">
-                                                Usuarios recomendados
-                                            </div>
-                                            <ul class="typeahead-items typeahead-selected js-typeahead-selected" role="presentation" style="display: none;">
-                                                <li class="typeahead-selected-end" role="presentation"></li>
-                                            </ul>
-                                            <ul class="typeahead-items typeahead-accounts js-typeahead-accounts" role="presentation" style="display: none;">
-                                                <li class="typeahead-accounts-end" role="presentation"></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                            </div>
-                        </div>
+                    
                     </div>
                     <div class="tweet-box-overlay"></div>
                 </div>
             </div>
             <div class="TweetBoxToolbar">
-                <div class="TweetBoxExtras tweet-box-extras">
-                    <span class="TweetBoxExtras-item TweetBox-mediaPicker"><div class="photo-selector">
-                                                <button aria-hidden="true" class="btn icon-btn js-tooltip" data-original-title="Añadir fotos o video" tabindex="-1" type="button"><span class="tweet-camera Icon Icon--media"></span>
-                    <span
-                        class="text add-photo-label u-hiddenVisually">Añadir fotos o video</span>
-                        </button>
-                        <div class="image-selector">
-                            <input class="file-data" name="media_data_empty" type="hidden">
-                            <div class="multi-photo-data-container hidden"></div><label class="t1-label"><span class="visuallyhidden">Añadir fotos o video</span> <input accept="image/gif,image/jpeg,image/jpg,image/png,video/mp4,video/x-m4v" class="file-input js-tooltip" data-delay="150" data-original-title="Añadir fotos o video" multiple="" name="media_empty" type="file"></label>
-                        </div>
-                </div>
-                </span>
-            </div>
+               
             <div class="TweetBoxToolbar-tweetButton tweet-button">
-                <span class="add-tweet-button"><button aria-label="Agregar otro Tweet" class="js-add-tweet EdgeButton EdgeButton--secondary EdgeButton--icon EdgeButton--medium js-tooltip disabled" data-delay="150" data-original-title="Agregar otro Tweet" data-placement="top" disabled=""><span class="add-tweet-button"><span class="add-tweet-button"><span class="Icon Icon--add Icon--medium"></span></span>
-                </span>
-                </button>
+                
+                
                 </span> <button class="tweet-action EdgeButton EdgeButton--primary js-tweet-btn disabled" disabled="" type="button" onclick="nuevoTweetNav()"><span class="button-text tweeting-text">Twittear</span> <span class="button-text replying-text">Responder</span></button>
             </div>
     </div>
@@ -334,7 +300,8 @@ function nuevoTweetNav() {
     });
     
     $.post("/tweet", {
-        mensaje: document.getElementById('tweet-box-home-timeline-nav').textContent
+        mensaje: document.getElementById('tweet-box-home-timeline-nav').textContent,
+        multimedia: document.getElementById('tweet-box-home-timeline-src-nav').textContent
     });         
 
     window.location.reload(true);

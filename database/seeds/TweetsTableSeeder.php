@@ -1876,14 +1876,18 @@ class TweetsTableSeeder extends Seeder
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
             'mensaje' => "
-            voilà comment certains représentaient Rouen dans les années (18)20 (n'est-ce pas charmant ?) ici des peintres anglais source "
+            voilà comment certains représentaient Rouen dans les années (18)20 (n'est-ce pas charmant ?) ici des peintres anglais source ", 
+            'multimedia' => 'http://cdn.akc.org/A-Timeline-of-Puppy-Teething.jpg'
+        
         ]);
         $user = User::where('email', $usuario)->first();
         $tweet->user()->associate($user);
         $tweet->save();
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => 'DIRECTO | Puigdemont, de paseo en Bruselas junto a sus diputados '
+            'mensaje' => 'DIRECTO | Puigdemont, de paseo en Bruselas junto a sus diputados ', 
+            'multimedia' => 'https://www.cesarsway.com/sites/newcesarsway/files/styles/large_article_preview/public/All-about-puppies--Cesar%E2%80%99s-tips%2C-tricks-and-advice.jpg?itok=bi9xUvwe'
+        
         ]);
         $user = User::where('email', $usuario)->first();
         $tweet->user()->associate($user);
@@ -1892,21 +1896,27 @@ class TweetsTableSeeder extends Seeder
         $usuario = "borja@gmail.com";;
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => 'Fácil y sencillo. Calculadora tu sueldo neto'
+            'mensaje' => 'Fácil y sencillo. Calculadora tu sueldo neto', 
+            'multimedia' => 'https://www.cesarsway.com/sites/newcesarsway/files/styles/large_article_preview/public/All-about-puppies--Cesar%E2%80%99s-tips%2C-tricks-and-advice.jpg?itok=bi9xUvwe'
+        
         ]);
         $user = User::where('email', $usuario)->first();
         $tweet->user()->associate($user);
         $tweet->save();
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => 'Así responden a Trump en Haití por decir que es un "país de mierda" http://cort.as/-0r3r '
+            'mensaje' => 'Así responden a Trump en Haití por decir que es un "país de mierda" http://cort.as/-0r3r ', 
+            'multimedia' => 'https://www.cesarsway.com/sites/newcesarsway/files/styles/large_article_preview/public/All-about-puppies--Cesar%E2%80%99s-tips%2C-tricks-and-advice.jpg?itok=bi9xUvwe'
+        
         ]);
         $user = User::where('email', $usuario)->first();
         $tweet->user()->associate($user);
         $tweet->save();
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => 'AMPLIACIÓN | "Para ejercer la defensa es necesario creer en lo que se está haciendo, solo así se puede hacer con amor y pasión por la profesión". El abogado de El Chicle abandona su defensa'
+            'mensaje' => 'AMPLIACIÓN | "Para ejercer la defensa es necesario creer en lo que se está haciendo, solo así se puede hacer con amor y pasión por la profesión". El abogado de El Chicle abandona su defensa', 
+            'multimedia' => 'https://www.cesarsway.com/sites/newcesarsway/files/styles/large_article_preview/public/All-about-puppies--Cesar%E2%80%99s-tips%2C-tricks-and-advice.jpg?itok=bi9xUvwe'
+        
         ]);
         $user = User::where('email', $usuario)->first();
         $tweet->user()->associate($user);
@@ -1915,21 +1925,27 @@ class TweetsTableSeeder extends Seeder
         $usuario = "claudia@gmail.com";;
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => 'Si uno de tus propósitos para 2018 es ordenar tus libros, aquí tienes las claves'
+            'mensaje' => 'Si uno de tus propósitos para 2018 es ordenar tus libros, aquí tienes las claves', 
+            'multimedia' => 'https://www.scientificamerican.com/sciam/cache/file/B7943D3A-35D3-4D27-906280F095578EC2.jpg?w=590&h=393&E45C66A5-5F1F-4579-85C21B95FE5023FF'
+        
         ]);
         $user = User::where('email', $usuario)->first();
         $tweet->user()->associate($user);
         $tweet->save();
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => 'No te has llevado nada para comer al curro o estás yendo para casa por la noche y no te apetece cocinar. Quieres comer algo más o menos ligero, entras en el súper y apuestas por una ensalada envasada. ¿Seguro?, ¿son tan sanas?'
+            'mensaje' => 'No te has llevado nada para comer al curro o estás yendo para casa por la noche y no te apetece cocinar. Quieres comer algo más o menos ligero, entras en el súper y apuestas por una ensalada envasada. ¿Seguro?, ¿son tan sanas?', 
+            'multimedia' => 'https://www.puppyleaks.com/wp-content/uploads/2017/09/puppysmile.png'
+        
         ]);
         $user = User::where('email', $usuario)->first();
         $tweet->user()->associate($user);
         $tweet->save();
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => 'El 9 de enero esta madre publicó una foto en su perfil de Twitter diciendo que su hijo no sabe lo que es una galleta: él es feliz desayunando garbanzos. Inmediatamente recibió cientos de críticas. Hoy responde aquí'
+            'mensaje' => 'El 9 de enero esta madre publicó una foto en su perfil de Twitter diciendo que su hijo no sabe lo que es una galleta: él es feliz desayunando garbanzos. Inmediatamente recibió cientos de críticas. Hoy responde aquí', 
+            'multimedia' => 'https://pbs.twimg.com/profile_images/836837459975602176/hLZd5ka3.jpg'
+        
         ]);
         $user = User::where('email', $usuario)->first();
         $tweet->user()->associate($user);
@@ -1938,21 +1954,27 @@ class TweetsTableSeeder extends Seeder
         $usuario = "camila@gmail.com";;
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => 'Siempre hubo clases, hasta la fila seis'
+            'mensaje' => 'Siempre hubo clases, hasta la fila seis', 
+            'multimedia' => 'https://www.cesarsway.com/sites/newcesarsway/files/styles/large_article_preview/public/All-about-puppies--Cesar%E2%80%99s-tips%2C-tricks-and-advice.jpg?itok=bi9xUvwe'
+        
         ]);
         $user = User::where('email', $usuario)->first();
         $tweet->user()->associate($user);
         $tweet->save();
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => 'Todo vuelve. La última en anunciar su regreso es la celebérrima consola Gameboy, y lo ha hecho casi por despiste'
+            'mensaje' => 'Todo vuelve. La última en anunciar su regreso es la celebérrima consola Gameboy, y lo ha hecho casi por despiste', 
+            'multimedia' => 'http://www.k9trainer.com.au/cmsAdmin/uploads/puppy-book.jpg'
+        
         ]);
         $user = User::where('email', $usuario)->first();
         $tweet->user()->associate($user);
         $tweet->save();
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => 'Llega una nueva borrasca, ¿qué hacer si te encuentras con una nevada con el coche?'
+            'mensaje' => 'Llega una nueva borrasca, ¿qué hacer si te encuentras con una nevada con el coche?', 
+            'multimedia' => 'https://www.cesarsway.com/sites/newcesarsway/files/styles/large_article_preview/public/All-about-puppies--Cesar%E2%80%99s-tips%2C-tricks-and-advice.jpg?itok=bi9xUvwe'
+        
         ]);
         $user = User::where('email', $usuario)->first();
         $tweet->user()->associate($user);
@@ -1961,7 +1983,9 @@ class TweetsTableSeeder extends Seeder
         $usuario = "fran@gmail.com";
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => '#Escaparate | La temporada de Navidad ha terminado, pero las compras continúan. Este domingo 7 de enero han comenzado oficialmente las rebajas'
+            'mensaje' => '#Escaparate | La temporada de Navidad ha terminado, pero las compras continúan. Este domingo 7 de enero han comenzado oficialmente las rebajas', 
+            'multimedia' => 'https://static.tumblr.com/af41e70112e1db900a33bcc04bc416b4/teueo1u/Zx2naa6g4/tumblr_static_mom-dog-with-puppies.jpg'
+        
         ]);
         $user = User::where('email', $usuario)->first();
         $tweet->user()->associate($user);
@@ -1975,7 +1999,9 @@ class TweetsTableSeeder extends Seeder
         $tweet->save();
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => 'Podemos basará su estrategia de los próximos meses en las cuestiones sociales, relegadas a un plano secundario desde el pasado septiembre con el recrudecimiento de la crisis en Cataluña'
+            'mensaje' => 'Podemos basará su estrategia de los próximos meses en las cuestiones sociales, relegadas a un plano secundario desde el pasado septiembre con el recrudecimiento de la crisis en Cataluña', 
+            'multimedia' => 'https://www.blazingcariboustudios.com/wp-content/uploads/2018/01/Puppy-Help.jpg'
+        
         ]);
         $user = User::where('email', $usuario)->first();
         $tweet->user()->associate($user);
@@ -1983,20 +2009,19 @@ class TweetsTableSeeder extends Seeder
 
         $tweet = new Tweet([
             'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-            'mensaje' => 'ENCUESTA: Ciudadanos adelanta a PP y PSOE y sería hoy el partido más votado en unas elecciones generales https://politica.elpais.com/politica/2018/01/12/actualidad/1515752835_076355.html?id_externo_rsoc=TW_CC … vía @elpais_espana'
+            'mensaje' => 'ENCUESTA: Ciudadanos adelanta a PP y PSOE y sería hoy el partido más votado en unas elecciones generales https://politica.elpais.com/politica/2018/01/12/actualidad/1515752835_076355.html?id_externo_rsoc=TW_CC … vía @elpais_espana', 
+            'multimedia' => 'https://www.cesarsway.com/sites/newcesarsway/files/styles/large_article_preview/public/The-stages-of-puppy-growth.jpg?itok=9ptPJwY8'
         ]);
         $user = User::where('email', $usuario)->first();
         $tweet->user()->associate($user);
         $tweet->save();
 
+
+        /* //Extra Seeders
         $faker = Faker::create();
         $users = User::all();
         foreach($users as $user){
-            $num=range(1,235);
-            shuffle($num);
-            for ($i=0; $i<rand(10,60); $i++) {      
-          
-                
+            for ($i=0; $i<rand(2,5); $i++) {      
                 $tweet = new Tweet([
                     'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
                     'mensaje' => $faker->realText($maxNbChars = 200, $indexSize = 2),
@@ -2005,7 +2030,7 @@ class TweetsTableSeeder extends Seeder
                 $tweet->save();
             }  
         }
-        
+        */
 
     
 

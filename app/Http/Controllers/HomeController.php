@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use App\User;
 use App\Tweet;
 use Carbon\Carbon;
@@ -56,10 +57,64 @@ class HomeController extends Controller
             $followingTweets = User::find($following->id)->tweets()->orderBy('fecha', 'desc')->with('user')->get();
 
             $merge = $merge->merge($followingTweets);
+            
         }
         $merge = $merge->sortByDesc('fecha');
+
+        //Mis cosas para los rt
+        foreach ($merge as $tweet){
+            $tweet->esRT = false;
+            $tweet->userRT = false;
+            $tweet->esLike = false;
+            $tweet->userLike = false;
+            $tweet->fechaRT = $tweet->fecha;
+
+
+        }
+        $rtPorUsuario = $user->retweets;
+        foreach($rtPorUsuario as $tweet){
+            $tweet->esRT = true;
+            $tweet->userRT = $user;
+            $tweet->fechaRT = DB::table('tweet_user_rt')->where('id_tweet','=', $user->id)->where('id_user', '=',$tweet->id)->pluck('created_at')->get(0);
+        } 
+        $merge = $merge->merge($rtPorUsuario);
+
+        $likePorUsuario = $user->likes;
+        foreach($likePorUsuario as $tweet){
+
+            $tweet->esLike = true;
+            $tweet->userLike = $user;
+            $tweet->fechaRT = DB::table('tweet_user_like')->where('id_tweet','=', $user->id)->where('id_user', '=',$tweet->id)->pluck('created_at')->get(0);
+        } 
+        $merge = $merge->merge($likePorUsuario);
+
+        foreach($follows as $siguiendo){
+            $rtPorUsuario = $siguiendo->retweets;
+            foreach($rtPorUsuario as $tweet){
+                $tweet->esRT = true;
+                $tweet->userRT = $siguiendo;
+                $tweet->fechaRT = DB::table('tweet_user_rt')->where('id_tweet','=', $siguiendo->id)->where('id_user', '=',$tweet->id)->pluck('created_at')->get(0);
+            }
+            $merge = $merge->merge($rtPorUsuario);
+        } 
+
+        foreach($follows as $siguiendo){
+            $likePorUsuario = $siguiendo->likes;
+            foreach($likePorUsuario as $tweet){
+                $tweet->esLike = true;
+                $tweet->userLike = $siguiendo;
+                $tweet->fechaRT = DB::table('tweet_user_like')->where('id_tweet','=', $siguiendo->id)->where('id_user', '=',$tweet->id)->pluck('created_at')->get(0);
+            }
+            $merge = $merge->merge($likePorUsuario);
+        } 
+        $merge = $merge->sortByDesc('fechaRT');
+        //$merge = $user->tweets;
+
         //dd(Auth::user(), Auth::Guest());
-       // dd($user->retweets()->get());
+        //$retweets = DB::table('tweet_user_rt')->where('id_user', 1)->get();
+        //$retweets = $merge->merge($follows);
+        //$user->nuevo= true;
+        //print_r($rtPorUsuario);
         return view('home', ['conectado'=> $user,'users' => $users, 'seguidos'=>$follows, 'seguidores'=>$followers, 'tweets'=>$merge ,'tweetsEscritos'=>$escritos]); 
     }
 
@@ -69,7 +124,6 @@ class HomeController extends Controller
         $seguidor->seguidos()->attach($seguido);
         return back();
     }
-
     public function dejarDeSeguir($seguido){
         $id = Auth::id();
         $seguidor = User::find($id);
@@ -78,15 +132,19 @@ class HomeController extends Controller
     }
 
     public function nuevoTweet(Request $request){
+        error_log($request->mensaje);
+        error_log($request->multimedia);
 
         $tweet = new Tweet([
             'fecha' =>  Carbon::now(),
-            'mensaje' => $request->mensaje
+            'mensaje' => $request->mensaje,
+            'multimedia' =>$request->multimedia
         ]);
         $user = Auth::user();
         $tweet->user()->associate($user);
         $tweet->save();
      }
+
 
     public function addRT($tweet){
         Auth::user()->retweets()->attach($tweet);
@@ -107,5 +165,43 @@ class HomeController extends Controller
         return back();         
     }
 
+    public function removeTweet($tweet){
+        
+        $tw= Tweet::find($tweet);
+        if($tw == null){
+            return view('404');
+
+        }
+        if(Auth::id() ==  $tw->user->id){
+            
+            $tw->delete();
+        }
+
+        return redirect("/");
+    }
+
      
+
+    public function addRespuesta(Request $request,  $username, $id){
+        error_log($id);
+        error_log($request->tweet_multimedia);
+        $tweet = new Tweet([
+            'fecha' =>  Carbon::now(),
+            'mensaje' => $request->tweet_content,
+            'multimedia' => $request->tweet_multimedia
+        ]);
+        $user = Auth::user();
+        $tweet->user()->associate($user);
+        $tweet->save();
+
+        $original = Tweet::find($id);
+        if($original == null)
+            return view('404');
+        if($original->user->username != $username)
+            return view('404');
+
+        $original->respuestas()->save( $tweet );
+
+        return back();
+    }
 }

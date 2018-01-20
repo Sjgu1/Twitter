@@ -32,9 +32,16 @@ Route::get('/{tweet}/quitar/deshacerLike','HomeController@removeLike');
 Route::get('/{username}','PerfilController@perfil');
 Route::get('/{username}/following','PerfilController@perfilSiguiendo');
 Route::get('/{username}/followers','PerfilController@perfilSeguidores');
+Route::get('/{username}/likes','PerfilController@perfilLikes');
+
 
 //Tweet
 Route::post('/tweet', 'HomeController@nuevoTweet');
+Route::get('/{username}/status/{id}','PerfilController@perfilTweet');
+Route::post('/{username}/status/{id}','HomeController@addRespuesta');
+
+Route::get('/tweet/{tweet}','HomeController@removeTweet');
+
 
 //Mensajes
 Route::get('/mensajes{conver}','MessageController@index');

@@ -19,7 +19,7 @@
                                 </li>
                                 <!-- Icono Notificaciones, poner new si hya notificaciones a la class li-->
                                 <li class="people notifications" data-global-action="connect">
-                                    <a class="js-nav js-tooltip js-dynamic-tooltip" data-placement="bottom" href="/i/notifications" data-component-context="connect_nav" data-nav="connect" data-original-title="">
+                                    <a class="js-nav js-tooltip js-dynamic-tooltip" data-placement="bottom" href="/" data-component-context="connect_nav" data-nav="connect" data-original-title="">
                                         <span class="Icon Icon--notifications Icon--large"></span>
                                         <span class="Icon Icon--notificationsFilled Icon--large u-textUserColor"></span>
                                         <span class="text" aria-hidden="true">Notificaciones</span>
@@ -165,31 +165,68 @@
 					<div class="DMInbox-primary">
 						<ul class="DMInbox-conversations"> 
                         @foreach($convers as $conver)
-							
-							<li class="DMInbox-conversationItem" >
-								<div class="DMInboxItem" data-thread-id="" data-sort-event-id="" data-is-oto="true" data-is-muted="false" data-toggle="modal" data-target="#{{$conver->id}}">
-									<div class="DMInboxItem-avatar">
-										<a href="/{{ $conver->usuario2->username }}" class="js-action-profile js-user-profile-link" data-user-id="">
-											<div class="DMAvatar DMAvatar--1 u-chromeOverflowFix">
-												<span class="DMAvatar-container">
-													<img class="DMAvatar-image" src="{{$conver->usuario2->avatar}}" alt="{{$conver->usuario2->name}}" title="{{$conver->usuario2->name}}">
-													</span>
-												</div>
-											</a>
-										</div>
-										<div class="DMInboxItem-title account-group">
-											<b class="fullname">{{$conver->usuario2->name}}</b>
-											<span class="UserBadges"></span>
-											<span class="UserNameBreak">&nbsp;</span>
-											<span class="username u-dir u-textTruncate" dir="ltr">@
-												
-												<b>{{$conver->usuario2->username}}</b>
-											</span>
-										</div>
-									</div>
-								</li>
-                                
-                                @endforeach
+			                @if(Auth::id() == $conver->usuario2->id)
+                            <li class="DMInbox-conversationItem">
+                            <div class="DMInboxItem" data-thread-id="301028364-390203992" data-sort-event-id="630408429719408643" data-last-message-id="630408429719408643" data-is-oto="true" data-is-muted="false">
+                                <div class="DMInboxItem-avatar">
+                                    <a href="/victorha_" class="js-action-profile js-user-profile-link" data-user-id="390203992">
+                                        <div class="DMAvatar DMAvatar--1 u-chromeOverflowFix">
+                                            <span class="DMAvatar-container">
+                                                <img class="DMAvatar-image" src="{{$conver->usuario1->avatar}}" alt="{{$conver->usuario1->name}}" title="{{$conver->usuario1->name}}">
+                                                </span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="DMInboxItem-title account-group">
+                                        <b class="fullname">{{$conver->usuario1->name}}</b>
+                                        <span class="UserBadges"></span>
+                                        <span class="UserNameBreak">&nbsp;</span>
+                                        <span class="username u-dir u-textTruncate" dir="ltr">@
+                                            <b>{{$conver->usuario1->username}}</b>
+                                        </span>
+                                    </div>
+                                    <div class="DMInboxItem-header">
+                                        <div class="DMInboxItem-timestamp">
+                                            <span class="_timestamp" data-aria-label-part="last" data-time="1439136056" data-long-form="true" data-include-sec="true"></span>
+                                        </div>
+                                    </div>
+                                    <div class="u-posRelative">
+                                        <p class="DMInboxItem-snippet "></p>
+                                    </div>
+                                </div>
+                            </li>
+                            @else
+                            <li class="DMInbox-conversationItem">
+                                <div class="DMInboxItem" data-thread-id="301028364-390203992" data-sort-event-id="630408429719408643" data-last-message-id="630408429719408643" data-is-oto="true" data-is-muted="false">
+                                    <div class="DMInboxItem-avatar">
+                                        <a href="/victorha_" class="js-action-profile js-user-profile-link" data-user-id="390203992">
+                                            <div class="DMAvatar DMAvatar--1 u-chromeOverflowFix">
+                                                <span class="DMAvatar-container">
+                                                    <img class="DMAvatar-image" src="{{$conver->usuario2->avatar}}" alt="{{$conver->usuario2->name}}" title="{{$conver->usuario2->name}}">
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="DMInboxItem-title account-group">
+                                            <b class="fullname">{{$conver->usuario2->name}}</b>
+                                            <span class="UserBadges"></span>
+                                            <span class="UserNameBreak">&nbsp;</span>
+                                            <span class="username u-dir u-textTruncate" dir="ltr">@
+                                                <b>{{$conver->usuario2->username}}</b>
+                                            </span>
+                                        </div>
+                                        <div class="DMInboxItem-header">
+                                            <div class="DMInboxItem-timestamp">
+                                                <span class="_timestamp" data-aria-label-part="last" data-time="1439136056" data-long-form="true" data-include-sec="true"></span>
+                                            </div>
+                                        </div>
+                                        <div class="u-posRelative">
+                                            <p class="DMInboxItem-snippet "></p>
+                                        </div>
+                                    </div>
+                                </li>
+                            @endif
+                            @endforeach
 							</ul>
                             <div class="DMInbox-empty">
                                 <div class="DMEmptyState">
