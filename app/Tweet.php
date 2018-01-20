@@ -29,4 +29,14 @@ class Tweet extends Model
         return $this->belongsToMany('App\User', 'tweet_user_like', 'id_user','id_tweet')->withTimestamps();;
     }
 
+    public function respuestas()
+    {
+        return $this->hasMany('App\Tweet');
+    }
+
+    public function esRespuesta()
+    {
+        return $this->belongsTo('App\Tweet', 'tweet_id');
+    }
+
 }

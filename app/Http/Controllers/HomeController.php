@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use App\User;
 use App\Tweet;
 use Carbon\Carbon;
@@ -107,7 +108,7 @@ class HomeController extends Controller
             $merge = $merge->merge($likePorUsuario);
         } 
         $merge = $merge->sortByDesc('fechaRT');
-        $merge = $user->tweets;
+        //$merge = $user->tweets;
 
         //dd(Auth::user(), Auth::Guest());
         //$retweets = DB::table('tweet_user_rt')->where('id_user', 1)->get();
@@ -131,15 +132,19 @@ class HomeController extends Controller
     }
 
     public function nuevoTweet(Request $request){
+        error_log($request->mensaje);
+        error_log($request->multimedia);
 
         $tweet = new Tweet([
             'fecha' =>  Carbon::now(),
-            'mensaje' => $request->mensaje
+            'mensaje' => $request->mensaje,
+            'multimedia' =>$request->multimedia
         ]);
         $user = Auth::user();
         $tweet->user()->associate($user);
         $tweet->save();
      }
+
 
     public function addRT($tweet){
         Auth::user()->retweets()->attach($tweet);
@@ -160,5 +165,43 @@ class HomeController extends Controller
         return back();         
     }
 
+    public function removeTweet($tweet){
+        
+        $tw= Tweet::find($tweet);
+        if($tw == null){
+            return view('404');
+
+        }
+        if(Auth::id() ==  $tw->user->id){
+            
+            $tw->delete();
+        }
+
+        return redirect("/");
+    }
+
      
+
+    public function addRespuesta(Request $request,  $username, $id){
+        error_log($id);
+        error_log($request->tweet_multimedia);
+        $tweet = new Tweet([
+            'fecha' =>  Carbon::now(),
+            'mensaje' => $request->tweet_content,
+            'multimedia' => $request->tweet_multimedia
+        ]);
+        $user = Auth::user();
+        $tweet->user()->associate($user);
+        $tweet->save();
+
+        $original = Tweet::find($id);
+        if($original == null)
+            return view('404');
+        if($original->user->username != $username)
+            return view('404');
+
+        $original->respuestas()->save( $tweet );
+
+        return back();
+    }
 }
