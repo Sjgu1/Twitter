@@ -142,11 +142,6 @@ class HomeController extends Controller
         $tweet->save();
      }
 
-     
-     public function addRespuesta(Request $request){
-        error_log("prueas");
-        return Redirect::back()->with('message','Operation Successful !');
-         }
 
     public function addRT($tweet){
         Auth::user()->retweets()->attach($tweet);
@@ -183,4 +178,27 @@ class HomeController extends Controller
     }
 
      
+
+    public function addRespuesta(Request $request,  $username, $id){
+        error_log($id);
+        error_log($username);
+
+        $tweet = new Tweet([
+            'fecha' =>  Carbon::now(),
+            'mensaje' => $request->tweet_content
+        ]);
+        $user = Auth::user();
+        $tweet->user()->associate($user);
+        $tweet->save();
+
+        $original = Tweet::find($id);
+        if($original == null)
+            return view('404');
+        if($original->user->username != $username)
+            return view('404');
+
+        $original->respuestas()->save( $tweet );
+
+        return back();
+    }
 }

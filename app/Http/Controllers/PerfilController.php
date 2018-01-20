@@ -160,7 +160,7 @@ class PerfilController extends Controller
 
         if($user->id != $tweet->user->id || $user==null || $tweet== null)
             return view(404);
-        return view('tweet/tweet', ['user' => $user, 'tweet'=>$tweet ,'usuarioConectadoFollowing' => $this->checkFollowingDeUsuarioConectado($user->id)]);  
+        return view('tweet/tweet', ['conectado'=> Auth::user(),'user' => $user, 'tweet'=>$tweet ,'usuarioConectadoFollowing' => $this->checkFollowingDeUsuarioConectado($user->id)]);  
     }
 
 
