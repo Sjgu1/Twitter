@@ -263,15 +263,23 @@
                                                 <span class="Icon Icon--medium Icon--reply"></span>
 												</div> <span class="ProfileTweet-actionCount">
                                                     <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">
-                                                        <!-- Poner aqui el numero de respuestas -->{{$tweet->respuestas()->count()}}
+                                                        <!-- Poner aqui el numero de respuestas -->{{$tweet->respuestas->count()}}
 
                                                     </span>
 												</span>
 												</span>
 											</div>
-											<div class="ProfileTweet-action ">@foreach($conectado->retweets()->get() as $reTweetUsuario)
-												<?php $haRetwiteado=false ?>@if($tweet->id == $reTweetUsuario->id)
-												<?php $haRetwiteado=true ?>@break @endif @endforeach @if($haRetwiteado == false)
+											<div class="ProfileTweet-action ">
+											<?php $haRetwiteado=false ?>
+
+											@foreach($conectado->retweets as $reTweetUsuario)
+												<?php $haRetwiteado=false ?>
+												@if($tweet->id == $reTweetUsuario->id)
+												<?php $haRetwiteado=true ?>
+												@break haRetwiteado 
+												@endif 
+												@endforeach 
+												@if($haRetwiteado == false)
 												<a href="{{ action('HomeController@addRT', ['tweet'=>$tweet->id]) }}" class="ProfileTweet-actionButton" data-modal="ProfileTweet-retweet" type="button" aria-describedby="profile-tweet-action-retweet-count-aria-951439183674998785">
 													<div class="IconContainer js-tooltip" data-original-title="Retwittear"> <span class="Icon Icon--medium Icon--retweet"></span>
 														<span class="u-hiddenVisually">Retwittear</span>
@@ -317,6 +325,7 @@
 						</li>@endforeach</ol>
 					</div>
 				</div>
+			</div>
 			</div>
 			<!--Final Cuadro central, tweets  -->
 			<!-- Cuadro derecha, recomendaciones  -->

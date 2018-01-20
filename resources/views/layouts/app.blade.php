@@ -198,7 +198,6 @@ margin-right: 0px
         <h3 class="modal-title" id="Tweetstorm-dialog-header">Redactar un nuevo Tweet </h3>
     </div>
     <div class=" modal-body">
-        <img alt="Name" class="top-timeline-tweet-box-user-image avatar size32" src="{{Auth::user()->avatar}}">
         <form  action="/tweet/nuevo" method="POST" class="t1-form tweet-form condensed" data-condensed-text="¿Qué está pasando?" data-poll-composer-rows="3" enctype="multipart/form-data" id="swift_tweetbox_1515235399021" method="post" name="swift_tweetbox_1515235399021">
         {!! csrf_field() !!}
             <div class="reply-users"></div>
@@ -225,7 +224,7 @@ margin-right: 0px
                                 <ul class="typeahead-items typeahead-topics block1" role="presentation" style="display: none;"></ul>
                             </div>
                         </div>
-                        <div class="RichEditor-scrollContainer u-borderRadiusInherit">
+                        <div style="max-width:350px"class="RichEditor-scrollContainer u-borderRadiusInherit">
                         <div aria-autocomplete="list" aria-expanded="false" aria-labelledby="tweet-box-home-timeline-label" aria-multiline="true" aria-owns="typeahead-dropdown-3" class="tweet-box rich-editor" contenteditable="true" data-placeholder-default="¿Qué está pasando?" data-placeholder-poll-composer-on="Haz una pregunta..." data-placeholder-reply="Twittea tu respuesta" dir="ltr" id="tweet-box-home-timeline-nav" name="tweet" role="textbox" spellcheck="true">
 
                                 <div>¿Qué está pasando?</div>
@@ -272,7 +271,7 @@ margin-right: 0px
                 </div>
                 <div class="TweetBoxToolbar-tweetButton tweet-button"> <span class="add-tweet-button">
                     </span>
-                    <button onclick="cambiar2()" type="submit" id="sendButton2" style="background-color: #1da1f2;border: 1px solid #1da1f2;color: #fff;" class=" EdgeButton EdgeButton--primary">Twittear</button>
+                    <button onclick="cambiar2()" type="submit" id="sendButton2" name="sendButton2" style="background-color: #1da1f2;border: 1px solid #1da1f2;color: #fff;" class=" EdgeButton EdgeButton--primary">Twittear</button>
 
                 </div>
             </div>
@@ -318,7 +317,6 @@ function nuevoTweetNav() {
 <script>
 
 function cambiar2(){
-    alert(document.getElementById('tweet_multimedia_div_nav').textContent);
     $('#tweet_multimedia2').val( document.getElementById('tweet_multimedia_div_nav').textContent);
 }
 
