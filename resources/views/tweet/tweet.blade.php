@@ -334,33 +334,32 @@
 			<!-- Aqui vienen las respuestas -->
 		
 
-
-			@foreach ($tweet->respuestas as $tweet)
 			<ol id="listaTweets" class="stream-items js-navigable-stream">
+			@foreach ($tweet->respuestas as $tweetRespuesta)
 						<li class=" stream-item ">
 							<div type="button" class="tweet  js-profile-popup-actionable dismissible-content original-tweet js-original-tweet has-cards cards-forward">
-								<div class="context">@if($tweet->esRT == true)
+								<div class="context">@if($tweetRespuesta->esRT == true)
 									<div class="tweet-context with-icn"> <span class="Icon Icon--small Icon--retweeted"></span>
 										<span class="js-retweet-text">
-                                                    <a class="pretty-link js-user-profile-link" href="/{{$tweet->userRT->username}}" data-user-id="81577367" rel="noopener"><b>{{$tweet->userRT->username}}</b></a> retwitteó
+                                                    <a class="pretty-link js-user-profile-link" href="/{{$tweetRespuesta->userRT->username}}" data-user-id="81577367" rel="noopener"><b>{{$tweetRespuesta->userRT->username}}</b></a> retwitteó
                                                         </span>
-									</div>@elseif($tweet->esLike == true)
+									</div>@elseif($tweetRespuesta->esLike == true)
 									<div class="tweet-context with-icn"> <span class="Icon Icon--small Icon--heartBadge"></span>
 										<span class="js-like-text">
-                                                    <a class="pretty-link js-user-profile-link" href="/{{$tweet->userLike->username}}" data-user-id="81577367" rel="noopener"><b>{{$tweet->userLike->username}}</b></a> indicó que le gusta
+                                                    <a class="pretty-link js-user-profile-link" href="/{{$tweetRespuesta->userLike->username}}" data-user-id="81577367" rel="noopener"><b>{{$tweetRespuesta->userLike->username}}</b></a> indicó que le gusta
                                                         </span>
 									</div>@endif</div>
 								<div class="content">
-									<div class="stream-item-header"> <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/{{$tweet->user->username}}">
-                                                    <img class="avatar js-action-profile-avatar" src="{{$tweet->user->avatar }}" alt="">
+									<div class="stream-item-header"> <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/{{$tweetRespuesta->user->username}}">
+                                                    <img class="avatar js-action-profile-avatar" src="{{$tweetRespuesta->user->avatar }}" alt="">
                                                     <span class="FullNameGroup">
-                                                    <strong class="fullname show-popup-with-id u-textTruncate " data-aria-label-part="">{{$tweet->user->name}}</strong><span>‏</span><span class="UserBadges"></span><span class="UserNameBreak">&nbsp;</span></span>
-                                                    <span class="username u-dir u-textTruncate" dir="ltr" data-aria-label-part="">@<b>{{$tweet->user->name}}</b></span>
+                                                    <strong class="fullname show-popup-with-id u-textTruncate " data-aria-label-part="">{{$tweetRespuesta->user->name}}</strong><span>‏</span><span class="UserBadges"></span><span class="UserNameBreak">&nbsp;</span></span>
+                                                    <span class="username u-dir u-textTruncate" dir="ltr" data-aria-label-part="">@<b>{{$tweetRespuesta->user->name}}</b></span>
                                                 </a>
 										<small class="time">
-                                                <a href="" class="tweet-timestamp js-permalink js-nav js-tooltip" data-original-title="{{$tweet->fecha}}"><span data-long-form="true" aria-hidden="true">{{  \Carbon\Carbon::parse($tweet->fecha)->diffForHumans(null, true)  }}</span></a>
+                                                <a href="" class="tweet-timestamp js-permalink js-nav js-tooltip" data-original-title="{{$tweetRespuesta->fecha}}"><span data-long-form="true" aria-hidden="true">{{  \Carbon\Carbon::parse($tweetRespuesta->fecha)->diffForHumans(null, true)  }}</span></a>
                                                 </small>
-										@if (Auth::user()->id != $tweet->user->id)
+										@if (Auth::user()->id != $tweetRespuesta->user->id)
 										<div class="ProfileTweet-action ProfileTweet-action--more js-more-ProfileTweet-actions" style="visibility: hidden;">
 											<div class="dropdown">
 												<button class="ProfileTweet-actionButton u-textUserColorHover dropdown-toggle js-dropdown-toggle" type="button" aria-haspopup="true">
@@ -375,7 +374,7 @@
 														<div class="caret-inner"></div>
 													</div>
 													<ul tabindex="-1" role="menu" aria-labelledby="menu-1" aria-hidden="false">
-														<li class="js-actionDelete" role="presentation"> <a href=" {{ action('HomeController@removeTweet', ['tweet'=>$tweet->id]) }}" type="button" class="dropdown-link" style="min-width:-webkit-fill-available;" role="menuitem">Eliminar Tweet</a>
+														<li class="js-actionDelete" role="presentation"> <a href=" {{ action('HomeController@removeTweet', ['tweet'=>$tweetRespuesta->id]) }}" type="button" class="dropdown-link" style="min-width:-webkit-fill-available;" role="menuitem">Eliminar Tweet</a>
 														</li>
 													</ul>
 													<div class="js-last-tabstop" tabindex="0"></div>
@@ -395,15 +394,15 @@
 															<div class="caret-inner"></div>
 														</div>
 														<ul tabindex="-1" role="menu" aria-labelledby="menu-1" aria-hidden="false">
-															<li class="js-actionDelete" role="presentation"> <a href=" {{ action('HomeController@removeTweet', ['tweet'=>$tweet->id]) }}" type="button" class="dropdown-link" style="min-width:-webkit-fill-available;" role="menuitem">Eliminar Tweet</a>
+															<li class="js-actionDelete" role="presentation"> <a href=" {{ action('HomeController@removeTweet', ['tweet'=>$tweetRespuesta->id]) }}" type="button" class="dropdown-link" style="min-width:-webkit-fill-available;" role="menuitem">Eliminar Tweet</a>
 															</li>
 														</ul>
 														<div class="js-last-tabstop" tabindex="0"></div>
 													</div>
 												</div>@endif</div>
 										</div>
-										<div class="js-tweet-text-container" onclick="redirigir('{{$tweet->user->username}}', '{{$tweet->id}}')">
-											<p class="TweetTextSize  js-tweet-text tweet-text" lang="es" data-aria-label-part="0">{{$tweet->mensaje}}</p>
+										<div class="js-tweet-text-container" onclick="redirigir('{{$tweetRespuesta->user->username}}', '{{$tweetRespuesta->id}}')">
+											<p class="TweetTextSize  js-tweet-text tweet-text" lang="es" data-aria-label-part="0">{{$tweetRespuesta->mensaje}}</p>
 										</div>
 										<script>
 											function redirigir(usuario, tweet){
@@ -418,50 +417,50 @@
                                                 <span class="Icon Icon--medium Icon--reply"></span>
 												</div> <span class="ProfileTweet-actionCount">
                                                     <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">
-                                                        <!-- Poner aqui el numero de respuestas -->{{$tweet->respuestas()->count()}}
+                                                        <!-- Poner aqui el numero de respuestas -->{{$tweetRespuesta->respuestas()->count()}}
 
                                                     </span>
 												</span>
 												</span>
 											</div>
 											<div class="ProfileTweet-action ">@foreach($conectado->retweets()->get() as $reTweetUsuario)
-												<?php $haRetwiteado=false ?>@if($tweet->id == $reTweetUsuario->id)
+												<?php $haRetwiteado=false ?>@if($tweetRespuesta->id == $reTweetUsuario->id)
 												<?php $haRetwiteado=true ?>@break @endif @endforeach @if($haRetwiteado == false)
-												<a href="{{ action('HomeController@addRT', ['tweet'=>$tweet->id]) }}" class="ProfileTweet-actionButton" data-modal="ProfileTweet-retweet" type="button" aria-describedby="profile-tweet-action-retweet-count-aria-951439183674998785">
+												<a href="{{ action('HomeController@addRT', ['tweet'=>$tweetRespuesta->id]) }}" class="ProfileTweet-actionButton" data-modal="ProfileTweet-retweet" type="button" aria-describedby="profile-tweet-action-retweet-count-aria-951439183674998785">
 													<div class="IconContainer js-tooltip" data-original-title="Retwittear"> <span class="Icon Icon--medium Icon--retweet"></span>
 														<span class="u-hiddenVisually">Retwittear</span>
 													</div> <span class="ProfileTweet-actionCount">
-                                                    <span class="ProfileTweet-actionCountForPresentation" aria-hidden="tue" >{{$tweet->retweetsUsers()->count()}}
+                                                    <span class="ProfileTweet-actionCountForPresentation" aria-hidden="tue" >{{$tweetRespuesta->retweetsUsers()->count()}}
                                                     </span>
 													</span>
 												</a>@else
-												<a href="{{ action('HomeController@removeRT', ['tweet'=>$tweet->id]) }}" class="ProfileTweet-actionButton" style="color:#17bf63;" data-modal="ProfileTweet-retweet" type="button" aria-describedby="profile-tweet-action-retweet-count-aria-951439183674998785">
+												<a href="{{ action('HomeController@removeRT', ['tweet'=>$tweetRespuesta->id]) }}" class="ProfileTweet-actionButton" style="color:#17bf63;" data-modal="ProfileTweet-retweet" type="button" aria-describedby="profile-tweet-action-retweet-count-aria-951439183674998785">
 													<div class="IconContainer js-tooltip" data-original-title="Deshacer Retweet"> <span class="Icon Icon--medium Icon--retweet"></span>
 														<span class="u-hiddenVisually">Deshacer Retweet</span>
 													</div> <span class="ProfileTweet-actionCount">
-                                                    <span class="ProfileTweet-actionCountForPresentation" aria-hidden="tue" style="color:#17bf63;" >{{$tweet->retweetsUsers()->count()}}
+                                                    <span class="ProfileTweet-actionCountForPresentation" aria-hidden="tue" style="color:#17bf63;" >{{$tweetRespuesta->retweetsUsers()->count()}}
                                                     </span>
 													</span>
 												</a>@endif</div>
 											<div class="ProfileTweet-action">
 												<?php $haDadoLike=false ?>@foreach($conectado->likes as $likesUsuario)
-												<?php $haDadoLike=false ?>@if($tweet->id == $likesUsuario->id)
+												<?php $haDadoLike=false ?>@if($tweetRespuesta->id == $likesUsuario->id)
 												<?php $haDadoLike=true ?>@break @endif @endforeach @if($haDadoLike == false)
-												<a href="{{ action('HomeController@addLike', ['tweet'=>$tweet->id]) }}" class="ProfileTweet-actionButton " type="button" aria-describedby="profile-tweet-action-favorite-count-aria-951439183674998785">
+												<a href="{{ action('HomeController@addLike', ['tweet'=>$tweetRespuesta->id]) }}" class="ProfileTweet-actionButton " type="button" aria-describedby="profile-tweet-action-favorite-count-aria-951439183674998785">
 													<div class="IconContainer js-tooltip" data-original-title="Me gusta"> <span role="presentation" class="Icon Icon--heart Icon--medium"></span>
 														<div class="HeartAnimation"></div> <span class="u-hiddenVisually">Me gusta</span>
 													</div> <span class="ProfileTweet-actionCount ProfileTweet-actionCount--isZero">
-                                                <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">{{$tweet->likesUsers()->count()}}
+                                                <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">{{$tweetRespuesta->likesUsers()->count()}}
 
                                                 </span>
 													</span>
 												</a>@else
-												<a style="color:#e0245e;" href="{{ action('HomeController@removeLike', ['tweet'=>$tweet->id]) }}" class="ProfileTweet-actionButton " type="button" aria-describedby="profile-tweet-action-favorite-count-aria-951439183674998785">
+												<a style="color:#e0245e;" href="{{ action('HomeController@removeLike', ['tweet'=>$tweetRespuesta->id]) }}" class="ProfileTweet-actionButton " type="button" aria-describedby="profile-tweet-action-favorite-count-aria-951439183674998785">
 													<div style="color:#e0245e;" class="IconContainer js-tooltip" data-original-title="Deshacer me gusta"> <span style="color:#e0245e;" role="presentation" class="Icon Icon--heart Icon--medium"></span>
 														<div class="HeartAnimation" style=" background-position: right;"></div> <span class="u-hiddenVisually">Deshacer me gusta</span>
 													</div> <span class="ProfileTweet-actionCount ProfileTweet-actionCount--isZero">
                                                 <span  style="color:#e0245e;" class="ProfileTweet-actionCountForPresentation" aria-hidden="true">
-                                                 <!-- Poner aqui el numero de megustas -->{{$tweet->likesUsers()->count()}}
+                                                 <!-- Poner aqui el numero de megustas -->{{$tweetRespuesta->likesUsers()->count()}}
 
                                                 </span>
 													</span>
