@@ -37,4 +37,4 @@ Route::get('/{username}/followers','PerfilController@perfilSeguidores');
 Route::post('/tweet', 'HomeController@nuevoTweet');
 
 //Mensajes
-Route::get('/mensaje','MessageController@index');
+Route::get('/mensajes{conver}','MessageController@index');
