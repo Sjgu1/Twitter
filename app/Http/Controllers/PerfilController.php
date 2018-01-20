@@ -178,4 +178,20 @@ class PerfilController extends Controller
     }
 
 
+    public function modificarPerfil(Request $request,  $username){
+        error_log($request->perfil_multimedia);
+        error_log($request->fondo_multimedia);
+        if($request->fondo_multimedia == null && $request->fondo_multimedia != ""){
+            DB::table('users')->where('username', Auth::user()->username)->update(['avatar'=> $request->fondo_multimedia]) ;
+
+        }
+        if($request->perfil_multimedia != null && $request->perfil_multimedia != "" ){
+            DB::table('users')->where('username', Auth::user()->username)->update(['fondo'=> $request->perfil_multimedia]) ;    
+
+
+        }
+
+        return back();
+    }
+
 }

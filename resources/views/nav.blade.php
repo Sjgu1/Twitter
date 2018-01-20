@@ -10,7 +10,7 @@
                             <ul class="nav js-global-actions" id="global-actions">
                                 <!-- Icono Home -->
                                 <li id="global-nav-home" class="home active " data-global-action="home">
-                                    <a class="js-nav js-tooltip js-dynamic-tooltip" data-placement="bottom" href="/" data-component-context="home_nav" data-nav="home" data-original-title="">
+                                    <a class="js-nav js-tooltip js-dynamic-tooltip" data-placement="bottom"  href="{{ action('HomeController@index' )}}"  data-component-context="home_nav" data-nav="home" data-original-title="">
                                     <span class="Icon Icon--home Icon--large"></span>
                                     <span class="Icon Icon--homeFilled Icon--large u-textUserColor"></span>
                                     <span class="text" aria-hidden="true">Inicio</span>
@@ -18,7 +18,7 @@
                                 </li>
                                 <!-- Icono Notificaciones, poner new si hya notificaciones a la class li-->
                                 <li class="people notifications" data-global-action="connect">
-                                    <a class="js-nav js-tooltip js-dynamic-tooltip" data-placement="bottom" href="/" data-component-context="connect_nav" data-nav="connect" data-original-title="">
+                                    <a class="js-nav js-tooltip js-dynamic-tooltip" data-placement="bottom" href="{{ action('HomeController@index' )}}" data-component-context="connect_nav" data-nav="connect" data-original-title="">
                                         <span class="Icon Icon--notifications Icon--large"></span>
                                         <span class="Icon Icon--notificationsFilled Icon--large u-textUserColor"></span>
                                         <span class="text" aria-hidden="true">Notificaciones</span>

@@ -604,9 +604,7 @@
 			</script>
 
 <script>
-document.getElementById('tweet_multimedia').onHTMLUpdate = function() {
-    alert("ha cambiado");
-}
+
 function cambiar(){
     $('#tweet_multimedia').val( document.getElementById('tweet_multimedia_div').textContent);
 }
