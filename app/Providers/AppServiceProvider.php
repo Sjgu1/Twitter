@@ -20,20 +20,6 @@ class AppServiceProvider extends ServiceProvider
         View::composer('nav', function($view){
             $id = Auth::id();
             $user = User::find($id);
-            /*$convers;
-            $merge;
-            foreach($user->conversacion1 as $conver){
-                if($conver->usuario1->id==$id){
-                    $merge=$conver->usuario2;            
-                }
-                $convers = $convers->merge($merge);
-            }
-            foreach($user->conversacion2 as $conver){
-                if($conver->usuario2->id==$id){
-                    $merge=$conver->usuario1;
-                }
-                $convers = $convers->merge($merge);
-            }*/
             $convers=$user->conversacion1;
             $conver2=$user->conversacion2;
             $convers = $convers->merge($conver2);
