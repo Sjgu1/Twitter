@@ -29,6 +29,7 @@ class UsersConversationsTableSeeder extends Seeder
         $mensaje = new Message([
             'mensaje'=> 'hey que pasa bro'
         ]);
+        
         $user = User::where('email', 'andre@gmail.com')->first();
         $user2 = User::where('email', 'sergio@gmail.com')->first();
         $conver->usuario1()->associate($user);
@@ -37,6 +38,7 @@ class UsersConversationsTableSeeder extends Seeder
         $mensaje->conversacion()->associate($conver);
         $mensaje->usuario()->associate($user);
         $mensaje->save();
+        
 
         //sergio-bea
         $conver = new Conversation([
@@ -55,6 +57,9 @@ class UsersConversationsTableSeeder extends Seeder
         $mensaje = new Message([
             'mensaje'=> 'hey que pasa'
         ]);
+        $mensaje2 = new Message([
+            'mensaje'=> 'hola'
+        ]);
         $user = User::where('email', 'andre@gmail.com')->first();
         $user2 = User::where('email', 'mario@gmail.com')->first();
         $conver->usuario1()->associate($user);
@@ -63,6 +68,9 @@ class UsersConversationsTableSeeder extends Seeder
         $mensaje->conversacion()->associate($conver);
         $mensaje->usuario()->associate($user);
         $mensaje->save();
+        $mensaje2->conversacion()->associate($conver);
+        $mensaje2->usuario()->associate($user2);
+        $mensaje2->save();
 
         //sergio-raquel
         $conver = new Conversation([

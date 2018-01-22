@@ -1,4 +1,11 @@
-<?php $Conver; ?>
+<style>
+.DMTokenizedMultiselectSuggestion.is-highlighted {
+    background-color: #f5f8fa;
+    border-bottom: 1px solid #e6ecf0;
+    border-top: 1px solid #e6ecf0;
+}
+</style>
+<?php $id=0 ?>
 <!-- Barra de navegacion -->
 <div class="fijar global-nav" data-section-term="top_nav">
                 <div class="global-nav-inner">
@@ -112,7 +119,7 @@
 					<span class="Icon Icon--markAllRead"></span>
 					<span class="u-hiddenVisually">Marcar todo como leído</span>
 				</button>
-				<button type="button" class="DMInbox-toolbar DMComposeButton EdgeButton EdgeButton--small EdgeButton--primary dm-new-button js-initial-focus">
+				<button type="button" class="DMInbox-toolbar DMComposeButton EdgeButton EdgeButton--small EdgeButton--primary dm-new-button js-initial-focus" data-toggle="modal" data-target="#nuevoMensaje">
 					<span>Mensaje nuevo</span>
 				</button>
 				<button type="button" class="DMActivity-close js-close u-textUserColorHover" data-dismiss="modal">
@@ -167,9 +174,10 @@
                         @foreach($convers as $conver)
 			                @if(Auth::id() == $conver->usuario2->id)
                             <li class="DMInbox-conversationItem">
-                            <div class="DMInboxItem" data-thread-id="301028364-390203992" data-sort-event-id="630408429719408643" data-last-message-id="630408429719408643" data-is-oto="true" data-is-muted="false">
+                            <div class="DMInboxItem" data-thread-id="301028364-390203992" data-sort-event-id="630408429719408643" data-last-message-id="630408429719408643" data-is-oto="true" data-is-muted="false" data-toggle="modal" data-target="#{{$id}}">
+                                <span><a onClick="{{$id=$conver->id}}"></a></span>
                                 <div class="DMInboxItem-avatar">
-                                    <a href="/victorha_" class="js-action-profile js-user-profile-link" data-user-id="390203992">
+                                    <a href="/{{ $conver->usuario1->username }}" class="js-action-profile js-user-profile-link" data-user-id="390203992">
                                         <div class="DMAvatar DMAvatar--1 u-chromeOverflowFix">
                                             <span class="DMAvatar-container">
                                                 <img class="DMAvatar-image" src="{{$conver->usuario1->avatar}}" alt="{{$conver->usuario1->name}}" title="{{$conver->usuario1->name}}">
@@ -196,10 +204,11 @@
                                 </div>
                             </li>
                             @else
-                            <li class="DMInbox-conversationItem">
-                                <div class="DMInboxItem" data-thread-id="301028364-390203992" data-sort-event-id="630408429719408643" data-last-message-id="630408429719408643" data-is-oto="true" data-is-muted="false">
+                            <li class="DMInbox-conversationItem" onClick="{{$id=$conver->id}}">
+                                <div class="DMInboxItem" data-thread-id="301028364-390203992" data-sort-event-id="630408429719408643" data-last-message-id="630408429719408643" data-is-oto="true" data-is-muted="false" data-toggle="modal" data-target="#{{$id}}">
+                                <span><a onClick="{{$id=$conver->id}}"></a></span>
                                     <div class="DMInboxItem-avatar">
-                                        <a href="/victorha_" class="js-action-profile js-user-profile-link" data-user-id="390203992">
+                                        <a href="/{{ $conver->usuario2->username }}" class="js-action-profile js-user-profile-link" data-user-id="390203992">
                                             <div class="DMAvatar DMAvatar--1 u-chromeOverflowFix">
                                                 <span class="DMAvatar-container">
                                                     <img class="DMAvatar-image" src="{{$conver->usuario2->avatar}}" alt="{{$conver->usuario2->name}}" title="{{$conver->usuario2->name}}">
@@ -264,7 +273,7 @@
 	</div>
 	<!-- Fin Modal mensajes --> 
     <!-- modal conversacion -->
-    <div class="modal fade modal is-autoPosition" id="{{$conver->id}}" role="dialog" style="top: 5%; left: 415px; position: absolute;width: 45vw; height: fit-content; z-index: 7000;" aria-labelledby="dm_dialog-header">
+    <div class="modal fade modal is-autoPosition" id="{{$id}}" role="dialog" style="top: 5%; left: 415px; position: absolute;width: 45vw; height: fit-content; z-index: 8000;" aria-labelledby="dm_dialog-header">
         <div class="js-first-tabstop" tabindex="0"></div>
         <div class="DMActivity DMInbox js-ariaDocument u-chromeOverflowFix DMActivity--open" role="document">
                 
@@ -335,15 +344,16 @@
                                     <span class="DMConversation-spinner DMSpinner u-hidden"></span>
                                     <ol class="DMConversation-content dm-convo js-dm-conversation" data-thread-id="293967812-301028364">
                                     @foreach($conver->mensajes as $mensaje)
+                                    @if($mensaje->usuario->id == Auth::id() )
                                         <li class="DirectMessage
                                         DirectMessage--sent
                                         clearfix dm js-dm-item" data-quick-reply-json="null" data-message-id="" data-item-id="" data-is-oto="true" data-sender-id="" data-card-component="dm_existing_conversation_dialog" data-component-context="dm_existing_conversation_dialog">
                                             <div class="DirectMessage-container">
                                                 <div class="DirectMessage-avatar">
-                                                    <a href="" class="js-action-profile js-user-profile-link" data-user-id="">
+                                                    <a href="/{{Auth::user()->username}}" class="js-action-profile js-user-profile-link" data-user-id="">
                                                         <div class="DMAvatar DMAvatar--1 u-chromeOverflowFix">
                                                             <span class="DMAvatar-container">
-                                                                <img class="DMAvatar-image" src="{{$conver->usuario2->avatar}}" alt="{{$conver->usuario2->name}}" title="{{$conver->usuario2->name}}">
+                                                                <img class="DMAvatar-image" src="{{Auth::user()->avatar}}" alt="{{Auth::user()->name}}" title="{{Auth::user()->name}}">
                                                                 </span>
                                                             </div>
                                                         </a>
@@ -365,7 +375,7 @@
                                                                 <span class="Icon Icon--delete"></span>
                                                             </button>
                                                             <button type="button" class="DMDeleteMessageAction u-hiddenVisually" data-message-id="953670443759673348">
-                                                                Eliminar este mensaje enviado  por {{$conver->usuario2->name}}
+                                                                Eliminar este mensaje enviado  por {{Auth::user()->name}}
                                                             </button>
                                                         </span>
                                                     </div>
@@ -394,6 +404,121 @@
                                                     </div>
                                                 </div>
                                             </li>
+                                            @else
+                                            @if(Auth::id() == $conver->usuario1->id)
+
+                                            <li class="DirectMessage
+                                            DirectMessage--received
+                                            clearfix dm js-dm-item" data-quick-reply-json="null" data-message-id="630407553042792451" data-item-id="630407553042792451" data-is-oto="true" data-sender-id="390203992" data-card-component="dm_existing_conversation_dialog" data-component-context="dm_existing_conversation_dialog">
+                                            <div class="DirectMessage-container">
+                                                <div class="DirectMessage-avatar">
+                                                    <a href="/{{$conver->usuario2->username}}" class="js-action-profile js-user-profile-link" data-user-id="390203992">
+                                                        <div class="DMAvatar DMAvatar--1 u-chromeOverflowFix">
+                                                            <span class="DMAvatar-container">
+                                                                <img class="DMAvatar-image" src="{{$conver->usuario2->avatar}}" alt="{{$conver->usuario2->name}}" title="{{$conver->usuario2->name}}">
+                                                                </span>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                    <div class="DirectMessage-message
+                                                        
+                                                        
+                                                        with-text
+                                                        
+                                                        
+                                                        
+                                                        dm-message u-chromeOverflowFix">
+                                                        <div class="DirectMessage-contentContainer">
+                                                            <div class="DirectMessage-text">
+                                                                <div class="js-tweet-text-container">
+                                                                    <p class="TweetTextSize  js-tweet-text tweet-text" lang="" data-aria-label-part="0">{{$mensaje->mensaje}}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="DirectMessage-actions">
+                                                        <span class="DirectMessage-action">
+                                                            <button type="button" class="DMDeleteMessageAction js-tooltip" data-message-id="630407553042792451" aria-hidden="true" data-original-title="Eliminar este mensaje">
+                                                                <span class="Icon Icon--delete"></span>
+                                                            </button>
+                                                            <button type="button" class="DMDeleteMessageAction u-hiddenVisually" data-message-id="630407553042792451">
+                                                            Eliminar este mensaje enviado  por {{$conver->usuario2->name}}
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="DirectMessage-footer">
+                                                    <span class="DirectMessage-footerItem">
+                                                        <span class="_timestamp" data-aria-label-part="last" data-time="1439135847" data-long-form="true" data-include-sec="true">
+                                       
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                                <div class="DirectMessage-footer">
+                                                    <div class="DMReadReceiptUserList DirectMessage-footerItem u-hidden">
+                                                        <div class="DMReadReceiptUserList-truncated"></div>
+                                                        <div class="DMReadReceiptUserList-expanded"></div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            @else
+                                            <li class="DirectMessage
+                                            DirectMessage--received
+                                            clearfix dm js-dm-item" data-quick-reply-json="null" data-message-id="630407553042792451" data-item-id="630407553042792451" data-is-oto="true" data-sender-id="390203992" data-card-component="dm_existing_conversation_dialog" data-component-context="dm_existing_conversation_dialog">
+                                            <div class="DirectMessage-container">
+                                                <div class="DirectMessage-avatar">
+                                                    <a href="/{{$conver->usuario1->username}}" class="js-action-profile js-user-profile-link" data-user-id="390203992">
+                                                        <div class="DMAvatar DMAvatar--1 u-chromeOverflowFix">
+                                                            <span class="DMAvatar-container">
+                                                                <img class="DMAvatar-image" src="{{$conver->usuario1->avatar}}" alt="{{$conver->usuario1->name}}" title="{{$conver->usuario1->name}}">
+                                                                </span>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                    <div class="DirectMessage-message
+                                                        
+                                                        
+                                                        with-text
+                                                        
+                                                        
+                                                        
+                                                        dm-message u-chromeOverflowFix">
+                                                        <div class="DirectMessage-contentContainer">
+                                                            <div class="DirectMessage-text">
+                                                                <div class="js-tweet-text-container">
+                                                                    <p class="TweetTextSize  js-tweet-text tweet-text" lang="" data-aria-label-part="0">{{$mensaje->mensaje}}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="DirectMessage-actions">
+                                                        <span class="DirectMessage-action">
+                                                            <button type="button" class="DMDeleteMessageAction js-tooltip" data-message-id="630407553042792451" aria-hidden="true" data-original-title="Eliminar este mensaje">
+                                                                <span class="Icon Icon--delete"></span>
+                                                            </button>
+                                                            <button type="button" class="DMDeleteMessageAction u-hiddenVisually" data-message-id="630407553042792451">
+                                                            Eliminar este mensaje enviado  por {{$conver->usuario1->name}}
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="DirectMessage-footer">
+                                                    <span class="DirectMessage-footerItem">
+                                                        <span class="_timestamp" data-aria-label-part="last" data-time="1439135847" data-long-form="true" data-include-sec="true">
+                                       
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                                <div class="DirectMessage-footer">
+                                                    <div class="DMReadReceiptUserList DirectMessage-footerItem u-hidden">
+                                                        <div class="DMReadReceiptUserList-truncated"></div>
+                                                        <div class="DMReadReceiptUserList-expanded"></div>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            @endif
+                                            @endif
                                             @endforeach
                                         </ol>
                                         <div class="DMConversation-typingIndicator u-hidden">
@@ -441,7 +566,7 @@
                                                 </div>
                                                 <div class="TweetBoxExtras"></div>
                                                 <div class="DMComposer-send">
-                                                    <button class="EdgeButton EdgeButton--primary tweet-action" aria-disabled="false" type="button">
+                                                    <button class="EdgeButton EdgeButton--primary tweet-action" aria-disabled="false" type="button" onclick="nuevoMensaje('{{$conver->id}}')">
                                                         <span class="button-text messaging-text">Enviar</span>
                                                     </button>
                                                 </div>
@@ -464,3 +589,134 @@
     </div>
 		
 <!--fin -->
+<!-- modal nuevo mensaje-->
+<div class="modal fade modal is-autoPosition" id="nuevoMensaje" role="dialog" style="top: 5%; left: 415px; position: absolute;width: 45vw; height: fit-content; z-index: 7000;" aria-labelledby="dm_dialog-header">
+    <div class="js-first-tabstop" tabindex="0"></div>
+    <div class="DMActivity DMCompose js-ariaDocument u-chromeOverflowFix DMActivity--open" role="document">
+	<div class="DMActivity-header">
+		<div class="DMActivity-navigation">
+			<button type="button" class="DMActivity-back u-textUserColorHover" to-inbox="" data-dismiss="modal">
+				<span class="Icon Icon--caretLeft u-linkComplex-target Icon--medium"></span>
+				<span class="u-hiddenVisually">Volver a la bandeja de entrada</span>
+			</button>
+		</div>
+		<h2 class="DMActivity-title js-ariaTitle" id="dm_dialog-header">
+          Mensaje nuevo
+
+        </h2>
+		<div class="DMActivity-toolbar">
+			<button type="button" class="DMActivity-close js-close u-textUserColorHover" data-dismiss="modal">
+				<span class="Icon Icon--close Icon--medium"></span>
+				<span class="u-hiddenVisually">Cerrar</span>
+			</button>
+		</div>
+	</div>
+	<div class="DMActivity-container">
+		<div class="DMActivity-notice">
+			<div class="DMNotice DMNotice--error DMErrorBar" style="display: none;">
+				<div class="DMNotice-message">
+					<div class="DMErrorBar-text"></div>
+				</div>
+				<div class="DMNotice-actions u-emptyHide"></div>
+				<button type="button" class="DMNotice-dismiss">
+					<span class="Icon Icon--close"></span>
+					<span class="u-hiddenVisually">Descartar</span>
+				</button>
+			</div>
+			<div class="DMNotice DMNotice--toast " style="display: none;">
+				<div class="DMNotice-message"></div>
+				<div class="DMNotice-actions u-emptyHide"></div>
+				<button type="button" class="DMNotice-dismiss">
+					<span class="Icon Icon--close"></span>
+					<span class="u-hiddenVisually">Descartar</span>
+				</button>
+			</div>
+		</div>
+		<div class="DMActivity-body js-ariaBody ">
+			<div class=" DMDialogTypeahead">
+				<span class="DMTypeaheadHeader">Enviar mensaje a:</span>
+				<ul class="TokenizedMultiselect-inputContainer">
+					<li>
+						<textarea class="TokenizedMultiselect-input twttr-directmessage-input js-initial-focus dm-to-input" aria-autocomplete="list" aria-expanded="true" rows="1" type="text" placeholder="Ingresa un nombre" aria-owns="TokenizedMultiselectOwns8997379965"></textarea>
+					</li>
+				</ul>
+				<ul id="DMComposeTypeaheadSuggestions" class="DMTypeaheadSuggestions u-scrollY" role="listbox">
+					<li class="DMTypeaheadHeader">
+						<span>Reciente</span>
+					</li>
+                    @foreach($convers as $sugest)
+					<li class="DMTokenizedMultiselectSuggestion DMTypeaheadSuggestions-item " data-token-id="dmAccounts::293967812" data-token-text="Ferel" role="option" tabindex="-1" 
+                    aria-selected="true" data-toggle="modal" data-target="#{{$sugest->id}}" >
+						<div class="DMTokenizedMultiselectSuggestion-body">
+							<div class="DMTypeaheadItem">
+								<div class="DMTypeaheadItem-avatar" aria-hidden="true">
+									<div class="DMAvatar DMAvatar--1 u-chromeOverflowFix">
+										<span class="DMAvatar-container">
+											<img class="DMAvatar-image" src="{{$sugest->usuario2->avatar}}" alt="{{$sugest->usuario2->name}}" title="{{$sugest->usuario2->name}}">
+											</span>
+										</div>
+									</div>
+									<div class="DMTypeaheadItem-body">
+										<div class="DMTypeaheadItem-title account-group">
+											<b class="fullname">{{$sugest->usuario2->name}}</b>
+											<span class="UserBadges"></span>
+											<span class="UserNameBreak">&nbsp;</span>
+											<span class="username u-dir u-textTruncate" dir="ltr">@
+												<b>{{$sugest->usuario2->username}}</b>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="DMTokenizedMultiselectSuggestion-state">
+                                <span class="DMTokenizedMultiselectSuggestion-selectedIndicator Icon Icon--check"></span>
+                                <span class="DMTokenizedMultiselectSuggestion-preselectedIndicator">En el Grupo</span>
+                            </div>
+						</li>
+                        @endforeach
+					</ul>
+				</div>
+			</div>
+			<div class="DMActivity-footer u-emptyHide">
+				<div class="DMButtonBar">
+					<!--<button type="button" class="EdgeButton EdgeButton--primary dm-initiate-conversation" >Siguiente</button>-->
+				</div>
+			</div>
+		</div>
+	</div>
+    </div>
+</div>
+<!-- fin nuevo mensaje-->
+
+<script type="text/javascript">
+				function nuevoMensaje(param) {  
+                    console.log(param);       
+				    $.ajaxSetup({
+				        headers: {
+				            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				        }
+				    });
+                    //var destino ='/mensaje/'+ param
+				    /*$.ajax({
+                        url: destino,
+                        type: 'POST', 
+                        data: { 
+                          conver: param 
+                          
+                        },
+                        success: function(response) {
+                            window.location.reload(true);
+                        },
+                        error: function(error) {
+                          console.log(error)
+                        }
+                      });*/
+                      $.post("/mensaje/" + param, {
+				        mensaje: document.getElementById('tweet-box-dm-conversation').textContent
+				    });
+                             
+                    //window.location.reload(true);
+				    
+				         
+				 }
+			</script>

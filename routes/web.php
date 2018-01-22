@@ -44,4 +44,4 @@ Route::get('/tweet/{tweet}','HomeController@removeTweet');
 
 
 //Mensajes
-Route::get('/mensajes{conver}','MessageController@index');
+Route::post('/mensaje/{conver}', 'MessageController@nuevoMensaje');
