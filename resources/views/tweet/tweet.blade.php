@@ -151,7 +151,8 @@
 											<div class="js-tweet-text-container">
 												<p class="TweetTextSize TweetTextSize--jumbo js-tweet-text tweet-text" lang="es" data-aria-label-part="0">{{$tweet->mensaje}}</p>
 											</div>
-											@if($tweet->multimedia != null && $tweet->multimedia != ""  )
+											{{$tweet->multimedia}}
+											@if($tweet->multimedia != null && $tweet->multimedia != "")
 										<div class="AdaptiveMediaOuterContainer">
 											<div class="AdaptiveMedia is-square">
 											<div class="AdaptiveMedia-container">
@@ -419,7 +420,7 @@
 										<div class="js-tweet-text-container" onclick="redirigir('{{$tweetRespuesta->user->username}}', '{{$tweetRespuesta->id}}')">
 											<p class="TweetTextSize  js-tweet-text tweet-text" lang="es" data-aria-label-part="0">{{$tweetRespuesta->mensaje}}</p>
 										</div>
-										@if($tweet->multimedia != null && $tweet->multimedia != ""  )
+										@if($tweetRespuesta->multimedia != null && $tweetRespuesta->multimedia != ""  )
 										<div class="AdaptiveMediaOuterContainer">
 											<div class="AdaptiveMedia is-square">
 											<div class="AdaptiveMedia-container">
@@ -604,9 +605,7 @@
 			</script>
 
 <script>
-document.getElementById('tweet_multimedia').onHTMLUpdate = function() {
-    alert("ha cambiado");
-}
+
 function cambiar(){
     $('#tweet_multimedia').val( document.getElementById('tweet_multimedia_div').textContent);
 }

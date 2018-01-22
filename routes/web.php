@@ -19,6 +19,7 @@ Route::get('/', 'HomeController@index')->name('home');
 //Seguir
 Route::get('/seguir/{seguido}/dejarDeSeguir','HomeController@dejarDeSeguir');
 Route::get('/seguir/{seguido}','HomeController@seguir');
+Route::post('/','PerfilController@buscar');
 
 //RT
 Route::get('/{tweet}/hacerRT','HomeController@addRT');
@@ -30,13 +31,14 @@ Route::get('/{tweet}/quitar/deshacerLike','HomeController@removeLike');
 
 //Perfil
 Route::get('/{username}','PerfilController@perfil');
+Route::post('/{username}','PerfilController@modificarPerfil');
 Route::get('/{username}/following','PerfilController@perfilSiguiendo');
 Route::get('/{username}/followers','PerfilController@perfilSeguidores');
 Route::get('/{username}/likes','PerfilController@perfilLikes');
 
 
 //Tweet
-Route::post('/tweet', 'HomeController@nuevoTweet');
+Route::post('/tweet/nuevo', 'HomeController@nuevoTweet');
 Route::get('/{username}/status/{id}','PerfilController@perfilTweet');
 Route::post('/{username}/status/{id}','HomeController@addRespuesta');
 

@@ -18,7 +18,7 @@
                             <ul class="nav js-global-actions" id="global-actions">
                                 <!-- Icono Home -->
                                 <li id="global-nav-home" class="home active " data-global-action="home">
-                                    <a class="js-nav js-tooltip js-dynamic-tooltip" data-placement="bottom" href="/" data-component-context="home_nav" data-nav="home" data-original-title="">
+                                    <a class="js-nav js-tooltip js-dynamic-tooltip" data-placement="bottom"  href="{{ action('HomeController@index' )}}"  data-component-context="home_nav" data-nav="home" data-original-title="">
                                     <span class="Icon Icon--home Icon--large"></span>
                                     <span class="Icon Icon--homeFilled Icon--large u-textUserColor"></span>
                                     <span class="text" aria-hidden="true">Inicio</span>
@@ -26,7 +26,7 @@
                                 </li>
                                 <!-- Icono Notificaciones, poner new si hya notificaciones a la class li-->
                                 <li class="people notifications" data-global-action="connect">
-                                    <a class="js-nav js-tooltip js-dynamic-tooltip" data-placement="bottom" href="/" data-component-context="connect_nav" data-nav="connect" data-original-title="">
+                                    <a class="js-nav js-tooltip js-dynamic-tooltip" data-placement="bottom" href="{{ action('HomeController@index' )}}" data-component-context="connect_nav" data-nav="connect" data-original-title="">
                                         <span class="Icon Icon--notifications Icon--large"></span>
                                         <span class="Icon Icon--notificationsFilled Icon--large u-textUserColor"></span>
                                         <span class="text" aria-hidden="true">Notificaciones</span>
@@ -48,8 +48,9 @@
                         <div class="pull-right nav-extras">
                             <!-- Input de buscar-->
                             <div role="search">
-                                <form class="t1-form form-search js-search-form" action="/search" id="global-nav-search">
-                                    <input class="search-input" type="text" id="search-query" placeholder="Buscar en Twitter" name="q" autocomplete="off" spellcheck="false" aria-autocomplete="list" aria-expanded="false" aria-owns="typeahead-dropdown-1" dir="ltr" style="direction: ltr; text-align: left;">
+                                <form class="t1-form form-search js-search-form" action="/" method="POST"  meid="global-nav-search">
+																{!! csrf_field() !!}
+																		<input class="search-input" type="text" id="busqueda" placeholder="Buscar en Twitter" name="q" autocomplete="off" spellcheck="false" aria-autocomplete="list" aria-expanded="false" aria-owns="typeahead-dropdown-1" dir="ltr" style="direction: ltr; text-align: left;">
                                     <span class="search-icon js-search-action">
                                         <button type="submit" class="Icon Icon--medium Icon--search nav-search" tabindex="-1">
                                         </button>

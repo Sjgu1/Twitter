@@ -29,6 +29,20 @@
     <script nonce="">
         !function(){window.initErrorstack||(window.initErrorstack=[]),window.onerror=function(r,i,n,o,t){r.indexOf("Script error.")>-1||window.initErrorstack.push({errorMsg:r,url:i,lineNumber:n,column:o,errorObj:t})}}();
       </script>
+      <script>
+			$(document).ready(function(){
+				document.getElementById('sendButton2').disabled = false
+				$('#tweet-box-home-timeline-nav').keyup(function(){
+
+					if(document.getElementById('tweet-box-home-timeline-nav').textContent.length !=0 && document.getElementById('tweet-box-home-timeline-nav').textContent.length <= 280)
+					document.getElementById('sendButton2').disabled = false
+					else
+					document.getElementById('sendButton2').disabled = true
+				})
+			});
+			</script>
+
+
     <script id="bouncer_terminate_iframe" nonce="">
     if (window.top != window) {
   window.top.postMessage({'bouncer': true, 'event': 'complete'}, '*');
@@ -183,20 +197,17 @@ margin-right: 0px
         <h3 class="modal-title" id="Tweetstorm-dialog-header">Redactar un nuevo Tweet </h3>
     </div>
     <div class=" modal-body">
-        <img alt="Name" class="top-timeline-tweet-box-user-image avatar size32" src="{{Auth::user()->avatar}}">
-        <form action="//upload.twitter.com/i/tweet/create_with_media.iframe" class="t1-form tweet-form pull-right" data-condensed-text="¿Qué está pasando?" data-poll-composer-rows="3" enctype="multipart/form-data" id="swift_tweetbox_1515235399021" method="post" name="swift_tweetbox_1515235399021" target="tweet-post-iframe" style="width: 508px;">
+        <form  action="/tweet/nuevo" method="POST" class="t1-form tweet-form condensed" data-condensed-text="¿Qué está pasando?" data-poll-composer-rows="3" enctype="multipart/form-data" id="swift_tweetbox_1515235399021" method="post" name="swift_tweetbox_1515235399021">
+        {!! csrf_field() !!}
             <div class="reply-users"></div>
             <div class="tweet-content">
-                <img alt="Name" class="inline-reply-user-image avatar size32" src="{{Auth::user()->avatar}}">
                 <div class="TweetBox-photoIntent">
+                
                 </div>
-                <div class="ComposerDragHelp">
-                    <span class="ComposerDragHelp-text"></span>
+                <div class="ComposerDragHelp"> <span class="ComposerDragHelp-text"></span>
                 </div><span class="visuallyhidden" id="tweet-box-home-timeline-label">Texto del Tweet</span>
-                <div class="RichEditor RichEditor--emojiPicker is-fakeFocus">
-                    <div class="RichEditor-mozillaCursorWorkaround">
-                        &nbsp;
-                    </div>
+                <div class="RichEditor RichEditor--emojiPicker">
+                    <div class="RichEditor-mozillaCursorWorkaround">&nbsp;</div>
                     <div class="RichEditor-container u-borderRadiusInherit">
                         <div class="dropdown-menu typeahead" id="typeahead-dropdown-3" role="listbox">
                             <div aria-hidden="true" class="dropdown-caret">
@@ -212,71 +223,65 @@ margin-right: 0px
                                 <ul class="typeahead-items typeahead-topics block1" role="presentation" style="display: none;"></ul>
                             </div>
                         </div>
-                        <div class="RichEditor-scrollContainer u-borderRadiusInherit">
-                            <div aria-autocomplete="list" aria-expanded="false" aria-labelledby="tweet-box-home-timeline-label" aria-multiline="true" aria-owns="typeahead-dropdown-3" class="tweet-box rich-editor is-showPlaceholder" contenteditable="true" data-placeholder-default="¿Qué está pasando?"
-                                data-placeholder-poll-composer-on="Haz una pregunta..." data-placeholder-reply="Twittea tu respuesta" dir="ltr" id="tweet-box-home-timeline-nav" name="tweet" role="textbox" spellcheck="true">
-                                <div><br></div>
+                        <div style="max-width:350px"class="RichEditor-scrollContainer u-borderRadiusInherit">
+                        <div aria-autocomplete="list" aria-expanded="false" aria-labelledby="tweet-box-home-timeline-label" aria-multiline="true" aria-owns="typeahead-dropdown-3" class="tweet-box rich-editor" contenteditable="true" data-placeholder-default="¿Qué está pasando?" data-placeholder-poll-composer-on="Haz una pregunta..." data-placeholder-reply="Twittea tu respuesta" dir="ltr" id="tweet-box-home-timeline-nav" name="tweet" role="textbox" spellcheck="true">
+
+                                <div>¿Qué está pasando?</div>
                             </div>
                             <div aria-hidden="true" class="RichEditor-pictographs"></div>
                         </div>
                         <div class="RichEditor-rightItems RichEditor-bottomItems">
                             <div class="js-character-counter">
-                                <div class="js-countdown-counter tweet-counter CountdownCounter"></div><svg class="RadialCounter js-radial-counter" height="20" width="20">
-                                                        <style>
-                                                        /* Global svg style overrides the overflow. Added svg for specificity */ svg.RadialCounter { margin-bottom: -4px; overflow: visible; transform: rotate(-90deg); } .RadialCounter--safe { stroke: #1da1f2; } .RadialCounter--warn { stroke: #ffad1f; } .RadialCounter--danger { stroke: #e0245e; } .RadialCounter-progressUnderlay { stroke: #ccd6dd; } @keyframes  RadialCounterPulse { 0% { stroke-width:2 } 50% { stroke-width: 4; } 100% { stroke-width: 2; } } .RadialCounter--danger.RadialCounter--pulse, .RadialCounter--warn.RadialCounter--pulse { animation: RadialCounterPulse 0.3s ease-in-out; animation-iteration-count: 1; } 
-                                                        </style>
-                                                        <circle class="RadialCounter-progressUnderlay" cx="50%" cy="50%" fill="none" r="8" stroke-width="1"></circle>
-                                                        <circle class="js-progress-circle RadialCounter--safe" cx="50%" cy="50%" fill="none" r="8" stroke-width="2" style="stroke-dashoffset: 50.2655; stroke-dasharray: 50.2655;"></circle></svg>
+                                <div class="js-countdown-counter tweet-counter CountdownCounter"></div>
+                                <svg class="RadialCounter js-radial-counter" height="20" width="20">
+                                    <style>
+                                        /* Global svg style overrides the overflow. Added svg for specificity */ svg.RadialCounter { margin-bottom: -4px; overflow: visible; transform: rotate(-90deg); } .RadialCounter--safe { stroke: #1da1f2; } .RadialCounter--warn { stroke: #ffad1f; } .RadialCounter--danger { stroke: #e0245e; } .RadialCounter-progressUnderlay { stroke: #ccd6dd; } @keyframes RadialCounterPulse { 0% { stroke-width:2 } 50% { stroke-width: 4; } 100% { stroke-width: 2; } } .RadialCounter--danger.RadialCounter--pulse, .RadialCounter--warn.RadialCounter--pulse { animation: RadialCounterPulse 0.3s ease-in-out; animation-iteration-count: 1; }
+                                    </style>
+                                    <circle class="RadialCounter-progressUnderlay" cx="50%" cy="50%" fill="none" r="8" stroke-width="1"></circle>
+                                    <circle class="js-progress-circle RadialCounter--safe" cx="50%" cy="50%" fill="none" r="8" stroke-width="2" style="stroke-dashoffset: 46.7469; stroke-dasharray: 50.2655;"></circle>
+                                </svg>
                             </div>
                         </div>
                     </div>
-                    <div class="RichEditor-mozillaCursorWorkaround">
-                        &nbsp;
-                    </div>
+                    <div class="RichEditor-mozillaCursorWorkaround">&nbsp;</div>
                 </div>
-                <textarea aria-hidden="true" class="tweet-box-shadow hidden" name="status"></textarea>
+                <textarea   name="tweet_content" id="tweet_content" aria-hidden="true" class="tweet-box-shadow hidden">{!! csrf_field() !!}</textarea>
                 <!-- El input de imagenes -->
-						<!-- El input de imagenes -->
-                        <div style="padding-top:10px;padding-bottom:10px; " >		
-						<span class="tweet-camera Icon Icon--media"  style="padding-top:5px;font-size: 25px; color:#1ea1f2;"></span>
-						<div style="min-height: 35px;max-height: 35px; min-width: 450px;max-width: 450px" aria-autocomplete="list" aria-expanded="false" aria-labelledby="tweet-box-home-timeline-label" aria-multiline="true" aria-owns="typeahead-dropdown-2" class="tweet-box rich-editor pull-right RichEditor-scrollContainer u-borderRadiusInherit" contenteditable="true"  data-placeholder-poll-composer-on="Haz una pregunta..." data-placeholder-reply="Twittea tu respuesta" dir="ltr" id="tweet-box-home-timeline-src-nav" name="tweet-box-home-timeline-src-nav" role="textbox" spellcheck="true"><div>
-						</div>
-							</div>
-							<!-- El input de imagenes -->
-                <div class="TweetBoxAttachments" style="z-index: 5000;">
+                <div style="padding-top:10px;padding-bottom:10px; " >		
+            <span class="tweet-camera Icon Icon--media"  style="padding-top:5px;font-size: 25px; color:#1ea1f2;"></span>
+            <div style="min-height: 35px;max-height: 35px; min-width: 450px; max-width: 450px;"  aria-multiline="true" aria-owns="typeahead-dropdown-2" class="tweet-box rich-editor pull-right RichEditor-scrollContainer u-borderRadiusInherit" contenteditable="true"  data-placeholder-poll-composer-on="Haz una pregunta..." data-placeholder-reply="Twittea tu respuesta" dir="ltr" id="tweet_multimedia_div_nav" name="tweet_multimedia_div_nav" role="textbox" spellcheck="true">
+            <input type="hidden" id="tweet_multimedia2" name="tweet_multimedia2">
+            <div>
+            </div>
+                </div>
+
+                <!-- El input de imagenes -->
+                <div class="TweetBoxAttachments">
                     <div class="thumbnail-container">
                         <div class="thumbnail-wrapper">
                             <div class="ComposerThumbnails"></div>
                         </div>
+                        <div class="tweet-box-overlay"></div>
                     </div>
-                    
-                    </div>
-                    <div class="tweet-box-overlay"></div>
                 </div>
             </div>
             <div class="TweetBoxToolbar">
-               
-            <div class="TweetBoxToolbar-tweetButton tweet-button">
-                
-                
-                </span> <button class="tweet-action EdgeButton EdgeButton--primary js-tweet-btn disabled" disabled="" type="button" onclick="nuevoTweetNav()"><span class="button-text tweeting-text">Twittear</span> <span class="button-text replying-text">Responder</span></button>
+                <div class="TweetBoxExtras tweet-box-extras"> <span class="TweetBoxExtras-item TweetBox-mediaPicker"></span>
+                </div>
+                <div class="TweetBoxToolbar-tweetButton tweet-button"> <span class="add-tweet-button">
+                    </span>
+                    <button onclick="cambiar2()" type="submit" id="sendButton2" name="sendButton2" style="background-color: #1da1f2;border: 1px solid #1da1f2;color: #fff;" class=" EdgeButton EdgeButton--primary">Twittear</button>
+
+                </div>
             </div>
-    </div>
-    <div style="position: absolute; visibility: hidden;"></div>
-    <div style="position: absolute; visibility: hidden;">
-        <div>
-            ¿Qué está pasando?
-        </div>
-    </div>
-    <div style="position: absolute; visibility: hidden;">
-        <div>
-            ¿Qué está pasando?
-        </div>
-    </div>
-    <div style="position: absolute; visibility: hidden;">
-        <div><br></div>
-    </div>
-    </form>
+            <div style="position: absolute; visibility: hidden;"></div>
+            <div style="position: absolute; visibility: hidden;">
+                <div>¿Qué está pasando?</div>
+            </div>
+            <div style="position: absolute; visibility: hidden;">
+                <div>¿Qué está pasando?</div>
+            </div>
+        </form>
         <!-- Fin Modal de twittear -->
         
               
@@ -308,6 +313,14 @@ function nuevoTweetNav() {
          
  }
 </script>
+<script>
+
+function cambiar2(){
+    $('#tweet_multimedia2').val( document.getElementById('tweet_multimedia_div_nav').textContent);
+}
+
+</script>
+
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>

@@ -163,5 +163,35 @@ class PerfilController extends Controller
         return view('tweet/tweet', ['conectado'=> Auth::user(),'user' => $user, 'tweet'=>$tweet ,'usuarioConectadoFollowing' => $this->checkFollowingDeUsuarioConectado($user->id)]);  
     }
 
+    public function buscar(Request $request){
+
+
+        $users = User::where('username', 'LIKE', '%'.$request->q.'%')->get();
+        $users = $users->merge(User::where('name', 'LIKE', '%'.$request->q.'%')->get());
+        $users =  $users;
+
+
+        //dd($user);
+        //dd(Auth::user(), Auth::Guest());
+
+        return view('busqueda', ['user' => Auth::user(),'users' => $users, 'busqueda' => $request->q]); 
+    }
+
+
+    public function modificarPerfil(Request $request,  $username){
+        error_log($request->perfil_multimedia);
+        error_log($request->fondo_multimedia);
+        if($request->fondo_multimedia == null && $request->fondo_multimedia != ""){
+            DB::table('users')->where('username', Auth::user()->username)->update(['avatar'=> $request->fondo_multimedia]) ;
+
+        }
+        if($request->perfil_multimedia != null && $request->perfil_multimedia != "" ){
+            DB::table('users')->where('username', Auth::user()->username)->update(['fondo'=> $request->perfil_multimedia]) ;    
+
+
+        }
+
+        return back();
+    }
 
 }
