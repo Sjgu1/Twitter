@@ -174,7 +174,7 @@
                         @foreach($convers as $conver)
 			                @if(Auth::id() == $conver->usuario2->id)
                             <li class="DMInbox-conversationItem">
-                            <div class="DMInboxItem" data-thread-id="301028364-390203992" data-sort-event-id="630408429719408643" data-last-message-id="630408429719408643" data-is-oto="true" data-is-muted="false" data-toggle="modal" data-target="#{{$id}}">
+                            <div class="DMInboxItem" data-thread-id="301028364-390203992" data-sort-event-id="630408429719408643" data-last-message-id="630408429719408643" data-is-oto="true" data-is-muted="false" data-toggle="modal" data-target="#{{$conver->id}}">
                                 <span><a onClick="{{$id=$conver->id}}"></a></span>
                                 <div class="DMInboxItem-avatar">
                                     <a href="/{{ $conver->usuario1->username }}" class="js-action-profile js-user-profile-link" data-user-id="390203992">
@@ -273,7 +273,8 @@
 	</div>
 	<!-- Fin Modal mensajes --> 
     <!-- modal conversacion -->
-    <div class="modal fade modal is-autoPosition" id="{{$id}}" role="dialog" style="top: 5%; left: 415px; position: absolute;width: 45vw; height: fit-content; z-index: 8000;" aria-labelledby="dm_dialog-header">
+    @foreach($convers as $conver)
+    <div class="modal fade modal is-autoPosition" id="{{$conver->id}}" role="dialog" style="top: 5%; left: 415px; position: absolute;width: 45vw; height: fit-content; z-index: 8000;" aria-labelledby="dm_dialog-header">
         <div class="js-first-tabstop" tabindex="0"></div>
         <div class="DMActivity DMInbox js-ariaDocument u-chromeOverflowFix DMActivity--open" role="document">
                 
@@ -587,7 +588,7 @@
                 
         </div>
     </div>
-		
+		@endforeach
 <!--fin -->
 <!-- modal nuevo mensaje-->
 <div class="modal fade modal is-autoPosition" id="nuevoMensaje" role="dialog" style="top: 5%; left: 415px; position: absolute;width: 45vw; height: fit-content; z-index: 7000;" aria-labelledby="dm_dialog-header">
@@ -715,7 +716,7 @@
 				        mensaje: document.getElementById('tweet-box-dm-conversation').textContent
 				    });
                              
-                    //window.location.reload(true);
+                    window.location.reload(true);
 				    
 				         
 				 }

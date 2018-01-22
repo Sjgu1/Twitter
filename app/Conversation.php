@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Conversation extends Model
 {
+    protected $fillable = [
+        'fechaInicio',
+    ];
     //Emisor
     public function usuario1()
     {
