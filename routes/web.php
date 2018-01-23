@@ -47,3 +47,6 @@ Route::get('/tweet/{tweet}','HomeController@removeTweet');
 
 //Mensajes
 Route::post('/mensaje/{conver}', 'MessageController@nuevoMensaje');
+Route::get('/conver/{idUser}', 'MessageController@nuevaConver');
+Route::get('/conver/borrar/{idConver}', 'MessageController@deleteConver');
+Route::get('/mensaje/borrar/{idMensaje}', 'MessageController@deleteMensaje');
