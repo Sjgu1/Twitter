@@ -251,7 +251,7 @@
 										<li class="ProfileHeading-toggleItem  is-active" data-element-term="tweets_toggle">	<span aria-hidden="true">Tweets</span>
 											<span class="u-hiddenVisually">Tweets, página actual.</span>
 										</li>
-										<li class="ProfileHeading-toggleItem  u-textUserColor" data-element-term="tweets_with_replies_toggle">	<a class="ProfileHeading-toggleLink js-nav" href="/{{$user->username}}/with_replies" data-nav="tweets_with_replies_toggle">Tweets y respuestas</a>
+										<li class="ProfileHeading-toggleItem  u-textUserColor" data-element-term="tweets_with_replies_toggle">
 										</li>
 									</ul>
 								</div>

@@ -17,8 +17,8 @@ class CreateSeguidoresTable extends Migration
             $table->increments('id');
             $table->integer('id_seguidor')->unsigned();
             $table->integer('id_seguido')->unsigned();
-            $table->foreign('id_seguidor')->references('id')->on('users');
-            $table->foreign('id_seguido')->references('id')->on('users');
+            $table->foreign('id_seguidor')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('id_seguido')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

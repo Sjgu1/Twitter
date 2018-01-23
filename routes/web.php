@@ -38,6 +38,22 @@ Route::get('/{username}/likes','PerfilController@perfilLikes');
 Route::get('/{username}/listas','PerfilController@perfilListas');
 Route::get('/{username}/memberships','PerfilController@perfilMiembro');
 
+//Administrador
+Route::get('/administrar/general','PerfilController@administrar')->middleware('admin');
+Route::post('/administrar/crearUsuario','PerfilController@crearUsuario')->middleware('admin');
+Route::post('/administrar/crearCategoria','PerfilController@crearCategoria')->middleware('admin');
+
+Route::get('/administrar/usuario/{username}','PerfilController@administrarUsuario')->middleware('admin');
+Route::get('/administrar/categoria/{categoria}','PerfilController@administrarCategoria')->middleware('admin');
+Route::post('/administrar/usuario/{username}','PerfilController@actualizarUsuario')->middleware('admin');
+Route::post('/administrar/categoria/{categoria}','PerfilController@actualizarCategoria')->middleware('admin');
+Route::get('/administrar/usuario/{username}/eliminar','PerfilController@eliminarUsuario')->middleware('admin');
+Route::get('/administrar/categoria/{categoria}/eliminar','PerfilController@eliminarCategoria')->middleware('admin');
+Route::get('/administrar/categoria/{categoria}/eliminarTweet/{tweet}','PerfilController@eliminarTweetCategoria')->middleware('admin');
+
+
+
+
 
 //Tweet
 Route::post('/tweet/nuevo', 'HomeController@nuevoTweet');

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTweetUserRtTable extends Migration
+class CreateCategoriasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateTweetUserRtTable extends Migration
      */
     public function up()
     {
-        Schema::create('tweet_user_rt', function (Blueprint $table) {
+        //
+        Schema::create('categorias', function (Blueprint $table) {
+
             $table->increments('id');
-            $table->integer('id_tweet')->unsigned();
-            $table->integer('id_user')->unsigned();
-            $table->foreign('id_tweet')->references('id')->on('tweets');
-            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+            $table->string('name');
             $table->timestamps();
         });
+
+
     }
 
     /**
@@ -30,6 +31,7 @@ class CreateTweetUserRtTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tweet_user_rt');
+        //
+        Schema::dropIfExists('categorias');
     }
 }

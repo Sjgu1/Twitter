@@ -151,7 +151,6 @@
 											<div class="js-tweet-text-container">
 												<p class="TweetTextSize TweetTextSize--jumbo js-tweet-text tweet-text" lang="es" data-aria-label-part="0">{{$tweet->mensaje}}</p>
 											</div>
-											{{$tweet->multimedia}}
 											@if($tweet->multimedia != null && $tweet->multimedia != "")
 										<div class="AdaptiveMediaOuterContainer">
 											<div class="AdaptiveMedia is-square">

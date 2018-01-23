@@ -20,9 +20,14 @@
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
 
+    
 
 
     <noscript>&lt;meta http-equiv="refresh" content="0; URL=https://mobile.twitter.com/i/nojs_router?path=%2F"&gt;</noscript>
@@ -191,7 +196,7 @@ margin-right: 0px
         </div>
         <!-- Modal de twittear-->
         <!-- Modal -->
-        <div class="modal fade modal-content TweetstormDialog-content  home-tweet-box tweet-box  tweet-user" id="twitearModal" tabindex="-1" role="dialog" style="top: 5%; left: 415px; position: absolute;width: 610px; height: fit-content;" aria-labelledby="myModalLabel">
+        <div class="modal fade modal-content TweetstormDialog-content  home-tweet-box tweet-box  tweet-user" id="twitearModal" tabindex="-1" role="dialog" style="top: 5%; left: 415px; position: absolute;width: 610px; height: fit-content;" aria-labelledby="myModalLabel" data-keyboard="true">
     <div class="modal-header">
         <button type="button" class="close pull-right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h3 class="modal-title" id="Tweetstorm-dialog-header">Redactar un nuevo Tweet </h3>
