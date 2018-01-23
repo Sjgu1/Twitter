@@ -74,8 +74,12 @@ class PerfilController extends Controller
         //dd($user);
         //dd(Auth::user(), Auth::Guest());
 
+        $listas=$user->listas;
+        $sus=$user->suscrito;
+        $listas=$listas->merge($sus);
+
         return view('perfil/perfil', ['conectado'=> Auth::user(),'user' => $user,'users' => $users, 'seguidos'=>$follows, 'seguidores'=>$followers, 'tweets'=>$tweets ,'tweetsEscritos'=>$escritos,
-        'usuarioConectadoFollowing' => $this->checkFollowingDeUsuarioConectado($id)]); 
+        'usuarioConectadoFollowing' => $this->checkFollowingDeUsuarioConectado($id), 'listas'=>$listas]); 
     }
     public function perfilLikes($username) {
 
@@ -99,8 +103,12 @@ class PerfilController extends Controller
         //dd(Auth::user(), Auth::Guest());
         //dd(Tweet::where('id', 2)->first()->likesUsers);
 
+        $listas=$user->listas;
+        $sus=$user->suscrito;
+        $listas=$listas->merge($sus);
+
         return view('perfil/likes', ['conectado'=> Auth::user(),'user' => $user,'users' => $users, 'seguidos'=>$follows, 'seguidores'=>$followers, 'tweets'=>$tweets ,'tweetsEscritos'=>$escritos,
-        'usuarioConectadoFollowing' => $this->checkFollowingDeUsuarioConectado($id)]); 
+        'usuarioConectadoFollowing' => $this->checkFollowingDeUsuarioConectado($id), 'listas'=>$listas]); 
     }
 
     public function perfilSiguiendo($username) {
@@ -121,11 +129,14 @@ class PerfilController extends Controller
         $tweets = User::find($id)->tweets()->orderBy('fecha', 'desc')->with('user')->get();
         $escritos = User::find($id)->tweets()->orderBy('fecha', 'desc')->count();
 
+        $listas=$user->listas;
+        $sus=$user->suscrito;
+        $listas=$listas->merge($sus);
         //dd($user);
         //dd(Auth::user(), Auth::Guest());
 
         return view('perfil/following', ['user' => $user,'users' => $users, 'following'=>$follows, 'followers'=>$followers, 'tweets'=>$tweets ,'tweetsEscritos'=>$escritos,
-        'usuarioConectadoFollowing' => $this->checkFollowingDeUsuarioConectado($id)]); 
+        'usuarioConectadoFollowing' => $this->checkFollowingDeUsuarioConectado($id), 'listas'=>$listas]); 
     }
 
     public function perfilSeguidores($username) {
@@ -148,9 +159,12 @@ class PerfilController extends Controller
 
         //dd($user);
         //dd(Auth::user(), Auth::Guest());
+        $listas=$user->listas;
+        $sus=$user->suscrito;
+        $listas=$listas->merge($sus);
 
         return view('perfil/followers', ['user' => $user,'users' => $users, 'following'=>$follows, 'followers'=>$followers, 'tweets'=>$tweets ,'tweetsEscritos'=>$escritos,
-        'usuarioConectadoFollowing' => $this->checkFollowingDeUsuarioConectado($id)]); 
+        'usuarioConectadoFollowing' => $this->checkFollowingDeUsuarioConectado($id), 'listas'=>$listas]); 
     }
     public function perfilTweet($username, $id) {
 
@@ -192,6 +206,59 @@ class PerfilController extends Controller
         }
 
         return back();
+    }
+
+    public function perfilListas($username) {
+
+        $user =  User::where('username', $username)->first();
+
+        if($user == null){
+            return view('404'); 
+        }
+
+        Carbon::setLocale('es');
+        $id = $user->id;
+        $users = $this->sugerenciasUsuarios();
+        $follows=$user->seguidos;
+        $followers=$user->seguidores;
+            
+        //Unir tweets propios con los de las personas que sigues
+        $tweets = User::find($id)->tweets()->orderBy('fecha', 'desc')->with('user')->get();
+        $escritos = User::find($id)->tweets()->orderBy('fecha', 'desc')->count();
+
+        $listas=$user->listas;
+        $sus=$user->suscrito;
+        $listas=$listas->merge($sus);
+
+        return view('perfil/listasSuscri', ['conectado'=> Auth::user(),'user' => $user,'users' => $users, 'seguidos'=>$follows, 'seguidores'=>$followers, 'tweets'=>$tweets ,'tweetsEscritos'=>$escritos,
+        'usuarioConectadoFollowing' => $this->checkFollowingDeUsuarioConectado($id), 'listas'=>$listas]); 
+    }
+
+    public function perfilMiembro($username) {
+
+        $user =  User::where('username', $username)->first();
+
+        if($user == null){
+            return view('404'); 
+        }
+
+        Carbon::setLocale('es');
+        $id = $user->id;
+        $users = $this->sugerenciasUsuarios();
+        $follows=$user->seguidos;
+        $followers=$user->seguidores;
+            
+        //Unir tweets propios con los de las personas que sigues
+        $tweets = User::find($id)->tweets()->orderBy('fecha', 'desc')->with('user')->get();
+        $escritos = User::find($id)->tweets()->orderBy('fecha', 'desc')->count();
+
+        $listas=$user->listas;
+        $sus=$user->suscrito;
+        $listas=$listas->merge($sus);
+        $miembro=$user->miembro;
+
+        return view('perfil/listasMember', ['conectado'=> Auth::user(),'user' => $user,'users' => $users, 'seguidos'=>$follows, 'seguidores'=>$followers, 'tweets'=>$tweets ,'tweetsEscritos'=>$escritos,
+        'usuarioConectadoFollowing' => $this->checkFollowingDeUsuarioConectado($id), 'listas'=>$listas, 'memberships'=>$miembro]); 
     }
 
 }

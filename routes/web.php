@@ -35,6 +35,8 @@ Route::post('/{username}','PerfilController@modificarPerfil');
 Route::get('/{username}/following','PerfilController@perfilSiguiendo');
 Route::get('/{username}/followers','PerfilController@perfilSeguidores');
 Route::get('/{username}/likes','PerfilController@perfilLikes');
+Route::get('/{username}/listas','PerfilController@perfilListas');
+Route::get('/{username}/memberships','PerfilController@perfilMiembro');
 
 
 //Tweet
@@ -50,3 +52,5 @@ Route::post('/mensaje/{conver}', 'MessageController@nuevoMensaje');
 Route::get('/conver/{idUser}', 'MessageController@nuevaConver');
 Route::get('/conver/borrar/{idConver}', 'MessageController@deleteConver');
 Route::get('/mensaje/borrar/{idMensaje}', 'MessageController@deleteMensaje');
+
+//Listas

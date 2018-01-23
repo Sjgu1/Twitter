@@ -70,7 +70,7 @@
 									</a>
 								</li>
 								<li class="ProfileNav-item ProfileNav-item--following">
-									<a class="ProfileNav-stat ProfileNav-stat--link u-borderUserColor u-textCenter js-tooltip js-nav u-textUserColor" title="279 Siguiendo" data-nav="following" href="{{$user->username}}/following">	<span class="ProfileNav-label" aria-hidden="true">Siguiendo</span>
+									<a class="ProfileNav-stat ProfileNav-stat--link u-borderUserColor u-textCenter js-tooltip js-nav u-textUserColor" title="279 Siguiendo" data-nav="following" href="/{{$user->username}}/following">	<span class="ProfileNav-label" aria-hidden="true">Siguiendo</span>
 										<span class="u-hiddenVisually">Siguiendo</span>
 										<span class="ProfileNav-value" data-count="279" data-is-compact="false">{{$user->seguidos->count()}}</span>
 									</a>
@@ -88,9 +88,9 @@
 									</a>
 								</li>
 								<li class="ProfileNav-item ProfileNav-item--lists" data-more-item=".ProfileNav-dropdownItem--lists">
-									<a class="ProfileNav-stat ProfileNav-stat--link u-borderUserColor u-textCenter js-tooltip  js-nav u-textUserColor" title="1 Lista" data-nav="all_lists" href="/{{$user->username}}/lists">	<span class="ProfileNav-label" aria-hidden="true">Listas</span>
+									<a class="ProfileNav-stat ProfileNav-stat--link u-borderUserColor u-textCenter js-tooltip  js-nav u-textUserColor" title="{{$user->listas->count()}} Lista" data-nav="all_lists" href="/{{$user->username}}/listas">	<span class="ProfileNav-label" aria-hidden="true">Listas</span>
 										<span class="u-hiddenVisually">Listas</span>
-										<span class="ProfileNav-value" data-is-compact="false">1</span>
+										<span class="ProfileNav-value" data-is-compact="false">{{$user->listas->count()}}</span>
 									</a>
 								</li>
 								<li class="ProfileNav-item ProfileNav-item--more dropdown is-hidden" style="">
