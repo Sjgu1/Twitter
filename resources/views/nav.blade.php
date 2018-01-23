@@ -1,11 +1,28 @@
-<style>
-.DMTokenizedMultiselectSuggestion.is-highlighted {
-    background-color: #f5f8fa;
-    border-bottom: 1px solid #e6ecf0;
-    border-top: 1px solid #e6ecf0;
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src=https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js></script>
+<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+<!--<style>
+#myUL {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
-</style>
-<?php $id=0 ?>
+
+#myUL li a {
+  border: 1px solid #ddd;
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #f6f6f6;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+  display: block
+}
+
+#myUL li a:hover:not(.header) {
+  background-color: #eee;
+}
+</style>-->
 <!-- Barra de navegacion -->
 <div class="fijar global-nav" data-section-term="top_nav">
                 <div class="global-nav-inner">
@@ -110,165 +127,163 @@
             <!-- Fin Barra de navegacion -->
     <!-- Modal Mensajes-->
     <div class="modal fade modal is-autoPosition" id="mensajesModal" role="dialog" style="top: 5%; left: 415px; position: absolute;width: 45vw; height: fit-content;" aria-labelledby="dm_dialog-header">
-	<div class="js-first-tabstop" tabindex="0"></div>
-	<div class="DMActivity DMInbox js-ariaDocument u-chromeOverflowFix DMActivity--open" role="document">
-		<div class="DMActivity-header">
-			<h2 class="DMActivity-title js-ariaTitle" id="dm_dialog-header">Mensajes directos
-            </h2>
-			<div class="DMActivity-toolbar">
-				<button type="button" class="DMInbox-toolbar EdgeButton EdgeButton--small EdgeButton--secondary EdgeButton--icon mark-all-read js-tooltip" title="Marcar todo como leído">
-					<span class="Icon Icon--markAllRead"></span>
-					<span class="u-hiddenVisually">Marcar todo como leído</span>
-				</button>
-				<button type="button" class="DMInbox-toolbar DMComposeButton EdgeButton EdgeButton--small EdgeButton--primary dm-new-button js-initial-focus" data-toggle="modal" data-target="#nuevoMensaje">
-					<span>Mensaje nuevo</span>
-				</button>
-				<button type="button" class="DMActivity-close js-close u-textUserColorHover" data-dismiss="modal">
-					<span class="Icon Icon--close Icon--medium"></span>
-					<span class="u-hiddenVisually">Cerrar</span>
-				</button>
-			</div>
-		</div>
-		<div class="DMActivity-container">
-			<div class="DMActivity-notice">
-				<div class="DMNotice DMNotice--error DMErrorBar" style="display: none;">
-					<div class="DMNotice-message">
-						<div class="DMErrorBar-text"></div>
-					</div>
-					<div class="DMNotice-actions u-emptyHide"></div>
-					<button type="button" class="DMNotice-dismiss">
-						<span class="Icon Icon--close"></span>
-						<span class="u-hiddenVisually">Descartar</span>
-					</button>
-				</div>
-				<div class="DMNotice DMNotice--toast " style="display: none;">
-					<div class="DMNotice-message"></div>
-					<div class="DMNotice-actions u-emptyHide"></div>
-					<button type="button" class="DMNotice-dismiss">
-						<span class="Icon Icon--close"></span>
-						<span class="u-hiddenVisually">Descartar</span>
-					</button>
-				</div>
-				<div class="DMNotice DMNotice--explicitDismiss DMNotificationsPermissionRequest" style="display: none;">
-					<div class="DMNotice-message">¿Te gustaría recibir notificaciones web de tus interacciones?
+	    <div class="js-first-tabstop" tabindex="0"></div>
+            <div class="DMActivity DMInbox js-ariaDocument u-chromeOverflowFix DMActivity--open" role="document">
+                <div class="DMActivity-header">
+                    <h2 class="DMActivity-title js-ariaTitle" id="dm_dialog-header">Mensajes directos
+                    </h2>
+                    <div class="DMActivity-toolbar">
+                        <button type="button" class="DMInbox-toolbar EdgeButton EdgeButton--small EdgeButton--secondary EdgeButton--icon mark-all-read js-tooltip" title="Marcar todo como leído">
+                            <span class="Icon Icon--markAllRead"></span>
+                            <span class="u-hiddenVisually">Marcar todo como leído</span>
+                        </button>
+                        <button type="button" class="DMInbox-toolbar DMComposeButton EdgeButton EdgeButton--small EdgeButton--primary dm-new-button js-initial-focus" data-toggle="modal" data-target="#nuevoMensaje">
+                            <span>Mensaje nuevo</span>
+                        </button>
+                        <button type="button" class="DMActivity-close js-close u-textUserColorHover" data-dismiss="modal">
+                            <span class="Icon Icon--close Icon--medium"></span>
+                            <span class="u-hiddenVisually">Cerrar</span>
+                        </button>
                     </div>
-					<div class="DMNotice-actions u-emptyHide">
-						<button type="button" class="DMNotificationsPermissionRequest-later EdgeButton EdgeButton--tertiary js-prompt-later">Tal vez más tarde</button>
-						<button type="button" class="DMNotificationsPermissionRequest-accept EdgeButton EdgeButton--secondary js-prompt-accept">Habilitar notificaciones</button>
-					</div>
-				</div>
-			</div>
-			<nav class="DMInbox-tab u-hidden" aria-label="Bandejas de entrada de Mensajes Directos">
-				<ul class="DMInbox-tabToggle">
-					<li class="DMInbox-tabToggleItem DMInbox-inboxTab is-active">
-						<a role="button" href="#" class="DMInbox-tabCopy">Bandeja de entrada</a>
-					</li>
-					<li class="DMInbox-tabToggleItem DMInbox-requestTab">
-						<a role="button" href="#" class="DMInbox-tabCopy">Solicitudes</a>
-					</li>
-				</ul>
-			</nav>
-			<div class="DMActivity-body js-ariaBody ">
-				<div class="DMInbox-content u-scrollY">
-					<div class="DMInbox-primary">
-						<ul class="DMInbox-conversations"> 
-                        @foreach($convers as $conver)
-			                @if(Auth::id() == $conver->usuario2->id)
-                            <li class="DMInbox-conversationItem">
-                            <div class="DMInboxItem" data-thread-id="301028364-390203992" data-sort-event-id="630408429719408643" data-last-message-id="630408429719408643" data-is-oto="true" data-is-muted="false" data-toggle="modal" data-target="#{{$conver->id}}">
-                                <span><a onClick="{{$id=$conver->id}}"></a></span>
-                                <div class="DMInboxItem-avatar">
-                                    <a href="/{{ $conver->usuario1->username }}" class="js-action-profile js-user-profile-link" data-user-id="390203992">
-                                        <div class="DMAvatar DMAvatar--1 u-chromeOverflowFix">
-                                            <span class="DMAvatar-container">
-                                                <img class="DMAvatar-image" src="{{$conver->usuario1->avatar}}" alt="{{$conver->usuario1->name}}" title="{{$conver->usuario1->name}}">
+                </div>
+                <div class="DMActivity-container">
+                    <div class="DMActivity-notice">
+                        <div class="DMNotice DMNotice--error DMErrorBar" style="display: none;">
+                            <div class="DMNotice-message">
+                                <div class="DMErrorBar-text"></div>
+                            </div>
+                            <div class="DMNotice-actions u-emptyHide"></div>
+                            <button type="button" class="DMNotice-dismiss">
+                                <span class="Icon Icon--close"></span>
+                                <span class="u-hiddenVisually">Descartar</span>
+                            </button>
+                        </div>
+                        <div class="DMNotice DMNotice--toast " style="display: none;">
+                            <div class="DMNotice-message"></div>
+                            <div class="DMNotice-actions u-emptyHide"></div>
+                            <button type="button" class="DMNotice-dismiss">
+                                <span class="Icon Icon--close"></span>
+                                <span class="u-hiddenVisually">Descartar</span>
+                            </button>
+                        </div>
+                        <div class="DMNotice DMNotice--explicitDismiss DMNotificationsPermissionRequest" style="display: none;">
+                            <div class="DMNotice-message">¿Te gustaría recibir notificaciones web de tus interacciones?
+                            </div>
+                            <div class="DMNotice-actions u-emptyHide">
+                                <button type="button" class="DMNotificationsPermissionRequest-later EdgeButton EdgeButton--tertiary js-prompt-later">Tal vez más tarde</button>
+                                <button type="button" class="DMNotificationsPermissionRequest-accept EdgeButton EdgeButton--secondary js-prompt-accept">Habilitar notificaciones</button>
+                            </div>
+                        </div>
+                    </div>
+                    <nav class="DMInbox-tab u-hidden" aria-label="Bandejas de entrada de Mensajes Directos">
+                        <ul class="DMInbox-tabToggle">
+                            <li class="DMInbox-tabToggleItem DMInbox-inboxTab is-active">
+                                <a role="button" href="#" class="DMInbox-tabCopy">Bandeja de entrada</a>
+                            </li>
+                            <li class="DMInbox-tabToggleItem DMInbox-requestTab">
+                                <a role="button" href="#" class="DMInbox-tabCopy">Solicitudes</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="DMActivity-body js-ariaBody ">
+                        <div class="DMInbox-content u-scrollY">
+                            <div class="DMInbox-primary">
+                                <ul class="DMInbox-conversations"> 
+                                @foreach($convers as $conver)
+                                    @if(Auth::id() == $conver->usuario2->id)
+                                    <li class="DMInbox-conversationItem">
+                                    <div class="DMInboxItem" data-thread-id="301028364-390203992" data-sort-event-id="630408429719408643" data-last-message-id="630408429719408643" data-is-oto="true" data-is-muted="false" data-toggle="modal" data-target="#{{$conver->id}}">
+                                        <div class="DMInboxItem-avatar">
+                                            <a href="/{{ $conver->usuario1->username }}" class="js-action-profile js-user-profile-link" data-user-id="390203992">
+                                                <div class="DMAvatar DMAvatar--1 u-chromeOverflowFix">
+                                                    <span class="DMAvatar-container">
+                                                        <img class="DMAvatar-image" src="{{$conver->usuario1->avatar}}" alt="{{$conver->usuario1->name}}" title="{{$conver->usuario1->name}}">
+                                                        </span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="DMInboxItem-title account-group">
+                                                <b class="fullname">{{$conver->usuario1->name}}</b>
+                                                <span class="UserBadges"></span>
+                                                <span class="UserNameBreak">&nbsp;</span>
+                                                <span class="username u-dir u-textTruncate" dir="ltr">@
+                                                    <b>{{$conver->usuario1->username}}</b>
                                                 </span>
                                             </div>
-                                        </a>
-                                    </div>
-                                    <div class="DMInboxItem-title account-group">
-                                        <b class="fullname">{{$conver->usuario1->name}}</b>
-                                        <span class="UserBadges"></span>
-                                        <span class="UserNameBreak">&nbsp;</span>
-                                        <span class="username u-dir u-textTruncate" dir="ltr">@
-                                            <b>{{$conver->usuario1->username}}</b>
-                                        </span>
-                                    </div>
-                                    <div class="DMInboxItem-header">
-                                        <div class="DMInboxItem-timestamp">
-                                            <span class="_timestamp" data-aria-label-part="last" data-time="1439136056" data-long-form="true" data-include-sec="true"></span>
-                                        </div>
-                                    </div>
-                                    <div class="u-posRelative">
-                                        <p class="DMInboxItem-snippet "></p>
-                                    </div>
-                                </div>
-                            </li>
-                            @else
-                            <li class="DMInbox-conversationItem" onClick="{{$id=$conver->id}}">
-                                <div class="DMInboxItem" data-thread-id="301028364-390203992" data-sort-event-id="630408429719408643" data-last-message-id="630408429719408643" data-is-oto="true" data-is-muted="false" data-toggle="modal" data-target="#{{$id}}">
-                                <span><a onClick="{{$id=$conver->id}}"></a></span>
-                                    <div class="DMInboxItem-avatar">
-                                        <a href="/{{ $conver->usuario2->username }}" class="js-action-profile js-user-profile-link" data-user-id="390203992">
-                                            <div class="DMAvatar DMAvatar--1 u-chromeOverflowFix">
-                                                <span class="DMAvatar-container">
-                                                    <img class="DMAvatar-image" src="{{$conver->usuario2->avatar}}" alt="{{$conver->usuario2->name}}" title="{{$conver->usuario2->name}}">
-                                                    </span>
+                                            <div class="DMInboxItem-header">
+                                                <div class="DMInboxItem-timestamp">
+                                                    <span class="_timestamp" data-aria-label-part="last" data-time="1439136056" data-long-form="true" data-include-sec="true"></span>
                                                 </div>
-                                            </a>
-                                        </div>
-                                        <div class="DMInboxItem-title account-group">
-                                            <b class="fullname">{{$conver->usuario2->name}}</b>
-                                            <span class="UserBadges"></span>
-                                            <span class="UserNameBreak">&nbsp;</span>
-                                            <span class="username u-dir u-textTruncate" dir="ltr">@
-                                                <b>{{$conver->usuario2->username}}</b>
-                                            </span>
-                                        </div>
-                                        <div class="DMInboxItem-header">
-                                            <div class="DMInboxItem-timestamp">
-                                                <span class="_timestamp" data-aria-label-part="last" data-time="1439136056" data-long-form="true" data-include-sec="true"></span>
+                                            </div>
+                                            <div class="u-posRelative">
+                                                <p class="DMInboxItem-snippet "></p>
                                             </div>
                                         </div>
-                                        <div class="u-posRelative">
-                                            <p class="DMInboxItem-snippet "></p>
+                                    </li>
+                                    @else
+                                    <li class="DMInbox-conversationItem">
+                                        <div class="DMInboxItem" data-thread-id="301028364-390203992" data-sort-event-id="630408429719408643" data-last-message-id="630408429719408643" data-is-oto="true" data-is-muted="false" data-toggle="modal" data-target="#{{$conver->id}}">
+                                            <div class="DMInboxItem-avatar">
+                                                <a href="/{{ $conver->usuario2->username }}" class="js-action-profile js-user-profile-link" data-user-id="390203992">
+                                                    <div class="DMAvatar DMAvatar--1 u-chromeOverflowFix">
+                                                        <span class="DMAvatar-container">
+                                                            <img class="DMAvatar-image" src="{{$conver->usuario2->avatar}}" alt="{{$conver->usuario2->name}}" title="{{$conver->usuario2->name}}">
+                                                            </span>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                                <div class="DMInboxItem-title account-group">
+                                                    <b class="fullname">{{$conver->usuario2->name}}</b>
+                                                    <span class="UserBadges"></span>
+                                                    <span class="UserNameBreak">&nbsp;</span>
+                                                    <span class="username u-dir u-textTruncate" dir="ltr">@
+                                                        <b>{{$conver->usuario2->username}}</b>
+                                                    </span>
+                                                </div>
+                                                <div class="DMInboxItem-header">
+                                                    <div class="DMInboxItem-timestamp">
+                                                        <span class="_timestamp" data-aria-label-part="last" data-time="1439136056" data-long-form="true" data-include-sec="true"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="u-posRelative">
+                                                    <p class="DMInboxItem-snippet "></p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    @endif
+                                    @endforeach
+                                    </ul>
+                                    <div class="DMInbox-empty">
+                                        <div class="DMEmptyState">
+                                            <h2 class="DMEmptyState-header">
+                                                Envía un mensaje, recibe un mensaje
+                                            </h2>
+
+                                            <div class="DMEmptyState-details">
+                                                <p>Los Mensajes Directos son conversaciones privadas entre tú y otras personas en Twitter. Puedes compartir Tweets, contenido multimedia y mucho más.</p>
+                                            </div>
+
+                                            <div class="DMEmptyState-cta">
+                                                <button type="button" class="EdgeButton EdgeButton--primary dm-new-button">
+                                                Inicia una conversación
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
-                                </li>
-                            @endif
-                            @endforeach
-							</ul>
-                            <div class="DMInbox-empty">
-                                <div class="DMEmptyState">
-                                    <h2 class="DMEmptyState-header">
-                                        Envía un mensaje, recibe un mensaje
-                                    </h2>
-
-                                    <div class="DMEmptyState-details">
-                                        <p>Los Mensajes Directos son conversaciones privadas entre tú y otras personas en Twitter. Puedes compartir Tweets, contenido multimedia y mucho más.</p>
+                                    <div class="DMInbox-spinner u-hidden">
+                                        <div class="DMSpinner"></div>
                                     </div>
+                                </div><!--primary--> 
+                            
+                            </div><!--content--> 
+                        </div><!--body-->
+                        <div class="DMActivity-footer u-emptyHide"></div>
+                        
+                    </div><!--container-->
 
-                                    <div class="DMEmptyState-cta">
-                                        <button type="button" class="EdgeButton EdgeButton--primary dm-new-button">
-                                        Inicia una conversación
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="DMInbox-spinner u-hidden">
-                                <div class="DMSpinner"></div>
-                            </div>
-						</div><!--primary--> 
-					
-					</div><!--content--> 
-				</div><!--body-->
-				<div class="DMActivity-footer u-emptyHide"></div>
-                
-			</div><!--container-->
-
-            
-			
-		</div>
+                    
+                    
+                </div>
         
 		<div class="js-last-tabstop" tabindex="0"></div>
 	</div>
@@ -289,6 +304,7 @@
                                     <span class="u-hiddenVisually">Volver a la bandeja de entrada</span>
                                 </button>
                             </div>
+                            @if(Auth::id() == $conver->usuario1->id)
                             <h2 class="DMActivity-title js-ariaTitle" id="dm_dialog-header">
                                 <div class="DMUpdateAvatar has-defaultAvatar" aria-haspopup="true" data-has-custom-avatar="false">
                                     <div class="DMPopover DMPopover--center">
@@ -313,11 +329,37 @@
                                     <div class="DMUpdateName-screenName u-textTruncate">@<b class="u-linkComplex-target">{{$conver->usuario2->username}}</div>
                                 </div>
                             </h2>
+                            @else
+                            <h2 class="DMActivity-title js-ariaTitle" id="dm_dialog-header">
+                                <div class="DMUpdateAvatar has-defaultAvatar" aria-haspopup="true" data-has-custom-avatar="false">
+                                    <div class="DMPopover DMPopover--center">
+                                        <button class="DMPopover-button" aria-haspopup="true" disabled="">
+                                            <div class="DMUpdateAvatar-avatar">
+                                                <a href="/{{ $conver->usuario2->username }}" class="js-action-profile js-user-profile-link" data-user-id="">
+                                                    <div class="DMAvatar DMAvatar--1 u-chromeOverflowFix">
+                                                        <span class="DMAvatar-container">
+                                                            <img class="DMAvatar-image" src="{{$conver->usuario1->avatar}}" alt="{{$conver->usuario1->name}}}" title="{{$conver->usuario1->name}}}">
+                                                            </span>
+                                                        </div>
+                                                    </a>
+                                                </div>
+                                            </button>
+                                            
+                                    </div>
+                                </div>
+                                <div class="DMUpdateName u-textTruncate is-richHeader">
+                                    <div class="DMUpdateName-header account-group">
+                                        <span class="DMUpdateName-name u-textTruncate">{{$conver->usuario1->name}}</span>
+                                    </div>
+                                    <div class="DMUpdateName-screenName u-textTruncate">@<b class="u-linkComplex-target">{{$conver->usuario1->username}}</div>
+                                </div>
+                            </h2>
+                            @endif
                             <div class="DMActivity-toolbar">
-                                <button class="DMConversation-convoSettings dm-to-convoSettings u-textUserColorHover">
-                                    <span class="Icon Icon--info Icon--medium"></span>
+                                <a class="DMConversation-convoSettings dm-to-convoSettings u-textUserColorHover" href="{{ action('MessageController@deleteConver', ['idConver'=>$conver->id]) }}">
+                                    <span class="Icon Icon--delete Icon--medium"></span>
                                     <span class="u-hiddenVisually">Ajustes de la conversación</span>
-                                </button>
+                                </a>
                                 <button type="button" class="DMActivity-close js-close u-textUserColorHover" data-dismiss="modal">
                                     <span class="Icon Icon--close Icon--medium"></span>
                                     <span class="u-hiddenVisually">Cerrar</span>
@@ -373,9 +415,9 @@
                                                     </div>
                                                     <div class="DirectMessage-actions">
                                                         <span class="DirectMessage-action">
-                                                            <button type="button" class="DMDeleteMessageAction js-tooltip" data-message-id="953670443759673348" aria-hidden="true" data-original-title="Eliminar este mensaje">
+                                                            <a href="{{ action('MessageController@deleteMensaje', ['idMensaje'=>$mensaje->id]) }}" type="button" class="DMDeleteMessageAction js-tooltip" data-message-id="953670443759673348" aria-hidden="true" data-original-title="Eliminar este mensaje">
                                                                 <span class="Icon Icon--delete"></span>
-                                                            </button>
+                                                            </a>
                                                             <button type="button" class="DMDeleteMessageAction u-hiddenVisually" data-message-id="953670443759673348">
                                                                 Eliminar este mensaje enviado  por {{Auth::user()->name}}
                                                             </button>
@@ -388,7 +430,7 @@
                                                             <div class="DMReadReceipt-statusMessage">
                                                                 <span class="DMReadReceipt-defaultView">
                                                                     <span class="_timestamp" data-aria-label-part="last" data-time="1516207726" data-long-form="true" data-include-sec="true">
-                                                                    17 ene.
+                                                                    
                                                                     </span>
                                                                 </span>
                                                                 <span class="DMReadReceipt-statusView">Enviado</span>
@@ -555,7 +597,7 @@
                                                     <div class="RichEditor-mozillaCursorWorkaround">&nbsp;</div>
                                                     <div class="RichEditor-container u-borderRadiusInherit">
                                                         <div class="RichEditor-scrollContainer u-borderRadiusInherit">
-                                                            <div class="DMComposer-editor tweet-box rich-editor js-initial-focus is-showPlaceholder" data-default-placeholder="Escribe un mensaje" data-attachment-placeholder="Añadir un comentario..." data-from-message-me-card-placeholder="Envía un mensaje privado" id="tweet-box-dm-conversation" contenteditable="true" spellcheck="true" role="textbox" aria-multiline="false" dir="ltr" aria-label="Enviar mensaje a Ferel">
+                                                            <div class="DMComposer-editor tweet-box rich-editor js-initial-focus is-showPlaceholder" data-default-placeholder="Escribe un mensaje" data-attachment-placeholder="Añadir un comentario..." data-from-message-me-card-placeholder="Envía un mensaje privado" id="tweet-box-dm-conversation-{{$conver->id}}" contenteditable="true" spellcheck="true" role="textbox" aria-multiline="false" dir="ltr" aria-label="Enviar mensaje a Ferel">
                                                                 <div>
                                                                     <br>
                                                                     </div>
@@ -634,37 +676,40 @@
 				</button>
 			</div>
 		</div>
+     
 		<div class="DMActivity-body js-ariaBody ">
 			<div class=" DMDialogTypeahead">
 				<span class="DMTypeaheadHeader">Enviar mensaje a:</span>
 				<ul class="TokenizedMultiselect-inputContainer">
 					<li>
-						<textarea class="TokenizedMultiselect-input twttr-directmessage-input js-initial-focus dm-to-input" aria-autocomplete="list" aria-expanded="true" rows="1" type="text" placeholder="Ingresa un nombre" aria-owns="TokenizedMultiselectOwns8997379965"></textarea>
+						<textarea id="myInput" onkeyup="myFunction()" class="TokenizedMultiselect-input twttr-directmessage-input js-initial-focus dm-to-input" aria-autocomplete="list" aria-expanded="true" rows="1" type="text" placeholder="Ingresa un nombre" aria-owns="TokenizedMultiselectOwns8997379965"></textarea>
 					</li>
 				</ul>
-				<ul id="DMComposeTypeaheadSuggestions" class="DMTypeaheadSuggestions u-scrollY" role="listbox">
-					<li class="DMTypeaheadHeader">
+                
+				<ul id="myUL" class="DMTypeaheadSuggestions u-scrollY" role="listbox">
+					<!--<li class="DMTypeaheadHeader">
 						<span>Reciente</span>
-					</li>
-                    @foreach($convers as $sugest)
+					</li>-->
+               
+                    @foreach($users as $sugest)
 					<li class="DMTokenizedMultiselectSuggestion DMTypeaheadSuggestions-item " data-token-id="dmAccounts::293967812" data-token-text="Ferel" role="option" tabindex="-1" 
-                    aria-selected="true" data-toggle="modal" data-target="#{{$sugest->id}}" >
+                    aria-selected="true" >
 						<div class="DMTokenizedMultiselectSuggestion-body">
 							<div class="DMTypeaheadItem">
 								<div class="DMTypeaheadItem-avatar" aria-hidden="true">
 									<div class="DMAvatar DMAvatar--1 u-chromeOverflowFix">
 										<span class="DMAvatar-container">
-											<img class="DMAvatar-image" src="{{$sugest->usuario2->avatar}}" alt="{{$sugest->usuario2->name}}" title="{{$sugest->usuario2->name}}">
+											<img class="DMAvatar-image" src="{{$sugest->avatar}}" alt="{{$sugest->name}}" title="{{$sugest->name}}">
 											</span>
 										</div>
 									</div>
 									<div class="DMTypeaheadItem-body">
 										<div class="DMTypeaheadItem-title account-group">
-											<b class="fullname">{{$sugest->usuario2->name}}</b>
+											<a href="{{ action('MessageController@nuevaConver', ['idUser'=>$sugest->id]) }}"><b class="fullname">{{$sugest->name}}</a></b>
 											<span class="UserBadges"></span>
 											<span class="UserNameBreak">&nbsp;</span>
 											<span class="username u-dir u-textTruncate" dir="ltr">@
-												<b>{{$sugest->usuario2->username}}</b>
+												<a><b>{{$sugest->username}}</b></a>
 											</span>
 										</div>
 									</div>
@@ -675,7 +720,9 @@
                                 <span class="DMTokenizedMultiselectSuggestion-preselectedIndicator">En el Grupo</span>
                             </div>
 						</li>
+                        
                         @endforeach
+                        
 					</ul>
 				</div>
 			</div>
@@ -689,7 +736,14 @@
     </div>
 </div>
 <!-- fin nuevo mensaje-->
-
+@if(!empty(Session::get('nueva')))
+<script>
+$(function() {
+    //var id=Session::get('nueva');
+    $('#mensajesModal').modal('show');
+});
+</script>
+@endif
 <script type="text/javascript">
 				function nuevoMensaje(param) {  
                     console.log(param);       
@@ -698,27 +752,31 @@
 				            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				        }
 				    });
-                    //var destino ='/mensaje/'+ param
-				    /*$.ajax({
-                        url: destino,
-                        type: 'POST', 
-                        data: { 
-                          conver: param 
-                          
-                        },
-                        success: function(response) {
-                            window.location.reload(true);
-                        },
-                        error: function(error) {
-                          console.log(error)
-                        }
-                      });*/
                       $.post("/mensaje/" + param, {
-				        mensaje: document.getElementById('tweet-box-dm-conversation').textContent
+				        mensaje: document.getElementById('tweet-box-dm-conversation-'+param).textContent
 				    });
                              
                     window.location.reload(true);
 				    
 				         
 				 }
-			</script>
+</script>
+<script>
+function myFunction() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+
+        }
+    }
+}
+</script>
+
