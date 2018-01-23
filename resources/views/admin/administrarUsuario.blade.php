@@ -37,10 +37,13 @@
                     <label style="margin-top:15px">Descripción</label>
                     <input type="text" name="descripcion" id="descripcion" class="form-control" value="{{$user->descripcion}}" required>
                     <br>
-                    <a href="" class="btn btn-danger pull-left">Eliminar</a>
+                    @if($user->id != 1)
+                    <a  href="{{ action('PerfilController@eliminarUsuario', ['username' => $user->username ])}}" type="button"  class="btn btn-danger pull-left">Eliminar</a>
+                    @endif
                     <button type="submit" class="btn btn-default pull-right">Actualizar</button>
                     <br><br>
                 </div>
+                </form>
             </div>
             <!-- ROW END -->
 

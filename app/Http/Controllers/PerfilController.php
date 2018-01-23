@@ -292,24 +292,28 @@ class PerfilController extends Controller
 
     }
 
-    public function borrarUsuario($username) {
-
+    public function eliminarUsuario( $username) {
         $user = User::where('username', $username)->first();
 
         if($user == null){
-            $request->session()->flash('alert-danger', 'No se ha podido encontrar el usuario.');
             return back();
         }
 
 
         if($user->id == 1){
-            $request->session()->flash('alert-danger', 'EHHHH!, no puedes borrar al administrador!.');
             return back();
         }
-        
+
+        $user->conversacion1()->delete();
+        $user->conversacion2()->delete();
+        $user->mensajes()->delete();
+        //$user->seguidos()->delete();
+       // $user->seguidores()->delete();
+        $user->tweets()->delete();
+        //$user->likes()->delete();
+       // $user->retweets()->delete();
         $user->delete();
        
-        $request->session()->flash('alert-success', 'Se ha eliminado correctamente al usuario');
         return redirect('/administrar/general');
 
     }
