@@ -36,6 +36,16 @@ Route::get('/{username}/following','PerfilController@perfilSiguiendo');
 Route::get('/{username}/followers','PerfilController@perfilSeguidores');
 Route::get('/{username}/likes','PerfilController@perfilLikes');
 
+//Administrador
+Route::get('/administrar/general','PerfilController@administrar')->middleware('admin');
+Route::post('/administrar/crearUsuario','PerfilController@crearUsuario')->middleware('admin');
+Route::get('/administrar/usuario/{username}','PerfilController@administrarUsuario')->middleware('admin');
+Route::post('/administrar/usuario/{username}','PerfilController@actualizarUsuario')->middleware('admin');
+Route::get('/administrar/usuario/{username}/eliminar','PerfilController@eliminarUsuario')->middleware('admin');
+
+
+
+
 
 //Tweet
 Route::post('/tweet/nuevo', 'HomeController@nuevoTweet');

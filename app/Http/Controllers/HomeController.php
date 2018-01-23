@@ -191,7 +191,6 @@ class HomeController extends Controller
 
     public function addRespuesta(Request $request,  $username, $id){
         //dd($request);
-        error_log($request->tweet_multimedia);
         if( $request->tweet_multimedia == null){
             $enviar = null;
         }

@@ -194,4 +194,123 @@ class PerfilController extends Controller
         return back();
     }
 
+
+    public function administrar() {
+        $usuarios = User::all();
+
+        return view('admin/administrar', ['users' => $usuarios]); 
+
+    }
+
+    public function administrarUsuario($username) {
+        $usuario = User::where('username', $username)->first();
+
+        return view('admin/administrarUsuario', ['user' => $usuario]); 
+
+    }
+
+    public function crearUsuario(Request $request) {
+        
+        $nuevoUsuario = new User([
+            'username' => $request->username,
+            'email' => $request->email,
+            'name' => $request->username,
+            'fondo' => $request->fondo,
+            'password' =>  bcrypt($request->password),
+            'descripcion' => $request->descripcion,
+            'avatar' => $request->avatar
+        ]);
+        $user = User::where('username', $nuevoUsuario->username)->first();
+        if($user != null){
+            $request->session()->flash('alert-danger', 'Ya existe un usuario con el mismo nombre.');
+            return back();
+        }
+
+        $email = User::where('email', $nuevoUsuario->email)->first();
+        if($email != null){
+            $request->session()->flash('alert-danger', 'Ya existe un usuario con el mismo email.');
+            return back();
+        }
+
+        $nuevoUsuario->save();
+       
+        $request->session()->flash('alert-success', 'Usuario creado con éxito');
+        return back();
+
+    }
+
+    public function actualizarUsuario(Request $request, $username) {
+
+        $user = User::where('username', $username)->first();
+
+        if($user == null){
+            $request->session()->flash('alert-danger', 'No se ha podido encontrar el usuario.');
+            return back();
+        }
+
+        if($user->username != $request->username){
+            $existe = User::where('username', $request->username)->first();
+            if($existe != null){
+                $request->session()->flash('alert-danger', 'Ya existe un usuario con el mismo nombre.');
+                return back();
+            }else{
+                $user->username = $request->username;
+            }
+        }
+
+        if($user->email != $request->email){
+            $existeEmail = User::where('email', $request->email)->first();
+            if($existeEmail != null){
+                $request->session()->flash('alert-danger', 'Ya existe un usuario con el mismo email.');
+                return back();
+            }else{
+                $user->email = $request->email;
+            }
+        }
+
+        if($user->name != $request->name){    
+            $user->name = $request->name;           
+        }
+
+        if($user->descripcion != $request->descripcion){    
+            $user->descripcion = $request->descripcion;           
+        }
+
+        if($user->fondo != $request->fondo){    
+            $user->fondo = $request->fondo;           
+        }
+
+        if($user->avatar != $request->avatar){    
+            $user->avatar = $request->avatar;           
+        }
+        
+        $user->save();
+       
+        $request->session()->flash('alert-success', 'Usuario actualizado con éxito');
+        $url = '/administrar/usuario/'. $user->username;
+        return redirect($url);
+
+    }
+
+    public function borrarUsuario($username) {
+
+        $user = User::where('username', $username)->first();
+
+        if($user == null){
+            $request->session()->flash('alert-danger', 'No se ha podido encontrar el usuario.');
+            return back();
+        }
+
+
+        if($user->id == 1){
+            $request->session()->flash('alert-danger', 'EHHHH!, no puedes borrar al administrador!.');
+            return back();
+        }
+        
+        $user->delete();
+       
+        $request->session()->flash('alert-success', 'Se ha eliminado correctamente al usuario');
+        return redirect('/administrar/general');
+
+    }
 }
