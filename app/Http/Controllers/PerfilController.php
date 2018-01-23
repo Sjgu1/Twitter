@@ -9,6 +9,7 @@ use App\User;
 use App\Tweet;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
+use App\Categoria;
 
 
 
@@ -197,8 +198,9 @@ class PerfilController extends Controller
 
     public function administrar() {
         $usuarios = User::all();
+        $categorias = Categoria::all();
 
-        return view('admin/administrar', ['users' => $usuarios]); 
+        return view('admin/administrar', ['users' => $usuarios, 'categorias'=> $categorias]); 
 
     }
 
@@ -206,6 +208,13 @@ class PerfilController extends Controller
         $usuario = User::where('username', $username)->first();
 
         return view('admin/administrarUsuario', ['user' => $usuario]); 
+
+    }
+
+    public function administrarCategoria($categoria) {
+        $categ = Categoria::where('id', $categoria)->first();
+
+        return view('admin/administrarCategoria', ['categoria' => $categ]); 
 
     }
 
@@ -315,6 +324,101 @@ class PerfilController extends Controller
         $user->delete();
        
         return redirect('/administrar/general');
+
+    }
+
+
+    public function crearCategoria(Request $request) {
+        
+        $categoria = new Categoria([
+            'name' => $request->name
+        ]);
+
+        $categoriaExiste = Categoria::where('name', $categoria->name)->first();
+        if($categoriaExiste != null){
+            $request->session()->flash('alert-danger', 'Ya existe una categoria con el mismo nombre.');
+            return back();
+        }
+
+
+        $categoria->save();
+       
+        $request->session()->flash('alert-success', 'Categoría creada con éxito');
+        return back();
+
+    }
+
+    public function actualizarCategoria(Request $request, $categoria) {
+
+        $categoriaEncontrada = Categoria::where('id', $categoria)->first();
+
+        if($categoriaEncontrada == null){
+            $request->session()->flash('alert-danger', 'No se ha podido encontrar la categoria.');
+            return back();
+        }
+
+        if($categoriaEncontrada->name != $request->name){
+            $existe = Categoria::where('name', $request->name)->first();
+            if($existe != null){
+                $request->session()->flash('alert-danger', 'Ya existe una categoría con el mismo nombre.');
+                return back();
+            }else{
+                $categoriaEncontrada->name = $request->name;
+            }
+        }
+        
+        if($request->tweet != null || $request->tweet != ""){
+            $tweetEncontrado = Tweet::where('id', $request->tweet)->first();
+            if($tweetEncontrado == null){
+                $request->session()->flash('alert-danger', 'No Existe el tweet que buscas.');
+                return back();
+            }else{
+                foreach($categoriaEncontrada->tweets as $comprobar){
+                    if($comprobar->id == $tweetEncontrado->id){
+                        $request->session()->flash('alert-danger', 'El tweet que buscas ya pertenece a esta categoría.');
+                        return back();
+                    }
+                }
+                $categoriaEncontrada->tweets()->attach($tweetEncontrado->id);
+            }
+        }
+
+        
+        $categoriaEncontrada->save();
+       
+        $request->session()->flash('alert-success', 'Categoría actualizada con éxito');
+        $url = '/administrar/categoria/'. $categoriaEncontrada->id;
+        return redirect($url);
+
+    }
+
+    public function eliminarCategoria( $categoria) {
+        $categoriaEncontrada = Categoria::where('id', $categoria)->first();
+
+        if($categoriaEncontrada == null){
+            return back();
+        }
+
+        $categoriaEncontrada->delete();
+       
+        return redirect('/administrar/general');
+
+    }
+
+    public function eliminarTweetCategoria( $categoria, $tweet) {
+        $categoriaEncontrada = Categoria::where('id', $categoria)->first();
+
+        if($categoriaEncontrada == null){
+            return back();
+        }
+        $tweetEncontrado = Tweet::where('id', $tweet)->first();
+        if($tweetEncontrado == null){
+            return back();
+        }
+
+        $categoriaEncontrada->tweets()->detach($tweetEncontrado->id);
+       
+        return back();
 
     }
 }

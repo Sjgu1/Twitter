@@ -100,8 +100,53 @@
               </table>
 				</div>
 				<div id="menu2" class="tab-pane fade">
-                    <input type="text" id="searchUser" placeholder="Buscar ..."></input>
+                 <span class=" btn pull-right glyphicon glyphicon-plus"  data-toggle="collapse" data-target="#collapseCategorias"></span>
+                    <br/>
+                    <div id="collapseCategorias"class="collapse">
+                <br/>
+                    <div class=" panel panel-default">
+                        <div class="panel-body">
+                        <form class="t1-form" action="/administrar/crearCategoria" method="POST">
+                        {!! csrf_field() !!}
+                            <div class="row">
+                                <div style="margin-left:10%" >
+                                <div class="col-md-12">
+                                    <label for="username">Name:</label>
+                                    <input type="text" class=""name="name" id="name" value="{{ old('username') }}" required>
+                                </div>
+                            
+                                </div>
+                            </div>
+                            <br/>
+                            <button type="submit" class="btn btn-default pull-right">Crear</button>
+                            
+                            </form>
+                        </div>
+                    </div>
+                    </div>
                     <br/><br/>
+                <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Tweets</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                @foreach($categorias as $categoria)
+                  <tr>
+                    <td>{{$categoria->name}}</td>
+                    <td>
+                    @foreach($categoria->tweets as $tweet)
+                    <p><a href="/{{$tweet->user->username}}/status/{{$tweet->id}}">Enlace:</a> {{$tweet->mensaje}}</p>          
+                    @endforeach
+                    </td>
+                    <td style="text-align: center;vertical-align: middle;"><a href="/administrar/categoria/{{$categoria->id}}"><span class="glyphicon glyphicon-pencil"></a></td>
+                  </tr>
+                 @endforeach
+                </tbody>
+              </table>
 				</div>
 			</div>
 		</div>

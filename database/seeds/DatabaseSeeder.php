@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call(RTTableSeeder::class);
         $this->call(LikeTableSeeder::class);
         $this->call(RespuestaTableSeeder::class);
+        $this->call(CategoriasTableSeeder::class);
+        $this->call(TweetCategoriasTableSeeder::class);
 
     }
 }
