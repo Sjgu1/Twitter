@@ -273,11 +273,11 @@
 								<div class="Grid-cell">
 									<div class="ProfileSidebar ProfileSidebar--withRightAlignment">
                                         <div class="MoveableModule">
+										@if($user->id==Auth::id())
                                             <!--cuadro crear listas-->
                                             <div class="ListCreationModule module">
                                                 <h3 class="ListCreationModule-title">Crear una lista</h3>
                                                 <p class="ListCreationModule-description">Una lista es un grupo administrado de usuarios de Twitter y una forma genial de organizar tus intereses. 
-                                                    <a class="ListCreationModule-moreInfoLink" href="https://support.twitter.com/articles/76460" target="_blank" rel="noopener">Más información</a>
                                                 </p>
                                                 <div class="ListCreationModule-action">
                                                     <button type="button" class="EdgeButton EdgeButton--secondary EdgeButton--small " data-element-term="create_list_button" data-modal="list-new">
@@ -286,6 +286,7 @@
                                                 </div>
                                             </div>
                                             <!-- fin crear listas-->
+											@endif
                                             <!-- Cuadro derecha, recomendaciones  -->
                                             <div class="dashboard dashboard-right">
                                                 <div class="module wtf-module js-wtf-module roaming-module has-content">

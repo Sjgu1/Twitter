@@ -70,3 +70,6 @@ Route::get('/conver/borrar/{idConver}', 'MessageController@deleteConver');
 Route::get('/mensaje/borrar/{idMensaje}', 'MessageController@deleteMensaje');
 
 //Listas
+Route::get('/{username}/listas/{nombre}','ListasController@index');
+Route::get('/{username}/listas/{nombre}/members','ListasController@miembros');
+Route::get('/{username}/listas/{nombre}/subscribers','ListasController@suscriptores');
