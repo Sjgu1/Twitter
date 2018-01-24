@@ -65,5 +65,27 @@
             </div>
         </div>
     </div>
+    </div class="row">
+        <div style=" border-radius: 25px;border: 2px solid rgb(29, 161, 242);background-color: #f5f5f9;max-height:300px; overflow-x: scroll"class="col-md-10 col-md-offset-1">
+            <div class="">
+            @foreach($categorias as $categoria)
+            <div class="col-md-12">
+
+                <div style="margin-top:10px;margin-right:3px;height: 40px;background-color: #f5f5f5" class="text-center">
+                    <h2 >{{$categoria->name}}</h2>      
+                </div>
+                @foreach($categoria->tweets as $tweet)
+                    <div style= " border-radius: 25px;border: 2px solid rgb(29, 161, 242);margin-left:60px; height:300px;margin-top: 10px;background-color: rgba(30, 161, 242, 0.13); margin-right:10px"class="rcorners2 col-md-3">
+                    <img style="margin-top:3px;"class="avatar js-action-profile-avatar " src="{{ $tweet->user->avatar }}"alt=""> <label> @ {{$tweet->user->username}}</label>
+
+                        <p style="margin-top:3px;">{{$tweet->mensaje}}</p>
+                    </div>
+                @endforeach
+                </div>
+            @endforeach
+            </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection

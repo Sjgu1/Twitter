@@ -111,7 +111,7 @@ margin-right: 0px
 @if (Auth::guest())
 
 <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
+        <nav class="navbar navbar-default navbar-static-top" style="background-color: #1da1f2">
             <div class="container">
                 <div class="navbar-header">
 
@@ -124,8 +124,8 @@ margin-right: 0px
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                    <a class="navbar-brand" href="{{ url('/') }}" style="color: #fff">
+                        {{ config('app.name', 'Twitter') }}
                     </a>
                 </div>
 
@@ -136,10 +136,10 @@ margin-right: 0px
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav navbar-right" style="color: #fff">
                         <!-- Authentication Links -->
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
+                            <li><a style="padding-top:30%;color: #fff" href="{{ route('login') }}">Login</a></li>
+                            <li><a style="padding-top:23%;color: #fff" href="{{ route('register') }}">Register</a></li>
                         
                     </ul>
                 </div>
