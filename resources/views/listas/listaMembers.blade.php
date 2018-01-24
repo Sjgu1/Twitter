@@ -646,6 +646,7 @@ s,
 						<h2 id="content-main-heading" class="js-timeline-title">Lista de miembros</h2>
 					</div>
 				</div>
+        @if($lista->miembros->count()==0)
 				<div class="stream-container">
 					<div class="stream" data-component-context="stream">
 						<div class="component" data-component-context="add_people">
@@ -657,14 +658,134 @@ s,
 											<input type="hidden" name="mode" value="users">
 												<button class="EdgeButton EdgeButton--secondary js-submit">Buscar</button>
 											</form>
-											<p>Busca un usuario, nombre o apellido, empresa o marca. También puedes agregar personas desde tu Página de 
-												<a href="/following">Seguimiento</a> o desde el perfil de cualquiera.
+											<p>Busca un usuario, nombre o apellido
 											</p>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
+            @else
+            <div class="stream-container  js-request-more-stream-items" data-max-position="" data-min-position="0">
+              <div class="stream-item js-new-items-bar-container"></div>
+              <div class="stream">
+                <ol class="stream-items js-navigable-stream" id="stream-items-id">
+                foreach($lista->miembros as $miembro)
+                  <li class="js-stream-item stream-item stream-item
+                    " data-item-id="2654164081" id="stream-item-user-2654164081" data-item-type="user">
+                    <div class="account  js-actionable-user js-profile-popup-actionable " data-screen-name="{{$miembro->username}}" data-user-id="2654164081" data-name="{{$miembro->name}}" data-emojified-name="" data-feedback-token="" data-impression-id="">
+                      <div class="user-actions btn-group following not-muting including  " data-user-id="2654164081" data-screen-name="{{$miembro->username}}" data-name="{{$miembro->name}}" data-protected="false">
+                        <span class="user-actions-follow-button js-follow-btn follow-button">
+                          <button type="button" class="
+                        EdgeButton
+                        EdgeButton--secondary
+                        
+                        EdgeButton--medium 
+                        button-text
+                        follow-text">
+                            <span aria-hidden="true">Seguir</span>
+                            <span class="u-hiddenVisually">Seguir a 
+                              <span class="username u-dir u-textTruncate" dir="ltr">@
+                                <b>{{$miembro->username}}</b>
+                              </span>
+                            </span>
+                          </button>
+                          <button type="button" class="
+                        EdgeButton
+                        EdgeButton--primary
+                        
+                        EdgeButton--medium 
+                        button-text
+                        following-text">
+                            <span aria-hidden="true">Siguiendo</span>
+                            <span class="u-hiddenVisually">Siguiendo a 
+                              <span class="username u-dir u-textTruncate" dir="ltr">@
+                                <b>{{$miembro->username}}</b>
+                              </span>
+                            </span>
+                          </button>
+                          <button type="button" class="
+                        EdgeButton
+                        EdgeButton--danger
+                        
+                        EdgeButton--medium 
+                        button-text
+                        unfollow-text">
+                            <span aria-hidden="true">Dejar de seguir</span>
+                            <span class="u-hiddenVisually">Dejar de seguir a 
+                              <span class="username u-dir u-textTruncate" dir="ltr">@
+                                <b>{{$miembro->username}}</b>
+                              </span>
+                            </span>
+                          </button>
+                        </span>
+                        <div class="dropdown ">
+                          <button type="button" class="user-dropdown dropdown-toggle js-dropdown-toggle js-link js-tooltip btn plain-btn" title="Más acciones de usuario" aria-haspopup="true">
+                            <span class="user-dropdown-icon Icon Icon--dotsVertical Icon--medium">
+                              <span class="visuallyhidden">Acciones de usuario</span>
+                            </span>
+                          </button>
+                          <div class="dropdown-menu dropdown-menu--rightAlign is-autoCentered is-forceRight">
+                            <div class="dropdown-caret">
+                              <span class="caret-outer"></span>
+                              <span class="caret-inner"></span>
+                            </div>
+                            <ul>
+                              <li class="list-text not-blocked">
+                                <button type="button" class="dropdown-link">Añadir a la lista</button>
+                              </li>
+                              <li class="list-text not-blocked">
+                                <button type="button" class="dropdown-link">Quitar de la lista</button>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="activity-user-profile-content">
+                        <div class=" content">
+                          <div class="stream-item-header">
+                            <a class="account-group js-user-profile-link" href="/{{$miembro->username}}" rel="noopener">
+                              <img class="avatar js-action-profile-avatar  " src="{{$miembro->avatar}}" alt="" data-user-id="293967812">
+                                <strong class="fullname">{{$miembro->name}}</strong>
+                                <span class="UserBadges"></span>
+                                <span class="UserNameBreak">&nbsp;</span>
+                                <span class="username u-dir u-textTruncate" dir="ltr">@
+                                  <b>{{$miembro->username}}</b>
+                                </span>
+                              </a>
+                            </div>
+                            <p class="bio u-dir" dir="ltr"></p>
+                          </div>
+                        </div>
+                    </div>
+                  </li>
+                  @endforeach
+                </ol>
+                <div class="stream-footer">
+                  <div class="timeline-end has-items">
+                    <div class="stream-end">
+                      <div class="stream-end-inner">
+                        <span class="Icon Icon--large Icon--logo"></span>
+                        <p class="empty-text">
+
+                              Esta lista no sigue a nadie todavía. Pero probablemente pronto lo hará.
+                          </p>
+                        <p>
+                          <button type="button" class="btn-link back-to-top hidden">Volver arriba ↑</button>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="stream-loading">
+                      <div class="stream-end-inner">
+                        <span class="spinner" title="Cargando..."></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <ol class="hidden-replies-container"></ol>
+              </div>
+            </div>
+            @endif
 					</div>
 					<div class="dashboard dashboard-right">
 						<div class="component newest-members-module roaming-module" data-component-context="newest_list_members">
@@ -683,4 +804,23 @@ s,
 					</div>
 				</div>
 			</div>
+
+<script>
+function myFunction() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+
+        }
+    }
+}
+</script>
 @endsection

@@ -647,6 +647,7 @@ s,
 						<h2 id="content-main-heading" class="js-timeline-title">Tweets</h2>
 					</div>
 				</div>
+        @if($lista->miembros->count()==0)
 				<div class="stream-container">
 					<div class="stream" data-component-context="stream">
 						<div class="component" data-component-context="add_people">
@@ -658,14 +659,14 @@ s,
 											<input type="hidden" name="mode" value="users">
 												<button class="EdgeButton EdgeButton--secondary js-submit">Buscar</button>
 											</form>
-											<p>Busca un usuario, nombre o apellido, empresa o marca. También puedes agregar personas desde tu Página de 
-												<a href="/following">Seguimiento</a> o desde el perfil de cualquiera.
+											<p>Busca un usuario, nombre o apellido
 											</p>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
+						</div><!--container-->
+            @endif
 					</div>
 					<div class="dashboard dashboard-right">
 						<div class="component newest-members-module roaming-module" data-component-context="newest_list_members">
@@ -684,9 +685,9 @@ s,
 					</div>
 				</div>
 			</div>
-      <!--modal editar-->
+     <!--modal editar-->
       
-	<div class="modal fade modal-medium draggable" id="editar" role="dialog" aria-labelledby="list-operations-dialog-header" style="top: 90px; left: 415px; z-index: 8000;position: absolute;">
+	<div class="modal fade modal-medium draggable" id="editar" role="dialog" aria-labelledby="list-operations-dialog-header" style="top: 90px; left: 415px;position: absolute;">
 		<div class="js-first-tabstop" tabindex="0"></div>
 		<div class="modal-content" role="document">
 			<div class="modal-header">

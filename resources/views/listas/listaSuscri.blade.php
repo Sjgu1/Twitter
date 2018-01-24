@@ -591,7 +591,7 @@ s,
 				<div class="component" data-component-context="list_nav">
 					<div role="navigation" class="module list-nav">
 						<ul class="js-nav-links">
-							<li class="active">
+							<li class="">
 								<a class="list-link js-nav" href="/{{$lista->usuario->username}}/listas/{{$lista->nombre}}" data-nav="list">Tweets
 									<span class="Icon Icon--caretRight"></span>
 								</a>
@@ -646,6 +646,7 @@ s,
 						<h2 id="content-main-heading" class="js-timeline-title">Lista de suscriptores</h2>
 					</div>
 				</div>
+        @if($lista->miembros->count()==0)
 				<div class="stream-container">
 					<div class="stream" data-component-context="stream">
 						<div class="component" data-component-context="add_people">
@@ -657,14 +658,14 @@ s,
 											<input type="hidden" name="mode" value="users">
 												<button class="EdgeButton EdgeButton--secondary js-submit">Buscar</button>
 											</form>
-											<p>Busca un usuario, nombre o apellido, empresa o marca. También puedes agregar personas desde tu Página de 
-												<a href="/following">Seguimiento</a> o desde el perfil de cualquiera.
+											<p>Busca un usuario, nombre o apellido
 											</p>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
+            @endif
 					</div>
 					<div class="dashboard dashboard-right">
 						<div class="component newest-members-module roaming-module" data-component-context="newest_list_members">
