@@ -39,4 +39,9 @@ class Tweet extends Model
         return $this->belongsTo('App\Tweet', 'tweet_id');
     }
 
+    public function categorias()
+    {
+        return $this->belongsToMany('App\Categoria', 'tweet_categorias_like', 'id_categoria','id_tweet')->withTimestamps();;
+    }
+
 }

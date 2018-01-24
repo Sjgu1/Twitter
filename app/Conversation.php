@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Conversation extends Model
 {
+    protected $fillable = [
+        'fechaInicio',
+    ];
     //Emisor
     public function usuario1()
     {
@@ -19,6 +22,6 @@ class Conversation extends Model
     }
 
     public function mensajes() {
-        return $this->hasMany('App\Message'); 
+        return $this->hasMany('App\Message', 'conversation_id'); 
     }
 }

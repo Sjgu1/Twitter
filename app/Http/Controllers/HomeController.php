@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Controllers\Controller;
 use App\User;
 use App\Tweet;
 use Carbon\Carbon;
@@ -122,7 +123,7 @@ class HomeController extends Controller
         $id = Auth::id();
         $seguidor = User::find($id);
         $seguidor->seguidos()->attach($seguido);
-        return back();
+        return back()->withInput();;
     }
     public function dejarDeSeguir($seguido){
         $id = Auth::id();
@@ -132,17 +133,23 @@ class HomeController extends Controller
     }
 
     public function nuevoTweet(Request $request){
-        error_log($request->mensaje);
-        error_log($request->multimedia);
-
+   ;
+        
+        if($request->tweet_multimedia == null){
+            $enviar = $request->tweet_multimedia2;
+        }else{
+            $enviar = $request->tweet_multimedia;
+        }
+        error_log($enviar);
         $tweet = new Tweet([
             'fecha' =>  Carbon::now(),
-            'mensaje' => $request->mensaje,
-            'multimedia' =>$request->multimedia
+            'mensaje' => $request->tweet_content,
+            'multimedia' =>$enviar
         ]);
         $user = Auth::user();
         $tweet->user()->associate($user);
         $tweet->save();
+        return back();
      }
 
 
@@ -183,12 +190,17 @@ class HomeController extends Controller
      
 
     public function addRespuesta(Request $request,  $username, $id){
-        error_log($id);
-        error_log($request->tweet_multimedia);
+        //dd($request);
+        if( $request->tweet_multimedia == null){
+            $enviar = null;
+        }
+        else{
+            $enviar =  $request->tweet_multimedia;
+        }
         $tweet = new Tweet([
             'fecha' =>  Carbon::now(),
             'mensaje' => $request->tweet_content,
-            'multimedia' => $request->tweet_multimedia
+            'multimedia' => $enviar
         ]);
         $user = Auth::user();
         $tweet->user()->associate($user);
@@ -204,4 +216,6 @@ class HomeController extends Controller
 
         return back();
     }
+
+
 }

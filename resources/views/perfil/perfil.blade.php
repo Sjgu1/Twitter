@@ -117,7 +117,7 @@
 								</li>@if(Auth::id() == $user->id)
 								<li class="ProfileNav-item ProfileNav-item--userActions u-floatRight u-textRight with-rightCaret ">
 									<div class="UserActions   u-textLeft">
-										<button type="button" class="UserActions-editButton edit-button EdgeButton EdgeButton--tertiary" data-scribe-element="profile_edit_button">	<span class="button-text">Editar perfil</span>
+										<button type="button" class="UserActions-editButton edit-button EdgeButton EdgeButton--tertiary" data-toggle="" data-target="" data-scribe-element="profile_edit_button">	<span class="button-text">Editar perfil</span>
 										</button>
 										<div class="ProfilePage-editingButtons">
 											<button class="ProfilePage-cancelButton EdgeButton EdgeButton--tertiary" data-scribe-element="cancel_button" tabindex="4">Cancelar</button>
@@ -157,11 +157,14 @@
 								</li>@endif</ul>
 							</div>
 						</div>
+						
 					</div>
+					
 				</div>
 			</div>
 		</div>
 	</div>
+	
 	<!--  Espacio Principal-->
 	<div id="page-outer">
 		<div id="page-container" class=" wrapper wrapper-home" style="padding: 0px 100px 40px;">
@@ -192,12 +195,54 @@
 						</div>
 					</div>
 				</div>
+				
 				<div class="Grid-cell u-size2of3 u-lg-size3of4">
 					<div class="Grid Grid--withGutter">
 						<div class="Grid-cell">
 							<div class="js-profileClusterFollow"></div>
 						</div>
 						<div class="Grid-cell u-lg-size2of3" data-test-selector="ProfileTimeline">
+						@if(Auth::id() == $user->id)
+						<div id="demo" class="collapse">
+						<div class="home-tweet-box tweet-box component tweet-user">
+						<form  action="/{{$user->username}}" method="POST" class="t1-form tweet-form condensed" enctype="multipart/form-data" data-poll-composer-rows="3" >
+						{!! csrf_field() !!}
+														
+								<!-- El input de imagenes -->
+								<div style="padding-top:10px;padding-bottom:10px; ">		
+							<span class="tweet-camera Icon Icon--media" style="padding-top:5px;font-size: 25px; color:#1ea1f2;"></span>Fondo de perfil:
+							<div style="min-height: 25px; max-height: 25px; min-width: 450px; max-width: 450px;" aria-autocomplete="list" aria-expanded="false" aria-labelledby="tweet-box-home-timeline-label" aria-multiline="true" class="rich-editor pull-right RichEditor-scrollContainer u-borderRadiusInherit" contenteditable="true" dir="ltr" id='tweet_multimedia_div_fondo' name="tweet-box-home-timeline-src-fondo" role="textbox" spellcheck="true" data-placeholder-reply="Twittea tu respuesta" >
+							<input type="hidden" id="fondo_multimedia" name="fondo_multimedia">	
+							</div>
+								<!-- El input de imagenes -->
+								<!-- El input de imagenes -->
+								<div style="padding-top:10px;padding-bottom:10px; ">		
+								<span class="tweet-camera Icon Icon--media" style="padding-top:5px;font-size: 25px; color:#1ea1f2;"></span>Foto de perfil:
+								<div style="min-height: 25px; max-height: 25px; min-width: 450px; max-width: 450px;" aria-autocomplete="list" aria-expanded="false" aria-labelledby="tweet-box-home-timeline-label" aria-multiline="true" class="rich-editor pull-right RichEditor-scrollContainer u-borderRadiusInherit" contenteditable="true" dir="ltr" id='tweet_multimedia_div_perfil' name="tweet-box-home-timeline-src-perfil" role="textbox" spellcheck="true" data-placeholder-reply="Twittea tu respuesta" >
+								<input type="hidden" id="perfil_multimedia" name="perfil_multimedia">	
+								</div>
+								<!-- El input de imagenes -->
+	
+								<div class="TweetBoxAttachments">
+									<div class="thumbnail-container">
+										<div class="thumbnail-wrapper">
+											<div class="ComposerThumbnails"></div>
+										</div>
+										<div class="tweet-box-overlay"></div>
+									</div>
+								</div>
+							</div>
+							<div class="TweetBoxToolbar">
+								
+							<div class="TweetBoxToolbar-tweetButton tweet-button"> <span class="add-tweet-button">
+							</span>
+							<button onclick="cambiar()" type="submit" id="sendButton" style="background-color: #1da1f2;border: 1px solid #1da1f2;color: #fff;" class=" EdgeButton EdgeButton--primary ">Actualizar</button>
+
+						</div>
+							</div>
+							</div></form></div>
+					</div>
+@endif
 							<div class="ProfileHeading">
 								<div class="ProfileHeading-spacer"></div>
 								<div class="ProfileHeading-content">
@@ -206,7 +251,7 @@
 										<li class="ProfileHeading-toggleItem  is-active" data-element-term="tweets_toggle">	<span aria-hidden="true">Tweets</span>
 											<span class="u-hiddenVisually">Tweets, página actual.</span>
 										</li>
-										<li class="ProfileHeading-toggleItem  u-textUserColor" data-element-term="tweets_with_replies_toggle">	<a class="ProfileHeading-toggleLink js-nav" href="/{{$user->username}}/with_replies" data-nav="tweets_with_replies_toggle">Tweets y respuestas</a>
+										<li class="ProfileHeading-toggleItem  u-textUserColor" data-element-term="tweets_with_replies_toggle">
 										</li>
 									</ul>
 								</div>
@@ -509,4 +554,16 @@
 						</div>
 					</div>
 				</div>
-			</div>@endsection
+			</div>
+			<script>
+
+function cambiar(){
+	console.log(document.getElementById('tweet_multimedia_div_fondo').textContent);
+	console.log( document.getElementById('tweet_multimedia_div_perfil').textContent);
+	alert(document.getElementById('tweet_multimedia_div_fondo').textContent);
+    $('#fondo_multimedia').val( document.getElementById('tweet_multimedia_div_fondo').textContent);
+	$('#perfil_multimedia').val( document.getElementById('tweet_multimedia_div_perfil').textContent);
+}
+
+</script>
+			@endsection
