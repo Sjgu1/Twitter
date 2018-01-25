@@ -923,55 +923,62 @@ s,
                         
                         <img class="avatar js-action-profile-avatar " src="{{$reciente->avatar}}" alt="">
                         <span class="account-group-inner" data-user-id="2654164081">
-                          <strong class="fullname">{{$reciente->name}}</strong><span class="UserBadges"></span><span class="UserNameBreak">&nbsp;</span><span class="username u-dir u-textTruncate" dir="ltr">@<b>{{$reciente->username}}</b></span>
+                          <strong class="fullname">{{$reciente->name}}</strong><span class="UserBadges"></span><span class="UserNameBreak"> </span><span class="username u-dir u-textTruncate" dir="ltr">@<b>{{$reciente->username}}</b></span>
                         </span>
                       </a>
 
                           
+                      <?php $esUsuarioConectado=false ?>
                       <?php $loSigo=false ?>
                     @foreach(Auth::user()->seguidos as $siguiendo)
+                    @if($reciente->id == Auth::id() )
+                      <?php $esUsuarioConectado=true ?>
+                      @break
+                      @endif
                     @if($siguiendo->id == $reciente->id )
                     <?php $loSigo=true ?>
                     @break
                     @endif
                     @endforeach
-                    @if($loSigo!=true)
+                    @if($loSigo==true)
                       <div class="user-actions btn-group following not-muting including  " data-user-id="2654164081" data-screen-name="{{$reciente->username}}" data-name="{{$reciente->name}}" data-protected="false">
+                    @elseif( $esUsuarioConectado==true)
+                    <div class="user-actions btn-group following not-muting including " data-user-id="66816631" data-screen-name="{{$reciente->username}}" data-name="{{$reciente->name}}" data-protected="false" style="visibility: hidden;">
                     @else
                     <div class="user-actions btn-group not-following not-muting including  " data-user-id="2654164081" data-screen-name="{{$reciente->username}}" data-name="{{$reciente->name}}" data-protected="false"> 
                     @endif    
 
                     <span class="user-actions-follow-button js-follow-btn follow-button">
-                    <button type="button" class="
-                      EdgeButton
-                      EdgeButton--secondary
-                      EdgeButton--small 
-                      
-                      button-text
-                      follow-text">
-                        <span aria-hidden="true">Seguir</span>
-                        <span class="u-hiddenVisually">Seguir a <span class="username u-dir u-textTruncate" dir="ltr">@<b>{{$reciente->username}}</b></span></span>
-                    </button>
-                    <button type="button" class="
-                      EdgeButton
-                      EdgeButton--primary
-                      EdgeButton--small 
-                      
-                      button-text
-                      following-text">
-                        <span aria-hidden="true">Siguiendo</span>
-                        <span class="u-hiddenVisually">Siguiendo a <span class="username u-dir u-textTruncate" dir="ltr">@<b>{{$reciente->username}}</b></span></span>
-                    </button>
-                    <button type="button" class="
-                      EdgeButton
-                      EdgeButton--danger
-                      EdgeButton--small 
-                      
-                      button-text
-                      unfollow-text">
-                        <span aria-hidden="true">Dejar de seguir</span>
-                        <span class="u-hiddenVisually">Dejar de seguir a <span class="username u-dir u-textTruncate" dir="ltr">@<b>{{$reciente->username}}</b></span></span>
-                    </button>
+                    <a type="button" class="EdgeButton EdgeButton--secondary EdgeButton--small button-text follow-text" href="{{ action('HomeController@seguir', ['seguido'=>$reciente->id]) }}" >
+                    <span aria-hidden="true">Seguir</span>
+                    <span class="u-hiddenVisually">Seguir a 
+
+                      <span class="username u-dir u-textTruncate" dir="ltr">@
+
+                        <b>{{$reciente->username}}</b>
+                      </span>
+                    </span>
+                  </a>
+                  <button type="button" class=" EdgeButton EdgeButton--primary EdgeButton--small button-text following-text">
+                    <span aria-hidden="true">Siguiendo</span>
+                    <span class="u-hiddenVisually">Siguiendo a 
+
+                      <span class="username u-dir u-textTruncate" dir="ltr">@
+
+                        <b>{{$reciente->username}}</b>
+                      </span>
+                    </span>
+                  </button>
+                  <a type="button" style="background-color: #e0245e;    border: 1px solid #e0245e; color: #fff" class=" EdgeButton EdgeButton--danger EdgeButton--small  button-text unfollow-text" href="{{ action('HomeController@dejarDeSeguir', ['seguido'=>$reciente->id]) }}">
+                    <span aria-hidden="true">Dejar de seguir</span>
+                    <span class="u-hiddenVisually">Dejar de seguir a 
+
+                      <span class="username u-dir u-textTruncate" dir="ltr">@
+
+                        <b>{{$reciente->username}}</b>
+                      </span>
+                    </span>
+                  </a>
                   </span>
 
 
@@ -980,7 +987,7 @@ s,
                     </div>
                   </div>
                   @endforeach
-                  </div><!--recent members-->
+                  </div><!--recent members--><!--recent members-->
 								</div>
 							</div>
 						</div>

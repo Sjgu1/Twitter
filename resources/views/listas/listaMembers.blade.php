@@ -595,11 +595,11 @@ s,
               @endif
               @endforeach
             @if($comprobacion== false)
-            <button class="EdgeButton EdgeButton--secondary EdgeButton--medium subscribe-btn js-subscribe-list-action
+            <a class="EdgeButton EdgeButton--secondary EdgeButton--medium subscribe-btn js-subscribe-list-action
               js-follow-list-action is-unsubscribed
               " data-screen-name="{{$user->username}}" href="{{ action('ListasController@addSuscriptor', ['username'=>$user->username, 'nombre'=>$lista->nombre]) }}" data-list-id="955888516982099968">
             @else
-            <button class="EdgeButton EdgeButton--secondary EdgeButton--medium subscribe-btn js-subscribe-list-action
+            <a class="EdgeButton EdgeButton--secondary EdgeButton--medium subscribe-btn js-subscribe-list-action
             js-unfollow-list-action is-subscribed" data-screen-name="{{$user->username}}" href="{{ action('ListasController@removeSuscriptor', ['username'=>$user->username, 'nombre'=>$lista->nombre]) }}" data-list-id="955888516982099968">
             @endif
  
@@ -610,7 +610,7 @@ s,
             <div class="remove-text">
               Eliminar subscripción
             </div>
-          </button>
+          </a>
           @endif
 						</div>
 					</div>
@@ -769,7 +769,12 @@ s,
                   @endforeach
                 </ol>
 
-                <div style="margin-top:50px;" class="stream-container">
+                
+          @if($user->id!=Auth::id())
+            <div   class="stream-end-inner">
+            </div>
+          @else
+          <div style="margin-top:50px;" class="stream-container">
 					<div class="stream" data-component-context="stream">
 						<div class="component" data-component-context="add_people">
 							<div class="stream-placeholder">
@@ -786,12 +791,6 @@ s,
 								</div>
 							</div>
 						</div>
-          @if($user->id!=Auth::id())
-            <div   class="stream-end-inner">
-            <p>Esta lista no sigue a nadie todavía. Pero probablemente pronto lo hará.</p>
-            </div>
-          @else
-
           
         <div class="stream-container  js-request-more-stream-items" data-max-position="898988998898" data-min-position="68577657657657657">
               <div class="stream-item js-new-items-bar-container"></div>
@@ -927,7 +926,83 @@ s,
 											<a href="/{{$lista->usuario->username}}/listas/{{$lista->nombre}}/members" data-nav="newest_list_members" class="js-nav">Ver todos</a>
 										</small>
 									</div>
-									<div class="flex-module-inner js-recent-members"></div>
+                  <div class="flex-module-inner js-recent-members">
+                  @foreach($recientes as $reciente)
+                  <div class="UserSmallListItem js-account-summary account-summary js-actionable-user" data-user-id="2654164081" data-feedback-token="" data-impression-id="">
+                    <div class="UserSmallListItem-context">
+                    </div>
+
+
+                    <div class="content">
+                      <a class="account-group js-recommend-link js-user-profile-link user-thumb" href="/{{$reciente->username}}" data-user-id="2654164081" rel="noopener">
+                        
+                        <img class="avatar js-action-profile-avatar " src="{{$reciente->avatar}}" alt="">
+                        <span class="account-group-inner" data-user-id="2654164081">
+                          <strong class="fullname">{{$reciente->name}}</strong><span class="UserBadges"></span><span class="UserNameBreak"> </span><span class="username u-dir u-textTruncate" dir="ltr">@<b>{{$reciente->username}}</b></span>
+                        </span>
+                      </a>
+
+                          
+                      <?php $esUsuarioConectado=false ?>
+                      <?php $loSigo=false ?>
+                    @foreach(Auth::user()->seguidos as $siguiendo)
+                    @if($reciente->id == Auth::id() )
+                      <?php $esUsuarioConectado=true ?>
+                      @break
+                      @endif
+                    @if($siguiendo->id == $reciente->id )
+                    <?php $loSigo=true ?>
+                    @break
+                    @endif
+                    @endforeach
+                    @if($loSigo==true)
+                      <div class="user-actions btn-group following not-muting including  " data-user-id="2654164081" data-screen-name="{{$reciente->username}}" data-name="{{$reciente->name}}" data-protected="false">
+                    @elseif( $esUsuarioConectado==true)
+                    <div class="user-actions btn-group following not-muting including " data-user-id="66816631" data-screen-name="{{$reciente->username}}" data-name="{{$reciente->name}}" data-protected="false" style="visibility: hidden;">
+                    @else
+                    <div class="user-actions btn-group not-following not-muting including  " data-user-id="2654164081" data-screen-name="{{$reciente->username}}" data-name="{{$reciente->name}}" data-protected="false"> 
+                    @endif    
+
+                    <span class="user-actions-follow-button js-follow-btn follow-button">
+                    <a type="button" class="EdgeButton EdgeButton--secondary EdgeButton--small button-text follow-text" href="{{ action('HomeController@seguir', ['seguido'=>$reciente->id]) }}" >
+                    <span aria-hidden="true">Seguir</span>
+                    <span class="u-hiddenVisually">Seguir a 
+
+                      <span class="username u-dir u-textTruncate" dir="ltr">@
+
+                        <b>{{$reciente->username}}</b>
+                      </span>
+                    </span>
+                  </a>
+                  <button type="button" class=" EdgeButton EdgeButton--primary EdgeButton--small button-text following-text">
+                    <span aria-hidden="true">Siguiendo</span>
+                    <span class="u-hiddenVisually">Siguiendo a 
+
+                      <span class="username u-dir u-textTruncate" dir="ltr">@
+
+                        <b>{{$reciente->username}}</b>
+                      </span>
+                    </span>
+                  </button>
+                  <a type="button" style="background-color: #e0245e;    border: 1px solid #e0245e; color: #fff" class=" EdgeButton EdgeButton--danger EdgeButton--small  button-text unfollow-text" href="{{ action('HomeController@dejarDeSeguir', ['seguido'=>$reciente->id]) }}">
+                    <span aria-hidden="true">Dejar de seguir</span>
+                    <span class="u-hiddenVisually">Dejar de seguir a 
+
+                      <span class="username u-dir u-textTruncate" dir="ltr">@
+
+                        <b>{{$reciente->username}}</b>
+                      </span>
+                    </span>
+                  </a>
+                  </span>
+
+
+                  </div>
+
+                    </div>
+                  </div>
+                  @endforeach
+                  </div><!--recent members--><!--recent members-->
 								</div>
 							</div>
 						</div>

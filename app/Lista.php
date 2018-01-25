@@ -17,7 +17,7 @@ class Lista extends Model
 
     public function miembros()
     {
-        return $this->belongsToMany('App\User', 'lista_miembro', 'id_user', 'id_lista');
+        return $this->belongsToMany('App\User', 'lista_miembro', 'id_user', 'id_lista')->withTimestamps();
     }
 
     public function suscritos()

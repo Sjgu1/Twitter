@@ -73,20 +73,24 @@ class ListasController extends Controller
        $merge = $merge->sortByDesc('fechaRT');
 
        $recientes=$lista->miembros()->paginate(3);
+       $users=User::where('id','!=', Auth::id())->whereNotIn('id', $lista->suscritos->modelKeys() )->get();
 
-        return view('listas/lista', ['lista'=> $lista, 'user'=>$userli, 'tweets'=>$merge,'conectado'=> $user,'recientes'=> $recientes]); 
+
+        return view('listas/lista', ['lista'=> $lista, 'user'=>$userli, 'tweets'=>$merge,'conectado'=> $user,'recientes'=> $recientes, 'users'=>$users]); 
 
     }
 
     public function suscriptores($username, $nombre){
         $user=  User::where('username', $username)->first();
+        $lista =  Lista::where('nombre', $nombre)->first();
+
+        $users=User::where('id','!=', Auth::id())->whereNotIn('id', $lista->suscritos->modelKeys() )->get();
 
         if($user == null){
             return view('404'); 
         }
-
-        $lista =  Lista::where('nombre', $nombre)->first();
-        return view('listas/listaSuscri', ['lista'=> $lista, 'user'=>$user]); 
+        $recientes=$lista->miembros()->paginate(3);
+        return view('listas/listaSuscri', ['lista'=> $lista, 'user'=>$user,'users'=>$users,  'recientes'=>$recientes]); 
 
     }
 
@@ -96,11 +100,12 @@ class ListasController extends Controller
         
         $users=User::where('id','!=', Auth::id())->whereNotIn('id', $lista->miembros->modelKeys() )->get();
 
+        $recientes=$lista->miembros()->paginate(3);
         if($user == null){
             return view('404'); 
         }
         
-        return view('listas/listaMembers', ['lista'=> $lista, 'user'=>$user, 'users'=>$users]); 
+        return view('listas/listaMembers', ['lista'=> $lista, 'user'=>$user, 'users'=>$users, 'recientes'=>$recientes]); 
 
     }
 
