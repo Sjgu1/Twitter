@@ -680,8 +680,7 @@ s,
 
                 <ol class="stream-items js-navigable-stream" id="stream-items-id">
                 @foreach($lista->miembros as $miembro)
-                  <li class=" stream-item stream-item
-                    " data-item-id="2654164081" id="stream-item-user-2654164081" data-item-type="user">
+                  <li class=" stream-item stream-item" data-item-id="2654164081" id="stream-item-user-2654164081" data-item-type="user">
                     <div class="account  js-actionable-user js-profile-popup-actionable " data-screen-name="{{$miembro->username}}" data-user-id="2654164081" data-name="{{$miembro->name}}" data-emojified-name="" data-feedback-token="" data-impression-id="">
                     <?php $loSigo=false ?>
                     @foreach(Auth::user()->seguidos as $siguiendo)
@@ -696,48 +695,36 @@ s,
                     <div class="user-actions btn-group not-following not-muting including  " data-user-id="2654164081" data-screen-name="{{$miembro->username}}" data-name="{{$miembro->name}}" data-protected="false"> 
                     @endif    
                         <span class="user-actions-follow-button js-follow-btn follow-button">
-                          <button type="button" class="
-                        EdgeButton
-                        EdgeButton--secondary
-                        
-                        EdgeButton--medium 
-                        button-text
-                        follow-text">
-                            <span aria-hidden="true">Seguir</span>
-                            <span class="u-hiddenVisually">Seguir a 
-                              <span class="username u-dir u-textTruncate" dir="ltr">@
-                                <b>{{$miembro->username}}</b>
-                              </span>
-                            </span>
-                          </button>
-                          <button type="button" class="
-                        EdgeButton
-                        EdgeButton--primary
-                        
-                        EdgeButton--medium 
-                        button-text
-                        following-text">
-                            <span aria-hidden="true">Siguiendo</span>
-                            <span class="u-hiddenVisually">Siguiendo a 
-                              <span class="username u-dir u-textTruncate" dir="ltr">@
-                                <b>{{$miembro->username}}</b>
-                              </span>
-                            </span>
-                          </button>
-                          <button type="button" class="
-                        EdgeButton
-                        EdgeButton--danger
-                        
-                        EdgeButton--medium 
-                        button-text
-                        unfollow-text">
-                            <span aria-hidden="true">Dejar de seguir</span>
-                            <span class="u-hiddenVisually">Dejar de seguir a 
-                              <span class="username u-dir u-textTruncate" dir="ltr">@
-                                <b>{{$miembro->username}}</b>
-                              </span>
-                            </span>
-                          </button>
+                        <a type="button" class="EdgeButton EdgeButton--secondary EdgeButton--small button-text follow-text" href="{{ action('HomeController@seguir', ['seguido'=>$miembro->id]) }}" >
+                        <span aria-hidden="true">Seguir</span>
+                        <span class="u-hiddenVisually">Seguir a 
+
+                          <span class="username u-dir u-textTruncate" dir="ltr">@
+
+                            <b>{{$miembro->username}}</b>
+                          </span>
+                        </span>
+                      </a>
+                      <button type="button" class=" EdgeButton EdgeButton--primary EdgeButton--small button-text following-text">
+                        <span aria-hidden="true">Siguiendo</span>
+                        <span class="u-hiddenVisually">Siguiendo a 
+
+                          <span class="username u-dir u-textTruncate" dir="ltr">@
+
+                            <b>{{$miembro->username}}</b>
+                          </span>
+                        </span>
+                      </button>
+                      <a type="button" style="background-color: #e0245e;    border: 1px solid #e0245e; color: #fff" class=" EdgeButton EdgeButton--danger EdgeButton--small  button-text unfollow-text" href="{{ action('HomeController@dejarDeSeguir', ['seguido'=>$miembro->id]) }}">
+                        <span aria-hidden="true">Dejar de seguir</span>
+                        <span class="u-hiddenVisually">Dejar de seguir a 
+
+                          <span class="username u-dir u-textTruncate" dir="ltr">@
+
+                            <b>{{$miembro->username}}</b>
+                          </span>
+                        </span>
+                      </a>
                         </span>
                         <div class="dropdown ">
                           <button type="button" class="user-dropdown dropdown-toggle js-dropdown-toggle js-link js-tooltip btn plain-btn" title="Más acciones de usuario" aria-haspopup="true">
@@ -789,8 +776,8 @@ s,
 								<div class="stream-end-inner">
 									<h2>Encuentra gente para añadir a tu lista</h2>
 									<form action="/search" class="t1-form inline-form js-search-for-list-people" method="GET">
-										<input type="text"  onkeyup="myFunction()" id="myInput" placeholder="encuentra usuarios por nombre">
-											<input type="hidden" name="mode" value="users">
+                  <input type="text" id="myInput2" onkeyup="myFunction2()" placeholder="Search for names.." title="Type in a name">
+                  <input type="hidden" name="mode" value="users">
 											</form>
 											<p>Busca un usuario, nombre o apellido
 											</p>
@@ -804,58 +791,58 @@ s,
             <p>Esta lista no sigue a nadie todavía. Pero probablemente pronto lo hará.</p>
             </div>
           @else
+
           
         <div class="stream-container  js-request-more-stream-items" data-max-position="898988998898" data-min-position="68577657657657657">
               <div class="stream-item js-new-items-bar-container"></div>
               <div class="stream">
-                <ul class="stream-items js-navigable-stream" id="myUL">
-                @foreach($users as $usuario)         
+                <ul class="stream-items js-navigable-stream" id="myUL2">
+                @foreach($users as $usuario)                         
                   <li class=" liPrueba stream-item stream-item" data-item-id="2654164081" id="stream-item-user-2654164081" data-item-type="user">
                     <div class="account  js-actionable-user js-profile-popup-actionable " data-screen-name="{{$usuario->username}}" data-user-id="2654164081" data-name="{{$usuario->name}}" data-emojified-name="" data-feedback-token="" data-impression-id="">
+                    <?php $loSigo2=false ?>
+                    @foreach(Auth::user()->seguidos as $siguiendo2)
+                    @if($siguiendo2->id == $usuario->id )
+                    <?php $loSigo2=true ?>
+                    @break
+                    @endif
+                    @endforeach
+                    @if($loSigo2==true)
                       <div class="user-actions btn-group following not-muting including  " data-user-id="2654164081" data-screen-name="{{$usuario->username}}" data-name="{{$usuario->name}}" data-protected="false">
-                        <span class="user-actions-follow-button js-follow-btn follow-button">
-                          <button type="button" class="
-                        EdgeButton
-                        EdgeButton--secondary
-                        
-                        EdgeButton--medium 
-                        button-text
-                        follow-text">
-                            <span aria-hidden="true">Seguir</span>
-                            <span class="u-hiddenVisually">Seguir a 
-                              <span class="username u-dir u-textTruncate" dir="ltr">@
-                                <b>{{$usuario->username}}</b>
-                              </span>
-                            </span>
-                          </button>
-                          <button type="button" class="
-                        EdgeButton
-                        EdgeButton--primary
-                        
-                        EdgeButton--medium 
-                        button-text
-                        following-text">
-                            <span aria-hidden="true">Siguiendo</span>
-                            <span class="u-hiddenVisually">Siguiendo a 
-                              <span class="username u-dir u-textTruncate" dir="ltr">@
-                                <b>{{$usuario->username}}</b>
-                              </span>
-                            </span>
-                          </button>
-                          <button type="button" class="
-                        EdgeButton
-                        EdgeButton--danger
-                        
-                        EdgeButton--medium 
-                        button-text
-                        unfollow-text">
-                            <span aria-hidden="true">Dejar de seguir</span>
-                            <span class="u-hiddenVisually">Dejar de seguir a 
-                              <span class="username u-dir u-textTruncate" dir="ltr">@
-                                <b>{{$usuario->username}}</b>
-                              </span>
-                            </span>
-                          </button>
+                    @else
+                    <div class="user-actions btn-group not-following not-muting including  " data-user-id="2654164081" data-screen-name="{{$usuario->username}}" data-name="{{$usuario->name}}" data-protected="false"> 
+                    @endif                           
+                    <span class="user-actions-follow-button js-follow-btn follow-button">
+                    <a type="button" class="EdgeButton EdgeButton--secondary EdgeButton--small button-text follow-text" href="{{ action('HomeController@seguir', ['seguido'=>$usuario->id]) }}" >
+                    <span aria-hidden="true">Seguir</span>
+                    <span class="u-hiddenVisually">Seguir a 
+
+                      <span class="username u-dir u-textTruncate" dir="ltr">@
+
+                        <b>{{$usuario->username}}</b>
+                      </span>
+                    </span>
+                  </a>
+                  <button type="button" class=" EdgeButton EdgeButton--primary EdgeButton--small button-text following-text">
+                    <span aria-hidden="true">Siguiendo</span>
+                    <span class="u-hiddenVisually">Siguiendo a 
+
+                      <span class="username u-dir u-textTruncate" dir="ltr">@
+
+                        <b>{{$usuario->username}}</b>
+                      </span>
+                    </span>
+                  </button>
+                  <a type="button" style="background-color: #e0245e;    border: 1px solid #e0245e; color: #fff" class=" EdgeButton EdgeButton--danger EdgeButton--small  button-text unfollow-text" href="{{ action('HomeController@dejarDeSeguir', ['seguido'=>$usuario->id]) }}">
+                    <span aria-hidden="true">Dejar de seguir</span>
+                    <span class="u-hiddenVisually">Dejar de seguir a 
+
+                      <span class="username u-dir u-textTruncate" dir="ltr">@
+
+                        <b>{{$usuario->username}}</b>
+                      </span>
+                    </span>
+                  </a>
                         </span>
                         <div class="dropdown ">
                           <button type="button" class="user-dropdown dropdown-toggle js-dropdown-toggle js-link js-tooltip btn plain-btn" title="Más acciones de usuario" aria-haspopup="true">
@@ -882,7 +869,7 @@ s,
                       <div class="activity-user-profile-content">
                         <div class=" content">
                           <div class="stream-item-header">
-                            <a class="account-group js-user-profile-link" href="/{{$usuario->username}}" rel="noopener">
+                            <a class="account-group js-user-profile-link aPrueba" name=""href="/{{$usuario->username}}" rel="noopener">
                               <img class="avatar js-action-profile-avatar  " src="{{$usuario->avatar}}" alt="" data-user-id="293967812">
                                 <strong class="fullname">{{$usuario->name}}</strong>
                                 <span class="UserBadges"></span>
@@ -990,6 +977,25 @@ s,
 							</div>
 						
       <!-- fin-->
+
+<script>
+function myFunction2() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("myInput2");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL2");
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            li[i].style.display = "";
+        } else {
+            li[i].style.display = "none";
+
+        }
+    }
+}
+</script>
      <!--modal crear-->
       
      <div class="collapse " id="nueva" role="dialog" aria-labelledby="list-operations-dialog-header" style="top: 90px; left: 415px;position: absolute;z-index:9000">
@@ -1071,11 +1077,9 @@ function myFunction() {
     input = document.getElementById("myInput");
     filter = input.value.toUpperCase();
     ul = document.getElementById("myUL");
-    li = ul.getElementsByClassName("liPrueba");
-    for (i = 0; i < li.length; i++) {
-      
-        a = li[i].getElementsByTagName("a")[2];
-        console.log(a);
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {     
+        a = li[i].getElementsByTagName("a")[0];
         if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
             li[i].style.display = "";
         } else {
@@ -1085,5 +1089,7 @@ function myFunction() {
     }
 }
 </script>
+
+
 
 @endsection
