@@ -640,7 +640,107 @@
 		@endforeach
 <!--fin -->
 <!-- modal nuevo mensaje-->
+<div class="modal fade modal is-autoPosition" id="nuevoMensaje" role="dialog" style="top: 5%; left: 415px; position: absolute;width: 45vw; height: fit-content; z-index: 7000;" aria-labelledby="dm_dialog-header">
+    <div class="js-first-tabstop" tabindex="0"></div>
+    <div class="DMActivity DMCompose js-ariaDocument u-chromeOverflowFix DMActivity--open" role="document">
+	<div class="DMActivity-header">
+		<div class="DMActivity-navigation">
+			<button type="button" class="DMActivity-back u-textUserColorHover" to-inbox="" data-dismiss="modal">
+				<span class="Icon Icon--caretLeft u-linkComplex-target Icon--medium"></span>
+				<span class="u-hiddenVisually">Volver a la bandeja de entrada</span>
+			</button>
+		</div>
+		<h2 class="DMActivity-title js-ariaTitle" id="dm_dialog-header">
+          Mensaje nuevo
 
+        </h2>
+		<div class="DMActivity-toolbar">
+			<button type="button" class="DMActivity-close js-close u-textUserColorHover" data-dismiss="modal">
+				<span class="Icon Icon--close Icon--medium"></span>
+				<span class="u-hiddenVisually">Cerrar</span>
+			</button>
+		</div>
+	</div>
+	<div class="DMActivity-container">
+		<div class="DMActivity-notice">
+			<div class="DMNotice DMNotice--error DMErrorBar" style="display: none;">
+				<div class="DMNotice-message">
+					<div class="DMErrorBar-text"></div>
+				</div>
+				<div class="DMNotice-actions u-emptyHide"></div>
+				<button type="button" class="DMNotice-dismiss">
+					<span class="Icon Icon--close"></span>
+					<span class="u-hiddenVisually">Descartar</span>
+				</button>
+			</div>
+			<div class="DMNotice DMNotice--toast " style="display: none;">
+				<div class="DMNotice-message"></div>
+				<div class="DMNotice-actions u-emptyHide"></div>
+				<button type="button" class="DMNotice-dismiss">
+					<span class="Icon Icon--close"></span>
+					<span class="u-hiddenVisually">Descartar</span>
+				</button>
+			</div>
+		</div>
+     
+		<div class="DMActivity-body js-ariaBody ">
+			<div class=" DMDialogTypeahead">
+				<span class="DMTypeaheadHeader">Enviar mensaje a:</span>
+				<ul class="TokenizedMultiselect-inputContainer">
+					<li>
+						<textarea id="myInput" onkeyup="myFunction()" class="TokenizedMultiselect-input twttr-directmessage-input js-initial-focus dm-to-input" aria-autocomplete="list" aria-expanded="true" rows="1" type="text" placeholder="Ingresa un nombre" aria-owns="TokenizedMultiselectOwns8997379965"></textarea>
+					</li>
+				</ul>
+                
+				<ul id="myUL" class="DMTypeaheadSuggestions u-scrollY" role="listbox">
+					<!--<li class="DMTypeaheadHeader">
+						<span>Reciente</span>
+					</li>-->
+               
+                    @foreach($users as $sugest)
+					<li class="DMTokenizedMultiselectSuggestion DMTypeaheadSuggestions-item " data-token-id="dmAccounts::293967812" data-token-text="Ferel" role="option" tabindex="-1" 
+                    aria-selected="true" >
+						<div class="DMTokenizedMultiselectSuggestion-body">
+							<div class="DMTypeaheadItem">
+								<div class="DMTypeaheadItem-avatar" aria-hidden="true">
+									<div class="DMAvatar DMAvatar--1 u-chromeOverflowFix">
+										<span class="DMAvatar-container">
+											<img class="DMAvatar-image" src="{{$sugest->avatar}}" alt="{{$sugest->name}}" title="{{$sugest->name}}">
+											</span>
+										</div>
+									</div>
+									<div class="DMTypeaheadItem-body">
+										<div class="DMTypeaheadItem-title account-group">
+											<a href="{{ action('MessageController@nuevaConver', ['idUser'=>$sugest->id]) }}"><b class="fullname">{{$sugest->name}}</a></b>
+											<span class="UserBadges"></span>
+											<span class="UserNameBreak">&nbsp;</span>
+											<span class="username u-dir u-textTruncate" dir="ltr">@
+												<a><b>{{$sugest->username}}</b></a>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="DMTokenizedMultiselectSuggestion-state">
+                                <span class="DMTokenizedMultiselectSuggestion-selectedIndicator Icon Icon--check"></span>
+                                <span class="DMTokenizedMultiselectSuggestion-preselectedIndicator">En el Grupo</span>
+                            </div>
+						</li>
+                        
+                        @endforeach
+                        
+					</ul>
+				</div>
+			</div>
+			<div class="DMActivity-footer u-emptyHide">
+				<div class="DMButtonBar">
+					<!--<button type="button" class="EdgeButton EdgeButton--primary dm-initiate-conversation" >Siguiente</button>-->
+				</div>
+			</div>
+		</div>
+	</div>
+    </div>
+</div>
 <!-- fin nuevo mensaje-->
 @if(!empty(Session::get('nueva')))
 <script>
