@@ -92,12 +92,14 @@ class ListasController extends Controller
 
     public function miembros($username, $nombre){
         $user =  User::where('username', $username)->first();
-        $users=User::where('id','!=', Auth::id())->get();
+        $lista =  Lista::where('nombre', $nombre)->first();
+        
+        $users=User::where('id','!=', Auth::id())->whereNotIn('id', $lista->miembros->modelKeys() )->get();
 
         if($user == null){
             return view('404'); 
         }
-        $lista =  Lista::where('nombre', $nombre)->first();
+        
         return view('listas/listaMembers', ['lista'=> $lista, 'user'=>$user, 'users'=>$users]); 
 
     }
@@ -141,19 +143,31 @@ class ListasController extends Controller
     public function addMiembro($username,$nombre){
         $lista= Lista::where('nombre', $nombre)->first();
         $userli =  User::where('username', $username)->first();
-        $existe=$lista->miembros()->where('id', $userli->id)->get();
-        if($existe!=null){
+        $existe = false;
+        foreach($lista->miembros as $miembro){
+            if($miembro->id == $userli->id){
+                $existe=true;
+                break;
+            }
+
+        }
+
+        if($existe == false){
             $lista->miembros()->attach($userli);
         }
+        
         
         return back();
         
     }
 
     public function removeMiembro($username,$nombre){
+
         $lista= Lista::where('nombre', $nombre)->first();
         $userli =  User::where('username', $username)->first();
+
         $lista->miembros()->detach($userli);
+
         return back();    
     }
 

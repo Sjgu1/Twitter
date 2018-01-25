@@ -704,7 +704,7 @@ s,
               <div class="stream">
                 <ol class="stream-items js-navigable-stream" id="stream-items-id">
                 @foreach($lista->suscritos as $miembro)
-                  <li class="js-stream-item stream-item stream-item
+                  <li class=" stream-item stream-item
                     " data-item-id="2654164081" id="stream-item-user-2654164081" data-item-type="user">
                     <div class="account  js-actionable-user js-profile-popup-actionable " data-screen-name="{{$miembro->username}}" data-user-id="2654164081" data-name="{{$miembro->name}}" data-emojified-name="" data-feedback-token="" data-impression-id="">
                     <?php $loSigo=false ?>
