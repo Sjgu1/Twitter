@@ -274,7 +274,7 @@
                                                         
 																	</span>
 													</div>@endif
-													<div class="stream-item-header">	<a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="">
+													<div class="stream-item-header">	<a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/{{$tweet->user->username}}">
 																		<img class="avatar js-action-profile-avatar" src="{{$tweet->user->avatar }}" alt="">
 																			<span class="FullNameGroup">
 																				<strong class="fullname show-popup-with-id u-textTruncate " data-aria-label-part="">{{$tweet->user->name}}</strong>
