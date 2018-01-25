@@ -19,10 +19,11 @@ class UsersConversationsTableSeeder extends Seeder
         $dias = 1;
         $segundos = 86400;
         DB::table('conversations')->delete();
-        DB::table('messages')->delete();
         sleep(2);
         Carbon::setLocale('es');
         //andre-sergio
+
+        /*
         $conver = new Conversation([
             'fechaInicio' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
         ]);
@@ -80,23 +81,31 @@ class UsersConversationsTableSeeder extends Seeder
         $user2 = User::where('email', 'raquel@gmail.com')->first();
         $conver->usuario1()->associate($user);
         $conver->usuario2()->associate($user2);
-        $conver->save();
+        $conver->save(); */
         
-        /*$faker = Faker::create();
+        $faker = Faker::create();
         $users = User::all();
+        $origen = 1;
         foreach($users as $user){
-            $num=range(1,235);
+            $num=range($origen,User::all()->count());
             shuffle($num);
-            for ($i=0; $i<rand(10,60); $i++) {      
-          
+            if($origen <=  User::all()->count()-4)
+            for ($i=0; $i<rand(2,3); $i++) { 
+                $user2= User::where('id', $num[$i])->first();
+
+                    //sergio-bea
+                    $conver = new Conversation([
+                        'fechaInicio' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
+                    ]);
+                    $conver->usuario1()->associate($user);
+                    $conver->usuario2()->associate($user2);
+                    $conver->save();
                 
-                $tweet = new Tweet([
-                    'fecha' =>  Carbon::now()->subDays(rand(0, $dias))->subSeconds(rand(0, $segundos)),
-                    'mensaje' => $faker->realText($maxNbChars = 200, $indexSize = 2),
-                ]);
-                $tweet->user()->associate($user);
-                $tweet->save();
             }  
-        }*/
+            $origen++;
+        }
+
+  
+        
     }
 }

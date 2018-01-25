@@ -29,6 +29,8 @@ class TweetCategoriasTableSeeder extends Seeder
             $contador++;
             $categoria->tweets()->attach( $num[ $contador ] );
             $contador++;
+            $categoria->tweets()->attach( $num[ $contador ] );
+            $contador++;
 
         }
 
