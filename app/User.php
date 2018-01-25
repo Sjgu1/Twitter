@@ -73,5 +73,19 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->hasMany('App\Message', 'user_id');
     }
 
+    public function listas()
+    {
+        return $this->hasMany('App\Lista', 'user_id');
+    }
+
+    public function miembro()
+    {
+        return $this->belongsToMany('App\Lista', 'lista_miembro', 'id_lista', 'id_user');
+    }
+
+    public function suscrito()
+    {
+        return $this->belongsToMany('App\Lista', 'lista_suscrito', 'id_lista', 'id_user');
+    }
 
 }

@@ -35,6 +35,8 @@ Route::post('/{username}','PerfilController@modificarPerfil');
 Route::get('/{username}/following','PerfilController@perfilSiguiendo');
 Route::get('/{username}/followers','PerfilController@perfilSeguidores');
 Route::get('/{username}/likes','PerfilController@perfilLikes');
+Route::get('/{username}/listas','PerfilController@perfilListas');
+Route::get('/{username}/memberships','PerfilController@perfilMiembro');
 
 //Administrador
 Route::get('/administrar/general','PerfilController@administrar')->middleware('admin');
@@ -66,3 +68,15 @@ Route::post('/mensaje/{conver}', 'MessageController@nuevoMensaje');
 Route::get('/conver/{idUser}', 'MessageController@nuevaConver');
 Route::get('/conver/borrar/{idConver}', 'MessageController@deleteConver');
 Route::get('/mensaje/borrar/{idMensaje}', 'MessageController@deleteMensaje');
+
+//Listas
+Route::get('/{username}/listas/{nombre}','ListasController@index');
+Route::get('/{username}/listas/{nombre}/members','ListasController@miembros');
+Route::get('/{username}/listas/{nombre}/subscribers','ListasController@suscriptores');
+Route::get('/{username}/listas/borrar/{nombre}','ListasController@deleteLista');
+Route::post('/listas/add','ListasController@addLista');
+Route::get('/{username}/listas/{nombre}/addSub','ListasController@addSuscriptor');
+Route::get('/{username}/listas/{nombre}/removeSub','ListasController@removeSuscriptor');
+Route::get('/{username}/listas/{nombre}/addMiembro','ListasController@addMiembro');
+Route::get('/{username}/listas/{nombre}/removeMiembro','ListasController@removeMiembro');
+Route::post('/listas/{id}/update','ListasController@updateLista');

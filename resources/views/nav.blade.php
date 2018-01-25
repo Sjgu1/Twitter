@@ -105,7 +105,7 @@
                                                 </a>
                                             </li>
                                             <li data-name="lists" role="presentation">
-                                                <a class="js-nav" href="/{{Auth::user()->avatar}}/lists" data-nav="all_lists" role="menuitem">
+                                                <a class="js-nav" href="/{{Auth::user()->username}}/listas" data-nav="all_lists" role="menuitem">
                                                 <span class="DashUserDropdown-linkIcon Icon Icon--medium Icon--list"></span>Listas
                                                 </a>
                                             </li>
@@ -296,7 +296,7 @@
 	<!-- Fin Modal mensajes --> 
     <!-- modal conversacion -->
     @foreach($convers as $conver)
-    <div class="modal fade modal is-autoPosition" id="{{$conver->id}}" role="dialog" style="top: 5%; left: 415px; position: absolute;width: 45vw; height: fit-content; z-index: 8000;" aria-labelledby="dm_dialog-header">
+    <div class="modal fade modal is-autoPosition" id="{{$conver->id}}" role="dialog" style="top: 5%; left: 415px; position: absolute;width: 45vw; height: fit-content;" aria-labelledby="dm_dialog-header">
         <div class="js-first-tabstop" tabindex="0"></div>
         <div class="DMActivity DMInbox js-ariaDocument u-chromeOverflowFix DMActivity--open" role="document">
                 
