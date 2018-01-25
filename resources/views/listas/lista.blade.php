@@ -580,12 +580,39 @@ s,
 					</div>
 					<div class="follow-card-footer">
 						<div class="follow-bar js-list-actions">
-							<button class="EdgeButton EdgeButton--secondary EdgeButton--medium js-edit-list-action js-tooltip" data-screen-name="{{$lista->usuario->username}}" data-list-id="955887967251451904" data-toggle="modal" data-target="#editar" title="Editar">
+            @if($user->id==Auth::id())
+							<button class="EdgeButton EdgeButton--secondary EdgeButton--medium js-edit-list-action js-tooltip" data-screen-name="{{$lista->usuario->username}}" data-list-id="955887967251451904" data-toggle="collapse" data-target="#editar" title="Editar">
               Editar
             </button>
-							<button class="EdgeButton EdgeButton--secondary EdgeButton--medium js-delete-list-action js-tooltip" data-screen-name="{{$lista->usuario->username}}" data-list-id="955887967251451904" data-toggle="modal" data-target="#prueba" data-original-title="Eliminar">
+							<a class="EdgeButton EdgeButton--secondary EdgeButton--medium js-delete-list-action js-tooltip" data-screen-name="{{$lista->usuario->username}}" data-list-id="955887967251451904"  data-original-title="Eliminar" href="{{ action('ListasController@deleteLista', ['username'=>$user->username, 'nombre'=>$lista->nombre]) }}">
               Eliminar
-            </button>
+            </a>
+            @else
+            <?php $comprobacion=false ?>
+            @foreach($lista->suscritos as $suscrito)
+              @if(Auth::id()==$suscrito->id)
+              <?php $comprobacion=true ?>
+              @break
+              @endif
+              @endforeach
+            @if($comprobacion== false)
+            <a class="EdgeButton EdgeButton--secondary EdgeButton--medium subscribe-btn js-subscribe-list-action
+              js-follow-list-action is-unsubscribed
+              " data-screen-name="{{$user->username}}" href="{{ action('ListasController@addSuscriptor', ['username'=>$user->username, 'nombre'=>$lista->nombre]) }}" data-list-id="955888516982099968">
+            @else
+            <a class="EdgeButton EdgeButton--secondary EdgeButton--medium subscribe-btn js-subscribe-list-action
+            js-unfollow-list-action is-subscribed" data-screen-name="{{$user->username}}" href="{{ action('ListasController@removeSuscriptor', ['username'=>$user->username, 'nombre'=>$lista->nombre]) }}" data-list-id="955888516982099968">
+            @endif
+ 
+            <div class="subscribe-text">
+              <span class="icon subscribe-text"></span>
+              Suscríbete
+            </div>
+            <div class="remove-text">
+              Eliminar subscripción
+            </div>
+          </a>
+            @endif
 						</div>
 					</div>
 				</div>
@@ -635,7 +662,7 @@ s,
 								</ul>
 							</div>
               @if($user->id==Auth::id())
-							<button type="button" class="btn-link js-create-list-button"  data-element-term="create_list_button" >Crear nueva lista</button>
+							<button data-toggle="collapse" data-target="#nueva" type="button" class="btn-link js-create-list-button"  data-element-term="create_list_button" >Crear nueva lista</button>
               @endif
             </div>
 					</div>
@@ -648,6 +675,11 @@ s,
 					</div>
 				</div>
         @if($lista->miembros->count()==0)
+        @if($user->id!=Auth::id())
+          <div class="stream-end-inner">
+          <p>Esta lista no tiene tweets todavía. Pero probablemente pronto lo hará.</p>
+          </div>
+          @else
 				<div class="stream-container">
 					<div class="stream" data-component-context="stream">
 						<div class="component" data-component-context="add_people">
@@ -667,6 +699,207 @@ s,
 							</div>
 						</div><!--container-->
             @endif
+            @else
+            <div class="stream-container" data-max-position="" data-min-position="0">
+              <div class="stream-item js-new-items-bar-container"></div>
+              <div class="stream">
+                <ol class="stream-items js-navigable-stream" id="stream-items-id">
+                @foreach ($tweets as $tweet)
+						<li class=" stream-item ">
+							<div type="button" class="tweet  js-profile-popup-actionable dismissible-content original-tweet js-original-tweet has-cards cards-forward">
+								<div class="context">@if($tweet->esRT == true)
+									<div class="tweet-context with-icn"> <span class="Icon Icon--small Icon--retweeted"></span>
+										<span class="js-retweet-text">
+                                                    <a class="pretty-link js-user-profile-link" href="/{{$tweet->userRT->username}}" data-user-id="81577367" rel="noopener"><b>{{$tweet->userRT->username}}</b></a> retwitteó
+                                                        </span>
+									</div>@elseif($tweet->esLike == true)
+									<div class="tweet-context with-icn"> <span class="Icon Icon--small Icon--heartBadge"></span>
+										<span class="js-like-text">
+                                                    <a class="pretty-link js-user-profile-link" href="/{{$tweet->userLike->username}}" data-user-id="81577367" rel="noopener"><b>{{$tweet->userLike->username}}</b></a> indicó que le gusta
+                                                        </span>
+									</div>@endif</div>
+								<div class="content">
+									<div class="stream-item-header"> <a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/{{$tweet->user->username}}">
+                                                    <img class="avatar js-action-profile-avatar" src="{{$tweet->user->avatar }}" alt="">
+                                                    <span class="FullNameGroup">
+                                                    <strong class="fullname show-popup-with-id u-textTruncate " data-aria-label-part="">{{$tweet->user->name}}</strong><span>‏</span><span class="UserBadges"></span><span class="UserNameBreak">&nbsp;</span></span>
+                                                    <span class="username u-dir u-textTruncate" dir="ltr" data-aria-label-part="">@<b>{{$tweet->user->name}}</b></span>
+                                                </a>
+										<small class="time">
+                                                <a href="" class="tweet-timestamp js-permalink js-nav js-tooltip" data-original-title="{{$tweet->fecha}}"><span data-long-form="true" aria-hidden="true">{{  \Carbon\Carbon::parse($tweet->fecha)->diffForHumans(null, true)  }}</span></a>
+                                                </small>
+										@if (Auth::user()->id != $tweet->user->id)
+										<div class="ProfileTweet-action ProfileTweet-action--more js-more-ProfileTweet-actions" style="visibility: hidden;">
+											<div class="dropdown">
+												<button class="ProfileTweet-actionButton u-textUserColorHover dropdown-toggle js-dropdown-toggle" type="button" aria-haspopup="true">
+													<div class="IconContainer js-tooltip" title="Más"> <span class="Icon Icon--caretDownLight Icon--small"></span>
+														<span class="u-hiddenVisually">Más</span>
+													</div>
+												</button>
+												<div class="dropdown-menu is-autoCentered">
+													<div class="js-first-tabstop" tabindex="0"></div>
+													<div class="dropdown-caret">
+														<div class="caret-outer"></div>
+														<div class="caret-inner"></div>
+													</div>
+													<ul tabindex="-1" role="menu" aria-labelledby="menu-1" aria-hidden="false">
+														<li class="js-actionDelete" role="presentation"> <a href=" {{ action('HomeController@removeTweet', ['tweet'=>$tweet->id]) }}" type="button" class="dropdown-link" style="min-width:-webkit-fill-available;" role="menuitem">Eliminar Tweet</a>
+														</li>
+													</ul>
+													<div class="js-last-tabstop" tabindex="0"></div>
+												</div>
+											</div>@else
+											<div class="ProfileTweet-action ProfileTweet-action--more js-more-ProfileTweet-actions">
+												<div class="dropdown">
+													<button class="ProfileTweet-actionButton u-textUserColorHover dropdown-toggle js-dropdown-toggle" type="button" aria-haspopup="true">
+														<div class="IconContainer js-tooltip" title="Más"> <span class="Icon Icon--caretDownLight Icon--small"></span>
+															<span class="u-hiddenVisually">Más</span>
+														</div>
+													</button>
+													<div class="dropdown-menu is-autoCentered">
+														<div class="js-first-tabstop" tabindex="0"></div>
+														<div class="dropdown-caret">
+															<div class="caret-outer"></div>
+															<div class="caret-inner"></div>
+														</div>
+														<ul tabindex="-1" role="menu" aria-labelledby="menu-1" aria-hidden="false">
+															<li class="js-actionDelete" role="presentation"> <a href=" {{ action('HomeController@removeTweet', ['tweet'=>$tweet->id]) }}" type="button" class="dropdown-link" style="min-width:-webkit-fill-available;" role="menuitem">Eliminar Tweet</a>
+															</li>
+														</ul>
+														<div class="js-last-tabstop" tabindex="0"></div>
+													</div>
+												</div>@endif</div>
+										</div>
+										<div class="js-tweet-text-container" onclick="redirigir('{{$tweet->user->username}}', '{{$tweet->id}}')">
+											<p class="TweetTextSize  js-tweet-text tweet-text" lang="es" data-aria-label-part="0">{{$tweet->mensaje}}</p>
+										</div>
+										@if($tweet->multimedia != null && $tweet->multimedia != ""  )
+										<div class="AdaptiveMediaOuterContainer">
+											<div class="AdaptiveMedia is-square">
+											<div class="AdaptiveMedia-container">
+												<div class="AdaptiveMedia-singlePhoto" style="padding-top: calc(0.75 * 100% - 0.5px);">
+											<div class="AdaptiveMedia-photoContainer js-adaptive-photo " data-image-url="{{$tweet->multimedia}}" data-element-context="platform_photo_card" style="background-color:rgba(46,42,64,1.0);" data-dominant-color="[46,42,64]" loaded="true">
+										<img data-aria-label-part="" src="{{$tweet->multimedia}}" alt="" style="width: 100%; top: -0px;">
+										</div>
+
+
+										</div>
+											</div>
+											</div>
+										</div>
+										@endif
+										@if($tweet->esRespuesta != null)
+										<div class="QuoteTweet u-block js-tweet-details-fixer" onclick="redirigir('{{$tweet->esRespuesta->user->username}}','{{$tweet->esRespuesta->id}}')">
+											<div class="QuoteTweet-container">
+												<a class="QuoteTweet-link js-nav" href="/{{$tweet->esRespuesta->user->username}}/status/{{$tweet->esRespuesta->id}}" aria-hidden="true"></a>
+												<div class="QuoteTweet-innerContainer u-cf js-permalink js-media-container" data-item-type="tweet" data-screen-name="jarbochov" data-user-id="683" href="/{{$tweet->esRespuesta->user->username}}/status/{{$tweet->esRespuesta->id}}" tabindex="0">
+													<div class="tweet-content">
+														<div class="QuoteTweet-authorAndText u-alignTop">
+															<div class="QuoteTweet-originalAuthor u-cf u-textTruncate stream-item-header account-group js-user-profile-link"> <b class="QuoteTweet-fullname u-linkComplex-target">{{$tweet->esRespuesta->user->name}}</b><span class="UserBadges"></span><span class="UserNameBreak">&nbsp;</span><span class="username u-dir u-textTruncate" dir="ltr">@<b>{{$tweet->esRespuesta->user->username}}</b></span>
+															</div>
+															<div class="ReplyingToContextBelowAuthor" data-aria-label-part="">En respuesta a <span class="username u-dir u-textTruncate" dir="ltr">@<b>{{$tweet->user->username}}</b></span>
+															</div>
+															<div class="QuoteTweet-text tweet-text u-dir" lang="en" data-aria-label-part="2" dir="ltr">{{$tweet->esRespuesta->mensaje}}</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>@endif
+										<script>
+											function redirigir(usuario, tweet){
+											                                            window.location.href = "/"+usuario+"/status/"+tweet
+											
+											                                        }
+										</script>
+										<div class="stream-item-footer">
+											<div class="ProfileTweet-actionList js-actions" role="group" aria-label="Acciones del Tweet">
+												<div class="ProfileTweet-action ProfileTweet-action--reply"> <span class="ProfileTweet-actionButton js-actionButton js-actionReply" data-modal="ProfileTweet-reply" type="button" aria-describedby="profile-tweet-action-reply-count-aria-951439183674998785">
+                                                <div class="IconContainer js-tooltip">
+                                                <span class="Icon Icon--medium Icon--reply"></span>
+												</div> <span class="ProfileTweet-actionCount">
+                                                    <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">
+                                                        <!-- Poner aqui el numero de respuestas -->{{$tweet->respuestas->count()}}
+
+                                                    </span>
+												</span>
+												</span>
+											</div>
+											<div class="ProfileTweet-action ">
+											<?php $haRetwiteado=false ?>
+
+											@foreach($conectado->retweets as $reTweetUsuario)
+												<?php $haRetwiteado=false ?>
+												@if($tweet->id == $reTweetUsuario->id)
+												<?php $haRetwiteado=true ?>
+												@break haRetwiteado 
+												@endif 
+												@endforeach 
+												@if($haRetwiteado == false)
+												<a href="{{ action('HomeController@addRT', ['tweet'=>$tweet->id]) }}" class="ProfileTweet-actionButton" data-modal="ProfileTweet-retweet" type="button" aria-describedby="profile-tweet-action-retweet-count-aria-951439183674998785">
+													<div class="IconContainer js-tooltip" data-original-title="Retwittear"> <span class="Icon Icon--medium Icon--retweet"></span>
+														<span class="u-hiddenVisually">Retwittear</span>
+													</div> <span class="ProfileTweet-actionCount">
+                                                    <span class="ProfileTweet-actionCountForPresentation" aria-hidden="tue" >{{$tweet->retweetsUsers()->count()}}
+                                                    </span>
+													</span>
+												</a>@else
+												<a href="{{ action('HomeController@removeRT', ['tweet'=>$tweet->id]) }}" class="ProfileTweet-actionButton" style="color:#17bf63;" data-modal="ProfileTweet-retweet" type="button" aria-describedby="profile-tweet-action-retweet-count-aria-951439183674998785">
+													<div class="IconContainer js-tooltip" data-original-title="Deshacer Retweet"> <span class="Icon Icon--medium Icon--retweet"></span>
+														<span class="u-hiddenVisually">Deshacer Retweet</span>
+													</div> <span class="ProfileTweet-actionCount">
+                                                    <span class="ProfileTweet-actionCountForPresentation" aria-hidden="tue" style="color:#17bf63;" >{{$tweet->retweetsUsers()->count()}}
+                                                    </span>
+													</span>
+												</a>@endif</div>
+											<div class="ProfileTweet-action">
+												<?php $haDadoLike=false ?>@foreach($conectado->likes as $likesUsuario)
+												<?php $haDadoLike=false ?>@if($tweet->id == $likesUsuario->id)
+												<?php $haDadoLike=true ?>@break @endif @endforeach @if($haDadoLike == false)
+												<a href="{{ action('HomeController@addLike', ['tweet'=>$tweet->id]) }}" class="ProfileTweet-actionButton " type="button" aria-describedby="profile-tweet-action-favorite-count-aria-951439183674998785">
+													<div class="IconContainer js-tooltip" data-original-title="Me gusta"> <span role="presentation" class="Icon Icon--heart Icon--medium"></span>
+														<div class="HeartAnimation"></div> <span class="u-hiddenVisually">Me gusta</span>
+													</div> <span class="ProfileTweet-actionCount ProfileTweet-actionCount--isZero">
+                                                <span class="ProfileTweet-actionCountForPresentation" aria-hidden="true">{{$tweet->likesUsers()->count()}}
+
+                                                </span>
+													</span>
+												</a>@else
+												<a style="color:#e0245e;" href="{{ action('HomeController@removeLike', ['tweet'=>$tweet->id]) }}" class="ProfileTweet-actionButton " type="button" aria-describedby="profile-tweet-action-favorite-count-aria-951439183674998785">
+													<div style="color:#e0245e;" class="IconContainer js-tooltip" data-original-title="Deshacer me gusta"> <span style="color:#e0245e;" role="presentation" class="Icon Icon--heart Icon--medium"></span>
+														<div class="HeartAnimation" style=" background-position: right;"></div> <span class="u-hiddenVisually">Deshacer me gusta</span>
+													</div> <span class="ProfileTweet-actionCount ProfileTweet-actionCount--isZero">
+                                                <span  style="color:#e0245e;" class="ProfileTweet-actionCountForPresentation" aria-hidden="true">
+                                                 <!-- Poner aqui el numero de megustas -->{{$tweet->likesUsers()->count()}}
+
+                                                </span>
+													</span>
+												</a>@endif</div>
+										</div>
+									</div>
+								</div>
+						</li>@endforeach
+                </ol>
+                <div class="stream-footer ">
+                  <div class="timeline-end has-items has-more-items">
+                    <div class="stream-end">
+                      <div class="stream-end-inner">
+                        <span class="Icon Icon--large Icon--logo"></span>
+                        <p class="empty-text"></p>
+                        <p>
+                          <button type="button" class="btn-link back-to-top hidden" style="display: inline-block;">Volver arriba ↑</button>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="stream-loading">
+                      <div class="stream-end-inner">
+                        <span class="spinner" title="Cargando..."></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            @endif
 					</div>
 					<div class="dashboard dashboard-right">
 						<div class="component newest-members-module roaming-module" data-component-context="newest_list_members">
@@ -675,10 +908,79 @@ s,
 									<div class="flex-module-header">
 										<h3>Miembros añadidos recientemente</h3>
 										<small class="view-all">· 
-											<a href="/{{$lista->usuario->username}}/listas/{{$lista->nombre}}/members" data-nav="newest_list_members" class="js-nav">Ver todos</a>
+											<button href="/{{$lista->usuario->username}}/listas/{{$lista->nombre}}/members" data-nav="newest_list_members" class="js-nav">Ver todos</button>
 										</small>
 									</div>
-									<div class="flex-module-inner js-recent-members"></div>
+									<div class="flex-module-inner js-recent-members">
+                  @foreach($recientes as $reciente)
+                  <div class="UserSmallListItem js-account-summary account-summary js-actionable-user" data-user-id="2654164081" data-feedback-token="" data-impression-id="">
+                    <div class="UserSmallListItem-context">
+                    </div>
+
+
+                    <div class="content">
+                      <a class="account-group js-recommend-link js-user-profile-link user-thumb" href="/{{$reciente->username}}" data-user-id="2654164081" rel="noopener">
+                        
+                        <img class="avatar js-action-profile-avatar " src="{{$reciente->avatar}}" alt="">
+                        <span class="account-group-inner" data-user-id="2654164081">
+                          <strong class="fullname">{{$reciente->name}}</strong><span class="UserBadges"></span><span class="UserNameBreak">&nbsp;</span><span class="username u-dir u-textTruncate" dir="ltr">@<b>{{$reciente->username}}</b></span>
+                        </span>
+                      </a>
+
+                          
+                      <?php $loSigo=false ?>
+                    @foreach(Auth::user()->seguidos as $siguiendo)
+                    @if($siguiendo->id == $reciente->id )
+                    <?php $loSigo=true ?>
+                    @break
+                    @endif
+                    @endforeach
+                    @if($loSigo!=true)
+                      <div class="user-actions btn-group following not-muting including  " data-user-id="2654164081" data-screen-name="{{$reciente->username}}" data-name="{{$reciente->name}}" data-protected="false">
+                    @else
+                    <div class="user-actions btn-group not-following not-muting including  " data-user-id="2654164081" data-screen-name="{{$reciente->username}}" data-name="{{$reciente->name}}" data-protected="false"> 
+                    @endif    
+
+                    <span class="user-actions-follow-button js-follow-btn follow-button">
+                    <button type="button" class="
+                      EdgeButton
+                      EdgeButton--secondary
+                      EdgeButton--small 
+                      
+                      button-text
+                      follow-text">
+                        <span aria-hidden="true">Seguir</span>
+                        <span class="u-hiddenVisually">Seguir a <span class="username u-dir u-textTruncate" dir="ltr">@<b>{{$reciente->username}}</b></span></span>
+                    </button>
+                    <button type="button" class="
+                      EdgeButton
+                      EdgeButton--primary
+                      EdgeButton--small 
+                      
+                      button-text
+                      following-text">
+                        <span aria-hidden="true">Siguiendo</span>
+                        <span class="u-hiddenVisually">Siguiendo a <span class="username u-dir u-textTruncate" dir="ltr">@<b>{{$reciente->username}}</b></span></span>
+                    </button>
+                    <button type="button" class="
+                      EdgeButton
+                      EdgeButton--danger
+                      EdgeButton--small 
+                      
+                      button-text
+                      unfollow-text">
+                        <span aria-hidden="true">Dejar de seguir</span>
+                        <span class="u-hiddenVisually">Dejar de seguir a <span class="username u-dir u-textTruncate" dir="ltr">@<b>{{$reciente->username}}</b></span></span>
+                    </button>
+                  </span>
+
+
+                  </div>
+
+                    </div>
+                  </div>
+                  @endforeach
+                  </div><!--recent members-->
 								</div>
 							</div>
 						</div>
@@ -687,48 +989,79 @@ s,
 			</div>
      <!--modal editar-->
       
-	<div class="modal fade modal-medium draggable" id="editar" role="dialog" aria-labelledby="list-operations-dialog-header" style="top: 90px; left: 415px;position: absolute;">
+	<div class="collapse " id="editar" role="dialog" aria-labelledby="list-operations-dialog-header" style="top: 90px; left: 415px;position: absolute;z-index:9000">
+  <div class="js-first-tabstop" tabindex="0"></div>
+  <div class="modal-content" role="document">
+    <div class="modal-header">
+      <h3 class="modal-title" id="list-operations-dialog-header">Editar lista</h3>
+    </div>
+    <div class="modal-body">
+      <div class="list-editor">
+        <div class="field">
+          <label class="t1-label" for="list-name">Nombre de la lista</label>
+          <form class="t1-form" action="/listas/{{$lista->id}}/update" method="POST">
+          {!! csrf_field() !!}
+          <input id="editar-nombre" type="text" class="text" name="nombre" value="{{$lista->nombre}}">
+          </div>
+          <hr>
+            <div class="field">
+              <label class="t1-label" for="list-description">Descripción</label>
+              <textarea id="editar-descripcion" name="descripcion">{{$lista->descripcion}}</textarea>
+              <span class="help-text">Menos de 100 caracteres, opcional</span>
+            </div>
+            <hr>
+              <fieldset class="field">
+                
+                  </fieldset>
+                  <hr>
+                    <div class="list-editor-save">
+                      <button  type="submit" class="EdgeButton EdgeButton--secondary update-list-button" data-list-id="955887967251451904" data-operation="update">Guardar lista</button>
+                    </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button data-toggle="collapse" data-target="#editar" type="button" class="modal-btn modal-close js-close" aria-controls="list-operations-dialog-dialog">
+                <span class="Icon Icon--close Icon--medium">
+                  <span class="visuallyhidden">Cerrar</span>
+                </span>
+              </button>
+              <div class="js-last-tabstop" tabindex="0"></div>
+            </div>
+          
+    <!-- fin-->
+     <!--modal crear-->
+      
+     <div class="collapse " id="nueva" role="dialog" aria-labelledby="list-operations-dialog-header" style="top: 90px; left: 415px;position: absolute;z-index:9000">
 		<div class="js-first-tabstop" tabindex="0"></div>
 		<div class="modal-content" role="document">
 			<div class="modal-header">
-				<h3 class="modal-title" id="list-operations-dialog-header">Editar lista</h3>
+				<h3 class="modal-title" id="list-operations-dialog-header">Crear una nueva lista</h3>
 			</div>
 			<div class="modal-body">
 				<div class="list-editor">
-					<div class="field">
+					<div class="field" >
 						<label class="t1-label" for="list-name">Nombre de la lista</label>
-						<input id="list-name" type="text" class="text" name="name" value="">
+						<input  id="nuevo-nombre" type="text" class="text" name="name" value="">
 						</div>
 						<hr>
-							<div class="field">
+							<div class="field" >
 								<label class="t1-label" for="list-description">Descripción</label>
-								<textarea id="list-description" name="description"></textarea>
+								<textarea  id="nueva-descripcion" name="description"></textarea>
 								<span class="help-text">Menos de 100 caracteres, opcional</span>
 							</div>
 							<hr>
 								<fieldset class="field">
-									<legend class="t1-legend">Privacidad</legend>
-									<div class="options">
-										<label class="t1-label" for="list-public-radio">
-											<input class="radio" type="radio" name="mode" id="list-public-radio" value="" checked="checked">
-												<b>Pública</b> · Cualquiera puede seguir esta lista
-      
-											</label>
-											<label class="t1-label" for="list-private-radio">
-												<input class="radio" type="radio" name="mode" id="list-private-radio" value="">
-													<b>Privada</b> · Solo tú puedes acceder a esta lista
-      
-												</label>
-											</div>
+									
 										</fieldset>
 										<hr>
 											<div class="list-editor-save">
-												<button type="button" class="EdgeButton EdgeButton--secondary update-list-button" data-list-id="955887967251451904" data-operation="update" disabled="">Guardar lista</button>
+												<button onClick="nuevaLista()" type="button" class="EdgeButton EdgeButton--secondary update-list-button" data-list-id="955887967251451904" data-operation="update">Guardar lista</button>
 											</div>
 										</div>
 									</div>
 								</div>
-								<button type="button" class="modal-btn modal-close js-close" aria-controls="list-operations-dialog-dialog">
+								<button data-toggle="collapse" data-target="#nueva" type="button" class="modal-btn modal-close js-close" aria-controls="list-operations-dialog-dialog">
 									<span class="Icon Icon--close Icon--medium">
 										<span class="visuallyhidden">Cerrar</span>
 									</span>
@@ -737,23 +1070,39 @@ s,
 							</div>
 						
       <!-- fin-->
-        
-<!-- Modal -->
-<div class="modal fade" id="prueba" role="dialog">
-	<div class="modal-dialog">
-		<!-- Modal content-->
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Modal Header</h4>
-			</div>
-			<div class="modal-body">
-				<p>Some text in the modal.</p>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			</div>
-		</div>
-	</div>
-</div>
+      <script type="text/javascript">
+				function nuevaLista() {         	
+				    $.ajaxSetup({
+				        headers: {
+				            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				        }
+				    });
+				    
+				    $.post("/listas/add", {
+				        nombre: document.getElementById('nuevo-nombre').value,
+						    descripcion: document.getElementById('nueva-descripcion').value
+
+				    });         
+				
+				    window.location.reload(true);
+				         
+				 }
+         function updateLista(nombre) {         	
+				    $.ajaxSetup({
+				        headers: {
+				            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				        }
+				    });
+				    
+				    $.post("/listas/"+ nombre + "/update", {
+				        nombre: document.getElementById('editar-nombre').value,
+						    descripcion: document.getElementById('editar-descripcion').value
+
+				    });         
+				
+            //window.location.reload(true);
+				         
+				 }
+			</script>
+     
 @endsection

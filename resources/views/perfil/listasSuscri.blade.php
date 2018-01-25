@@ -280,7 +280,7 @@
                                                 <p class="ListCreationModule-description">Una lista es un grupo administrado de usuarios de Twitter y una forma genial de organizar tus intereses. 
                                                 </p>
                                                 <div class="ListCreationModule-action">
-                                                    <button type="button" class="EdgeButton EdgeButton--secondary EdgeButton--small " data-element-term="create_list_button" data-modal="list-new">
+                                                    <button type="button" data-toggle="collapse" data-target="#nueva" class="EdgeButton EdgeButton--secondary EdgeButton--small " data-element-term="create_list_button" data-modal="list-new">
                                                     Crear nueva lista
                                                 </button>
                                                 </div>
@@ -347,4 +347,62 @@
 					
 				</div>
 			</div>
+			<!--modal crear-->
+      
+			<div class="collapse " id="nueva" role="dialog" aria-labelledby="list-operations-dialog-header" style="top: 90px; left: 415px;position: absolute;z-index:9000">
+		<div class="js-first-tabstop" tabindex="0"></div>
+		<div class="modal-content" role="document">
+			<div class="modal-header">
+				<h3 class="modal-title" id="list-operations-dialog-header">Crear una nueva lista</h3>
+			</div>
+			<div class="modal-body">
+				<div class="list-editor">
+					<div class="field" >
+						<label class="t1-label" for="list-name">Nombre de la lista</label>
+						<input  id="nuevo-nombre" type="text" class="text" name="name" value="">
+						</div>
+						<hr>
+							<div class="field" >
+								<label class="t1-label" for="list-description">Descripción</label>
+								<textarea  id="nueva-descripcion" name="description"></textarea>
+								<span class="help-text">Menos de 100 caracteres, opcional</span>
+							</div>
+							<hr>
+								<fieldset class="field">
+									
+										</fieldset>
+										<hr>
+											<div class="list-editor-save">
+												<button onClick="nuevaLista()" type="button" class="EdgeButton EdgeButton--secondary update-list-button" data-list-id="955887967251451904" data-operation="update">Guardar lista</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<button data-toggle="collapse" data-target="#nueva" type="button" class="modal-btn modal-close js-close" aria-controls="list-operations-dialog-dialog">
+									<span class="Icon Icon--close Icon--medium">
+										<span class="visuallyhidden">Cerrar</span>
+									</span>
+								</button>
+								<div class="js-last-tabstop" tabindex="0"></div>
+							</div>
+						
+      <!-- fin-->
+	  <script type="text/javascript">
+				function nuevaLista() {         	
+				    $.ajaxSetup({
+				        headers: {
+				            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				        }
+				    });
+				    
+				    $.post("/listas/add", {
+				        nombre: document.getElementById('nuevo-nombre').value,
+						    descripcion: document.getElementById('nueva-descripcion').value
+
+				    });         
+				
+				    window.location.reload(true);
+				         
+				 }
+	</script>
 @endsection

@@ -22,6 +22,6 @@ class Lista extends Model
 
     public function suscritos()
     {
-        return $this->belongsToMany('App\User', 'lista_miembro', 'id_user', 'id_lista');
+        return $this->belongsToMany('App\User', 'lista_suscrito', 'id_user', 'id_lista');
     }
 }

@@ -1,7 +1,7 @@
 @extends('layouts.app') @section('content')
 <div id="page-outer">
 	<div id="page-container" class="AppContent wrapper wrapper-list">
-		<style id="user-style-AndreVega95">
+		<!--<style id="user-style-AndreVega95">
 
 
 
@@ -548,7 +548,7 @@ s,
   }
 
 </style>
-		<style id="user-style-AndreVega95-header-img" class="js-user-style-header-img"></style>
+		<style id="user-style-AndreVega95-header-img" class="js-user-style-header-img"></style>-->
 		<div class="dashboard dashboard-left">
 			<div class="module follow-card list-follow-card js-list-details component is-subscribed" data-component-context="list_follow_card" data-list-id="955887967251451904">
 				<div class="flex-module">
@@ -579,12 +579,39 @@ s,
 					</div>
 					<div class="follow-card-footer">
 						<div class="follow-bar js-list-actions">
-							<button class="EdgeButton EdgeButton--secondary EdgeButton--medium js-edit-list-action js-tooltip" data-screen-name="{{$lista->usuario->username}}" data-list-id="955887967251451904" title="Editar">
-                            Editar
-                            </button>
-							<button class="EdgeButton EdgeButton--secondary EdgeButton--medium js-delete-list-action js-tooltip" data-screen-name="{{$lista->usuario->username}}" data-list-id="955887967251451904" data-original-title="Eliminar">
-                            Eliminar
-                            </button>
+            @if($user->id==Auth::id())
+            <button class="EdgeButton EdgeButton--secondary EdgeButton--medium js-edit-list-action js-tooltip" data-screen-name="{{$lista->usuario->username}}" data-list-id="955887967251451904" data-toggle="collapse" data-target="#editar" title="Editar">
+            Editar
+          </button>
+            <a class="EdgeButton EdgeButton--secondary EdgeButton--medium js-delete-list-action js-tooltip" data-screen-name="{{$lista->usuario->username}}" data-list-id="955887967251451904"  data-original-title="Eliminar" href="{{ action('ListasController@deleteLista', ['username'=>$user->username, 'nombre'=>$lista->nombre]) }}">
+            Eliminar
+          </a>
+          @else
+          <?php $comprobacion=false ?>
+            @foreach($lista->suscritos as $suscrito)
+              @if(Auth::id()==$suscrito->id)
+              <?php $comprobacion=true ?>
+              @break
+              @endif
+              @endforeach
+            @if($comprobacion== false)
+            <button class="EdgeButton EdgeButton--secondary EdgeButton--medium subscribe-btn js-subscribe-list-action
+              js-follow-list-action is-unsubscribed
+              " data-screen-name="{{$user->username}}" href="{{ action('ListasController@addSuscriptor', ['username'=>$user->username, 'nombre'=>$lista->nombre]) }}" data-list-id="955888516982099968">
+            @else
+            <button class="EdgeButton EdgeButton--secondary EdgeButton--medium subscribe-btn js-subscribe-list-action
+            js-unfollow-list-action is-subscribed" data-screen-name="{{$user->username}}" href="{{ action('ListasController@removeSuscriptor', ['username'=>$user->username, 'nombre'=>$lista->nombre]) }}" data-list-id="955888516982099968">
+            @endif
+ 
+            <div class="subscribe-text">
+              <span class="icon subscribe-text"></span>
+              Suscríbete
+            </div>
+            <div class="remove-text">
+              Eliminar subscripción
+            </div>
+          </button>
+          @endif
 						</div>
 					</div>
 				</div>
@@ -634,7 +661,7 @@ s,
 								</ul>
 							</div>
                             @if($user->id==Auth::id())
-							<button type="button" class="btn-link js-create-list-button" data-modal="list-new" data-element-term="create_list_button">Crear nueva lista</button>
+							<button type="button" data-toggle="collapse" data-target="#nueva" class="btn-link js-create-list-button" data-modal="list-new" data-element-term="create_list_button">Crear nueva lista</button>
                             @endif
                         </div>
 					</div>
@@ -646,7 +673,12 @@ s,
 						<h2 id="content-main-heading" class="js-timeline-title">Lista de suscriptores</h2>
 					</div>
 				</div>
-        @if($lista->miembros->count()==0)
+        @if($lista->suscritos->count()==0)
+          @if($user->id!=Auth::id())
+          <div class="stream-end-inner">
+          <p>Esta lista no tiene seguidores todavía. Pero probablemente pronto los tendrá.</p>
+          </div>
+          @else
 				<div class="stream-container">
 					<div class="stream" data-component-context="stream">
 						<div class="component" data-component-context="add_people">
@@ -666,6 +698,138 @@ s,
 							</div>
 						</div>
             @endif
+            @else
+            <div class="stream-container  js-request-more-stream-items" data-max-position="" data-min-position="0">
+              <div class="stream-item js-new-items-bar-container"></div>
+              <div class="stream">
+                <ol class="stream-items js-navigable-stream" id="stream-items-id">
+                @foreach($lista->suscritos as $miembro)
+                  <li class="js-stream-item stream-item stream-item
+                    " data-item-id="2654164081" id="stream-item-user-2654164081" data-item-type="user">
+                    <div class="account  js-actionable-user js-profile-popup-actionable " data-screen-name="{{$miembro->username}}" data-user-id="2654164081" data-name="{{$miembro->name}}" data-emojified-name="" data-feedback-token="" data-impression-id="">
+                    <?php $loSigo=false ?>
+                    @foreach(Auth::user()->seguidos as $siguiendo)
+                    @if($siguiendo->id == $miembro->id )
+                    <?php $loSigo=true ?>
+                    @break
+                    @endif
+                    @endforeach
+                    @if($loSigo!=true)
+                      <div class="user-actions btn-group following not-muting including  " data-user-id="2654164081" data-screen-name="{{$miembro->username}}" data-name="{{$miembro->name}}" data-protected="false">
+                    @else
+                    <div class="user-actions btn-group not-following not-muting including  " data-user-id="2654164081" data-screen-name="{{$miembro->username}}" data-name="{{$miembro->name}}" data-protected="false"> 
+                    @endif    
+                        <span class="user-actions-follow-button js-follow-btn follow-button">
+                          <button type="button" class="
+                        EdgeButton
+                        EdgeButton--secondary
+                        
+                        EdgeButton--medium 
+                        button-text
+                        follow-text">
+                            <span aria-hidden="true">Seguir</span>
+                            <span class="u-hiddenVisually">Seguir a 
+                              <span class="username u-dir u-textTruncate" dir="ltr">@
+                                <b>{{$miembro->username}}</b>
+                              </span>
+                            </span>
+                          </button>
+                          <button type="button" class="
+                        EdgeButton
+                        EdgeButton--primary
+                        
+                        EdgeButton--medium 
+                        button-text
+                        following-text">
+                            <span aria-hidden="true">Siguiendo</span>
+                            <span class="u-hiddenVisually">Siguiendo a 
+                              <span class="username u-dir u-textTruncate" dir="ltr">@
+                                <b>{{$miembro->username}}</b>
+                              </span>
+                            </span>
+                          </button>
+                          <button type="button" class="
+                        EdgeButton
+                        EdgeButton--danger
+                        
+                        EdgeButton--medium 
+                        button-text
+                        unfollow-text">
+                            <span aria-hidden="true">Dejar de seguir</span>
+                            <span class="u-hiddenVisually">Dejar de seguir a 
+                              <span class="username u-dir u-textTruncate" dir="ltr">@
+                                <b>{{$miembro->username}}</b>
+                              </span>
+                            </span>
+                          </button>
+                        </span>
+                        <div class="dropdown ">
+                          <button type="button" class="user-dropdown dropdown-toggle js-dropdown-toggle js-link js-tooltip btn plain-btn" title="Más acciones de usuario" aria-haspopup="true">
+                            <span class="user-dropdown-icon Icon Icon--dotsVertical Icon--medium">
+                              <span class="visuallyhidden">Acciones de usuario</span>
+                            </span>
+                          </button>
+                          <div class="dropdown-menu dropdown-menu--rightAlign is-autoCentered is-forceRight">
+                            <div class="dropdown-caret">
+                              <span class="caret-outer"></span>
+                              <span class="caret-inner"></span>
+                            </div>
+                            <ul>
+                              <li class="list-text not-blocked">
+                                <button type="button" class="dropdown-link">Añadir a la lista</button>
+                              </li>
+                              <li class="list-text not-blocked">
+                                <button type="button" class="dropdown-link">Quitar de la lista</button>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="activity-user-profile-content">
+                        <div class=" content">
+                          <div class="stream-item-header">
+                            <a class="account-group js-user-profile-link" href="/{{$miembro->username}}" rel="noopener">
+                              <img class="avatar js-action-profile-avatar  " src="{{$miembro->avatar}}" alt="" data-user-id="293967812">
+                                <strong class="fullname">{{$miembro->name}}</strong>
+                                <span class="UserBadges"></span>
+                                <span class="UserNameBreak">&nbsp;</span>
+                                <span class="username u-dir u-textTruncate" dir="ltr">@
+                                  <b>{{$miembro->username}}</b>
+                                </span>
+                              </a>
+                            </div>
+                            <p class="bio u-dir" dir="ltr"></p>
+                          </div>
+                        </div>
+                    </div>
+                  </li>
+                  @endforeach
+                </ol>
+                <div class="stream-footer" style="">
+                  <div class="timeline-end has-items">
+                    <div class="stream-end">
+                      <div class="stream-end-inner">
+                        <span class="Icon Icon--large Icon--logo"></span>
+                        <p class="empty-text">
+
+                              Esta lista no sigue a nadie todavía. Pero probablemente pronto lo hará.
+                          </p>
+                        <p>
+                          <button type="button" class="btn-link back-to-top hidden">Volver arriba ↑</button>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="stream-loading">
+                      <div class="stream-end-inner">
+                        <span class="spinner" title="Cargando..."></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <ol class="hidden-replies-container"></ol>
+              </div>
+            </div>
+            @endif
 					</div>
 					<div class="dashboard dashboard-right">
 						<div class="component newest-members-module roaming-module" data-component-context="newest_list_members">
@@ -684,4 +848,121 @@ s,
 					</div>
 				</div>
 			</div>
+           <!--modal editar-->
+      
+	<div class="collapse " id="editar" role="dialog" aria-labelledby="list-operations-dialog-header" style="top: 90px; left: 415px;position: absolute;z-index:9000">
+  <div class="js-first-tabstop" tabindex="0"></div>
+  <div class="modal-content" role="document">
+    <div class="modal-header">
+      <h3 class="modal-title" id="list-operations-dialog-header">Editar lista</h3>
+    </div>
+    <div class="modal-body">
+      <div class="list-editor">
+        <div class="field">
+          <label class="t1-label" for="list-name">Nombre de la lista</label>
+          <form class="t1-form" action="/listas/{{$lista->id}}/update" method="POST">
+          {!! csrf_field() !!}
+          <input id="editar-nombre" type="text" class="text" name="nombre" value="{{$lista->nombre}}">
+          </div>
+          <hr>
+            <div class="field">
+              <label class="t1-label" for="list-description">Descripción</label>
+              <textarea id="editar-descripcion" name="descripcion">{{$lista->descripcion}}</textarea>
+              <span class="help-text">Menos de 100 caracteres, opcional</span>
+            </div>
+            <hr>
+              <fieldset class="field">
+                
+                  </fieldset>
+                  <hr>
+                    <div class="list-editor-save">
+                      <button  type="submit" class="EdgeButton EdgeButton--secondary update-list-button" data-list-id="955887967251451904" data-operation="update">Guardar lista</button>
+                    </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button data-toggle="collapse" data-target="#editar" type="button" class="modal-btn modal-close js-close" aria-controls="list-operations-dialog-dialog">
+                <span class="Icon Icon--close Icon--medium">
+                  <span class="visuallyhidden">Cerrar</span>
+                </span>
+              </button>
+              <div class="js-last-tabstop" tabindex="0"></div>
+            </div>
+          
+    <!-- fin-->
+     <!--modal crear-->
+      
+     <div class="collapse " id="nueva" role="dialog" aria-labelledby="list-operations-dialog-header" style="top: 90px; left: 415px;position: absolute;z-index:9000">
+		<div class="js-first-tabstop" tabindex="0"></div>
+		<div class="modal-content" role="document">
+			<div class="modal-header">
+				<h3 class="modal-title" id="list-operations-dialog-header">Crear una nueva lista</h3>
+			</div>
+			<div class="modal-body">
+				<div class="list-editor">
+					<div class="field" >
+						<label class="t1-label" for="list-name">Nombre de la lista</label>
+						<input  id="nuevo-nombre" type="text" class="text" name="name" value="">
+						</div>
+						<hr>
+							<div class="field" >
+								<label class="t1-label" for="list-description">Descripción</label>
+								<textarea  id="nueva-descripcion" name="description"></textarea>
+								<span class="help-text">Menos de 100 caracteres, opcional</span>
+							</div>
+							<hr>
+								<fieldset class="field">
+									
+										</fieldset>
+										<hr>
+											<div class="list-editor-save">
+												<button onClick="nuevaLista()" type="button" class="EdgeButton EdgeButton--secondary update-list-button" data-list-id="955887967251451904" data-operation="update">Guardar lista</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<button data-toggle="collapse" data-target="#nueva" type="button" class="modal-btn modal-close js-close" aria-controls="list-operations-dialog-dialog">
+									<span class="Icon Icon--close Icon--medium">
+										<span class="visuallyhidden">Cerrar</span>
+									</span>
+								</button>
+								<div class="js-last-tabstop" tabindex="0"></div>
+							</div>
+						
+      <!-- fin-->
+      <script type="text/javascript">
+				function nuevaLista() {         	
+				    $.ajaxSetup({
+				        headers: {
+				            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				        }
+				    });
+				    
+				    $.post("/listas/add", {
+				        nombre: document.getElementById('nuevo-nombre').value,
+						    descripcion: document.getElementById('nueva-descripcion').value
+
+				    });         
+				
+				    window.location.reload(true);
+				         
+				 }
+         function updateLista(nombre) {         	
+				    $.ajaxSetup({
+				        headers: {
+				            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				        }
+				    });
+				    
+				    $.post("/listas/"+ nombre + "/update", {
+				        nombre: document.getElementById('editar-nombre').value,
+						    descripcion: document.getElementById('editar-descripcion').value
+
+				    });         
+				
+            //window.location.reload(true);
+				         
+				 }
+			</script>
 @endsection

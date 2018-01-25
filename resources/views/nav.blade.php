@@ -105,7 +105,7 @@
                                                 </a>
                                             </li>
                                             <li data-name="lists" role="presentation">
-                                                <a class="js-nav" href="/{{Auth::user()->avatar}}/lists" data-nav="all_lists" role="menuitem">
+                                                <a class="js-nav" href="/{{Auth::user()->username}}/listas" data-nav="all_lists" role="menuitem">
                                                 <span class="DashUserDropdown-linkIcon Icon Icon--medium Icon--list"></span>Listas
                                                 </a>
                                             </li>
