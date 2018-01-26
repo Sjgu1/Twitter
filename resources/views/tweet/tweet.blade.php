@@ -189,6 +189,7 @@
 															</button>
 														</div>
 														<div class="ProfileTweet-action ">
+														<?php $haRetwiteado=false ?>
                                                         @foreach(Auth::user()->retweets as $reTweetUsuario)
 															<?php $haRetwiteado=false ?>
                                                             @if($tweet->id == $reTweetUsuario->id)

@@ -393,6 +393,7 @@
 																		</span>
 																	</button>
 																</div>
+																<?php $haRetwiteado=false ?>
 																<div class="ProfileTweet-action ">@foreach($conectado->retweets()->get() as $reTweetUsuario)
 																	<?php $haRetwiteado=false ?>@if($tweet->id == $reTweetUsuario->id)
 																	<?php $haRetwiteado=true ?>@break @endif @endforeach @if($haRetwiteado == false)

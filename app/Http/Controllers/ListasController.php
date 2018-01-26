@@ -28,7 +28,7 @@ class ListasController extends Controller
        
         
         //$tweets = $lista->miembros->first()->tweets()->orderBy('fecha', 'desc')->with('user')->get();
-        $tweets = User::find($id)->tweets()->orderBy('fecha', 'desc')->with('user')->get();
+        $tweets = User::find($lista->usuario->id)->tweets()->orderBy('fecha', 'desc')->with('user')->get();
        
        
        $merge = $tweets;     

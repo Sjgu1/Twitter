@@ -13,7 +13,7 @@ class ListasTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('conversations')->delete();
+        DB::table('listas')->delete();
         $lista = new Lista([
             'nombre'=>'prueba',
             'descripcion'=>'lista de prueba'
@@ -24,9 +24,11 @@ class ListasTableSeeder extends Seeder
         ]);
         $user = User::where('email', 'andre@gmail.com')->first();
         $user2 = User::where('email', 'mario@gmail.com')->first();
+        $user3 = User::where('email', 'sergio@gmail.com')->first();
         $lista->usuario()->associate($user);
         $lista->save();
         $lista->miembros()->attach($user2);
+        $lista->suscritos()->attach($user2);
         $lista2->usuario()->associate($user);
         $lista2->save();
 

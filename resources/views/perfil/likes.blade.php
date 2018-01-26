@@ -252,7 +252,7 @@
 															<div onclick="redirigir('{{$tweet->user->username}}', '{{$tweet->id}}')" class="tweet js-stream-tweet js-actionable-tweet js-profile-popup-actionable dismissible-content original-tweet js-original-tweet has-cards cards-forward">
 																<div class="content">
 																	<div class="stream-item-header">
-																		<a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="">
+																		<a class="account-group js-account-group js-action-profile js-user-profile-link js-nav" href="/{{$tweet->user->username}}">
 																			<img class="avatar js-action-profile-avatar" src="{{$tweet->user->avatar }}" alt="">
 																				<span class="FullNameGroup">
 																					<strong class="fullname show-popup-with-id u-textTruncate " data-aria-label-part="">{{$tweet->user->name}}</strong>
@@ -406,6 +406,7 @@
 																						</button>
 																					</div>
 																					<div class="ProfileTweet-action " >
+																					<?php $haRetwiteado=false ?>
 																				@foreach($conectado->retweets()->get() as $reTweetUsuario)
 																				
 																						<?php $haRetwiteado=false ?>
