@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\User;
 use App\Lista;
+use Faker\Factory as Faker;
 
 class ListasTableSeeder extends Seeder
 {
@@ -14,7 +15,7 @@ class ListasTableSeeder extends Seeder
     public function run()
     {
         DB::table('listas')->delete();
-        $lista = new Lista([
+        /*$lista = new Lista([
             'nombre'=>'prueba',
             'descripcion'=>'lista de prueba'
         ]);
@@ -47,7 +48,25 @@ class ListasTableSeeder extends Seeder
         $lista->save();
         $lista->miembros()->attach($user2);
         $lista2->usuario()->associate($user);
-        $lista2->save();
+        $lista2->save();*/
         
+        $users = User::all();
+        foreach($users as $user){
+            $faker = Faker::create();
+            $num=range(1,User::all()->count());
+            shuffle($num);
+            
+            for ($i=0; $i<rand(2,3); $i++) { 
+
+                    $lista = new Lista([
+                        'nombre'=>$faker->word,
+                        'descripcion'=>$faker->word . ' ' . $faker->word
+                    ]);
+                    $lista->usuario()->associate($user);
+                    $lista->save();
+                
+            }  
+            
+        }
     }
 }

@@ -64,7 +64,7 @@
 						<div class="ProfileNav" role="navigation" data-user-id="293967812">
 							<ul class="ProfileNav-list">
 								<li class="ProfileNav-item ProfileNav-item--tweets">
-									<a class="ProfileNav-stat ProfileNav-stat--link u-borderUserColor u-textCenter js-tooltip js-nav" title="4 Tweets" data-nav="tweets" tabindex="0">	<span class="ProfileNav-label" aria-hidden="true">Tweets</span>
+									<a class="ProfileNav-stat ProfileNav-stat--link u-borderUserColor u-textCenter js-tooltip js-nav" title="4 Tweets" data-nav="tweets" href="/{{$user->username}}" tabindex="0">	<span class="ProfileNav-label" aria-hidden="true">Tweets</span>
 										<span class="u-hiddenVisually">Tweets, página actual.</span>
 										<span class="ProfileNav-value" data-count="4" data-is-compact="false">{{$user->tweets->count()}}</span>
 									</a>

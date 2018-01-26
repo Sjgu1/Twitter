@@ -90,7 +90,7 @@
 								<li class="ProfileNav-item ProfileNav-item--lists" data-more-item=".ProfileNav-dropdownItem--lists">
 									<a class="ProfileNav-stat ProfileNav-stat--link u-borderUserColor u-textCenter js-tooltip  js-nav u-textUserColor" title="{{$user->listas->count()}} Lista" data-nav="all_lists" href="/{{$user->username}}/listas">	<span class="ProfileNav-label" aria-hidden="true">Listas</span>
 										<span class="u-hiddenVisually">Listas</span>
-										<span class="ProfileNav-value" data-is-compact="false">{{$user->listas->count()}}</span>
+										<span class="ProfileNav-value" data-is-compact="false">{{$listas->count()}}</span>
 									</a>
 								</li>
 								<li class="ProfileNav-item ProfileNav-item--more dropdown is-hidden" style="">
