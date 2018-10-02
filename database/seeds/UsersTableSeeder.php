@@ -23,7 +23,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'andre@gmail.com', 
             'username' => 'andrevega', 
             'password' => bcrypt('123456'), 
-            'avatar' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Official_Portrait_of_President_Donald_Trump.jpg/220px-Official_Portrait_of_President_Donald_Trump.jpg',
+            'avatar' => 'https://cdn1.iconfinder.com/data/icons/profession-avatar-solid-2/48/55-512.png',
             'created_at' => Carbon::now('Europe/Madrid'),
             'descripcion'=> '-Nadie te puede hacer sentir inferior sin tu consentimiento.-Eleanor Roosevelt.',
             'fondo'=> 'https://www.planwallpaper.com/static/images/kartandtinki1_photo-wallpapers_02.jpg'
@@ -33,7 +33,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'sergio@gmail.com', 
             'username' => 'sjgu1',
             'password' => bcrypt('123456'),
-            'avatar' =>'https://upload.wikimedia.org/wikipedia/commons/4/49/Elon_Musk_2015.jpg' ,
+            'avatar' =>'https://cdn1.iconfinder.com/data/icons/profession-avatar-solid-2/48/55-512.png' ,
             'created_at' => Carbon::now('Europe/Madrid'),
             'descripcion'=> '-Estudia el pasado si quieres predecir el futuro.-Confucio.',
             'fondo'=> 'https://images7.alphacoders.com/411/thumb-1920-411820.jpg'
